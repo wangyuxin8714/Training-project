@@ -45,7 +45,8 @@
     display: flex;
 }
 .mainMain_left{
-    width: 200px;
+    width: 300px;
     height: 100%;
     border-right: 1px solid #ccc;
+    background: #001529;
 }

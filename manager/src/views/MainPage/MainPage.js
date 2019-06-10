@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import style from "./MainPage.css";
-import { Menu, Icon, Button } from "antd";
+import { Menu, Icon } from "antd";
 const { SubMenu } = Menu;
 
 class MainPage extends Component {
@@ -10,54 +10,70 @@ class MainPage extends Component {
         list:[
             {
                 "title":"试题管理",
-                "icon":"anticon anticon-sliders",
+                "icon":"gitlab",
+                "id":"123",
                 "data":[
                     {
-                        "title":"添加试题"
+                        "title":"添加试题",
+                        "id":"1230",
                     },{
-                        "title":"试题分类"
+                        "title":"试题分类",
+                        "id":"9630",
                     },{
-                        "title":"查看试题"
+                        "title":"查看试题",
+                        "id":"8520",
                     }
                 ]
             },
             {
                 "title":"用户管理",
-                "icon":"anticon anticon-user",
+                "icon":"user",
+                "id":"452",
                 "data":[
                     {
-                        "title":"添加用户"
+                        "title":"添加用户",
+                        "id":"7410",
                     },{
-                        "title":"用户展示"
+                        "title":"用户展示",
+                        "id":"3697",
                     }
                 ]
             },{
                 "title":"考试管理",
-                "icon":"anticon anticon-schedule",
+                "icon":"file-done",
+                "id":"175",
                 "data":[
                     {
-                        "title":"添加考试"
+                        "title":"添加考试",
+                        "id":"8654",
                     },{
-                        "title":"试卷列表"
+                        "title":"试卷列表",
+                        "id":"1036",
                     }
                 ]
             },{
                 "title":"班级管理",
-                "icon":"anticon anticon-project",
+                "icon":"project",
+                "id":"1832",
                 "data":[
                     {
-                        "title":"班级管理"
+                        "title":"班级管理",
+                        "id":"3026",
                     },{
-                        "title":"教室管理"
+                        "title":"教室管理",
+                        "id":"7542",
                     },{
-                        "title":"学生管理"
+                        "title":"学生管理",
+                        "id":"3620",
                     }
                 ]
             },{
                 "title":"阅卷管理",
-                "icon":"anticon anticon-project",
+                "icon":"project",
+                "id":"156",
                 "data":[
                     {
+                        "id":"8543",
                         "title":"特批管理"
                     }
                 ]
@@ -86,7 +102,7 @@ class MainPage extends Component {
         </header>
         <main className={style.mainMain}>
           <div className={style.mainMain_left}>
-            <div style={{ width: 200 }}>
+            <div style={{ width: 300 }}>
               <Menu
                 defaultSelectedKeys={["1"]}
                 defaultOpenKeys={["sub1"]}
@@ -95,9 +111,9 @@ class MainPage extends Component {
                 inlineCollapsed={this.state.collapsed}
               >
                 {
-                    list.map((item,index)=>(
+                    list.map(item=>(
                         <SubMenu
-                            key={index}
+                            key={item.id}
                             title={
                                 <span>
                                 <Icon type={item.icon} />
@@ -106,8 +122,8 @@ class MainPage extends Component {
                             }
                             >
                             {
-                                item.data.map((val,ind)=>(
-                                 <Menu.Item key={ind}>{val.title}</Menu.Item>
+                                item.data.map(val=>(
+                                 <Menu.Item key={val.id}>{val.title}</Menu.Item>
                                 ))
                             }
                         </SubMenu>
