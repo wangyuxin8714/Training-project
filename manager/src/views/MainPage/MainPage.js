@@ -129,7 +129,7 @@ class MainPage extends Component {
             />
           </div>
 
-          <Dropdown overlay={menu} placement="bottomRight">
+          <Dropdown overlay={menu} placement="bottomRight" className="asdfa">
             <Button style={{height: 50}}>
               <div className={style.mainHeader_right}>
                 <img
