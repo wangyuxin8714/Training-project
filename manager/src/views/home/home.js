@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import Login from "../views/login/Login"
+import Login from "../login/Login"
 import styles from "./home.css"
 function Home() {
   return (
