@@ -45,17 +45,11 @@
     display: flex;
 }
 .mainMain_left{
-<<<<<<< HEAD:manager/src/views/MainPage/MainPage.css
     width: 300px;
-=======
-    width: 250px;
->>>>>>> srr:manager/src/views/MainPage/MainPage.css
     height: 100%;
     border-right: 1px solid #ccc;
     background: #001529;
 }
-<<<<<<< HEAD:manager/src/views/MainPage/MainPage.css
-=======
 #components-dropdown-demo-placement .ant-btn {
     margin-right: 8px;
     margin-bottom: 8px;
@@ -68,4 +62,3 @@
     flex: 1;
     height: 100%;
 }
->>>>>>> srr:manager/src/views/MainPage/MainPage.css
