@@ -92,14 +92,7 @@ class MainPage extends Component {
               alt=""
             />
           </div>
-          <div className={style.mainHeader_right}>
-            <img
-              src="https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png"
-              alt=""
-            />
-            <span>yonghuming</span>
-          </div>
-
+          
           <Dropdown overlay={menu} placement="bottomRight" className="asdfa">
             <Button style={{height: 50}}>
               <div className={style.mainHeader_right}>
