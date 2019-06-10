@@ -4,6 +4,8 @@ import IndexPage from './routes/IndexPage';
 import MainPage from "./routes/MainPage";
 
 
+import Home from './routes/home';
+import Products from './routes/Products';
 
 function RouterConfig({ history }) {
   return (
@@ -11,6 +13,8 @@ function RouterConfig({ history }) {
       <Switch>
         <Route path="/main" component={MainPage} />
         <Route path="/" exact component={IndexPage} />
+        <Route path="/" exact component={Home} />
+        <Route path="/products" exact component={Products} />
       </Switch>
     </Router>
   );
