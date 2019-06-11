@@ -1,6 +1,6 @@
 // import React, { Component } from 'react';
 import React, { useState,useEffect } from 'react';
-import styles from './login.css';
+import styles from './index.css';
 import { connect } from 'dva';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 // import { Link } from "react-router-dom"
