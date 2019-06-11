@@ -1,6 +1,16 @@
+import Home from "../views/home/home"
+import MainPage from "../views/MainPage/MainPage"
+import QuestionsType from "../views/main/questionsType"
+import WatchQuestions from "../views/main/watchQuestions"
+import AddUser from "../views/main/addUser"
+import ShowUser from "../views/main/showUser"
+import AddExam from "../views/main/addExam"
+import List from "../views/main/list"
+import Grade from "../views/main/grade"
+import Room from "../views/main/room"
+import Student from "../views/main/student"
+import Classlist from "../views/main/classlist"
 
-import Home from "../routes/home"
-import MainPage from "../routes/MainPage";
 
 
 
@@ -53,6 +63,9 @@ const route = [
                 path:"/main/classlist",
                 component:Classlist,
                 pathName:"特此班级"
+            },{
+                from:"/main",
+                to:"/main/addQuestions"
             }
         ]
     },

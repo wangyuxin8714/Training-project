@@ -8,6 +8,7 @@ export default {
     namespace: 'user',
     
     state: {
+    // obj:{}
 
     },
 
@@ -23,6 +24,7 @@ export default {
                 yield put((routerRedux.push("/main")))
             }
             // yield put({ type: 'save',payload:data });
+      // const obj = yield select(state=>state.user.obj = data)
 
         },
         *fetch({payload}, {call,put}) { // eslint-disable-line
@@ -37,3 +39,4 @@ export default {
     },
 
 };
+

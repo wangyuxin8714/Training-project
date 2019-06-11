@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import style from "./MainPage.css";
-import { Menu, Icon } from "antd";
+import style from "./index.css";
+import { Menu, Icon, Dropdown, Button } from "antd";
 const { SubMenu } = Menu;
 
 class MainPage extends Component {

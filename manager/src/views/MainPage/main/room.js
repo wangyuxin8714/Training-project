@@ -1,15 +1,16 @@
+
 import React, { Component } from 'react';
 
-class addQuestions extends Component {
+class Room extends Component {
     constructor(props) {
         super(props);
         this.state = {  };
     }
     render() {
         return (
-            <div>addQuestions</div>
+            <div>Room</div>
         );
     }
 }
 
-export default addQuestions;
+export default Room;
