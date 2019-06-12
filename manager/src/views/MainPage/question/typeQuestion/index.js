@@ -1,19 +1,12 @@
 import React,{useEffect } from "react";
-import { Input,Layout, Button, Breadcrumb, Table,Modal } from "antd";
+import { Layout, Button, Breadcrumb, Table } from "antd";
 import { connect } from "dva";
 
 
-TypeQuestion.defaultProps={
-  visible: false,
-}
 function TypeQuestion(props) {
   const { Content } = Layout;
   const size = "large";
 
-  // function showModal(e){
-  //   console.log(props)
-  //   props.visible=true
-  // };
   useEffect(()=>{
     props.topictype()
   },[])
@@ -41,7 +34,6 @@ function TypeQuestion(props) {
     obj.age = item.questions_type_text;
     data.push(obj);
   })
-  
   return (
     <Layout>
       <Layout>
@@ -59,17 +51,10 @@ function TypeQuestion(props) {
               minHeight: 280
             }}
           >
-            <Button type="primary" 
-            // onClick={showModal}
-             icon="plus" size={size}>
+            <Button type="primary" icon="plus" size={size}>
               添加类型
             </Button>
-            <Modal
-              title="Basic Modal"
-              visible={props.visible}
-            >
-              <Input></Input>
-            </Modal>
+
             <Table
               columns={columns}
               dataSource={data}

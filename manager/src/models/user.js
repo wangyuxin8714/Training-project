@@ -8,12 +8,7 @@ export default {
     namespace: 'user',
     
     state: {
-<<<<<<< HEAD
-    // obj:{}
-
-=======
-        islogin:0
->>>>>>> wyx
+        
     },
 
     subscriptions: {
@@ -48,14 +43,9 @@ export default {
             if(data.code===1){
                 setToken(data.token)
             }
-<<<<<<< HEAD
-            // yield put({ type: 'save',payload:data });
-      // const obj = yield select(state=>state.user.obj = data)
-=======
 
             yield put({type:"updatalogin",payload:data.code===1?1:-1})
             
->>>>>>> wyx
 
         },
         *fetch({payload}, {call,put}) { // eslint-disable-line
@@ -72,5 +62,4 @@ export default {
         }
     },
 
-};
-
+}

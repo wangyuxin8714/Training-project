@@ -1,6 +1,7 @@
 import React ,{useEffect}from "react";
 import { Layout, Breadcrumb, Tag, Select, Button ,Table } from "antd";
 import styles from "./index.css"
+import { connect } from 'dva';
 
 
 function onChange(value) {
@@ -20,11 +21,26 @@ function onSearch(val) {
 }
 
 function WatchQuestion(props) {
+
+
+  useEffect(()=>{
+    props.examType()
+    props.coursetype()
+    props.topictype()
+    props.allNew()
+    console.log(props.question)
+},[])
+
+
+
   const { Content } = Layout;
 
   const CheckableTag = Tag.CheckableTag;
 
-  const tagsFromServer = ["Movies", "Books", "Music", "Sports"];
+  let tagsFromServer = [];
+  props.question.coursetypelist.map(item=>{
+    tagsFromServer.push(item.subject_text)
+  })
 
   const selectedTags = [];
 
@@ -57,24 +73,30 @@ function WatchQuestion(props) {
     },
   ];
   
-  const data = [
-    {
-      key: '1',
-      name: 'John '
-    },
-    {
-      key: '2',
-      name: 'Jim Green'
-    },
-    {
-      key: '3',
-      name: 'Joe Black'
-    },
-  ];
+  // const data = [
+  //   {
+  //     key: '1',
+  //     name: 'John '
+  //   },
+  //   {
+  //     key: '2',
+  //     name: 'Jim Green'
+  //   },
+  //   {
+  //     key: '3',
+  //     name: 'Joe Black'
+  //   },
+  // ];
+  
 
-
-
-
+  let data=[];
+  props.question.allQuestion.map(item=>{
+    const obj = {};
+    obj.key = item.questions_type_sort;
+    obj.name = item.questions_type_id;
+    obj.age = item.questions_type_text;
+    data.push(obj);
+  })
 
 
   return (
@@ -90,7 +112,7 @@ function WatchQuestion(props) {
             style={{
               background: "#fff",
               padding: 24,
-              paddingLeft: 100,
+              paddingLeft: 60,
               marginBottom: 20,
               minHeight: 120
             }}
@@ -124,10 +146,11 @@ function WatchQuestion(props) {
                     .indexOf(input.toLowerCase()) >= 0
                 }
               >
-                <Option value="周考1">周考1</Option>
-                <Option value="周考2">周考2</Option>
-                <Option value="周考3">周考3</Option>
-                <Option value="月考">月考</Option>
+              {
+                props.question.examtypelist.map(item=>(
+                  <Option value={item.exam_name} key={item.exam_id}>{item.exam_name}</Option>
+                ))
+              }
               </Select>
 
               <span>题目类型:</span>
@@ -145,11 +168,11 @@ function WatchQuestion(props) {
                     .indexOf(input.toLowerCase()) >= 0
                 }
               >
-                <Option value="简答题">简答题</Option>
-                <Option value="代码补全">代码补全</Option>
-                <Option value="代码阅读题">代码阅读题</Option>
-                <Option value="修改bug">修改bug</Option> 
-                <Option value="手写代码">手写代码</Option>
+              {
+                props.question.topictypelist.map(item=>(
+                  <Option value={item.questions_type_text} key={item.questions_type_id}>{item.questions_type_text}</Option>
+                ))
+              }
               </Select>
 
               <Button type="primary" icon="search">
@@ -177,6 +200,36 @@ function WatchQuestion(props) {
 }
 
 
+const mapStateToProps = state=>{
+  return state
+}
+
+const mapDisaptchToProps = dispatch=>{
+  return {
+      examType(){
+          dispatch({
+              type: 'question/examType',
+          })
+      },
+      coursetype(){
+          dispatch({
+              type: 'question/coursetype',
+          })
+      },
+      topictype(){
+          dispatch({
+              type: 'question/topictype',
+          })
+      },
+      allNew(){
+        dispatch({
+            type: 'question/allNew',
+        })
+    }
+  }
+}
 
 
-export default WatchQuestion;
+
+
+export default connect(mapStateToProps,mapDisaptchToProps)(WatchQuestion);

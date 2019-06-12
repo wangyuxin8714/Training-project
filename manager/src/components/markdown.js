@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Editor from 'for-editor'
+
 class Markdown extends Component {
   constructor() {
     super()

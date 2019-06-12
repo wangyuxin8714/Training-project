@@ -1,4 +1,4 @@
-import {examType,coursetype,topictype} from "../services"
+import {examType,coursetype,topictype,allNew} from "../services"
 export default {
 
     namespace: 'question',
@@ -6,7 +6,8 @@ export default {
     state: {
         examtypelist:[],
         coursetypelist:[],
-        topictypelist:[]
+        topictypelist:[],
+        allQuestion:[]
     },
   
     subscriptions: {
@@ -36,7 +37,15 @@ export default {
             type: 'updatetopictype',
             payload: data.data
         })
-        }
+        },
+        *allNew({ payload }, { call, put }) {  // eslint-disable-line
+          let data = yield call(allNew);
+          console.log(data)
+          yield put({
+          type: 'upadataAll',
+          payload: data.data
+      })
+      }
     },
   
     reducers: {
@@ -52,6 +61,10 @@ export default {
       updatetopictype(state, {payload}) {
         
         return { ...state, topictypelist:payload };
+      },
+      upadataAll(state, {payload}) {
+        
+        return { ...state, allQuestion:payload };
       },
     },
   

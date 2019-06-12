@@ -29,3 +29,11 @@ export function topictype() {
         method: 'GET'
     })
 }
+
+
+export function allNew() {
+    return request({
+        url: '/exam/questions/new',
+        method: 'GET'
+    })
+}
