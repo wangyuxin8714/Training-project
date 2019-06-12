@@ -8,3 +8,24 @@ export function login(params) {
         data: params
     })
 }
+
+export function examType() {
+    return request({
+        url: '/exam/examType',
+        method: 'GET'
+    })
+}
+
+export function coursetype() {
+    return request({
+        url: '/exam/subject',
+        method: 'GET'
+    })
+}
+
+export function topictype() {
+    return request({
+        url: '/exam/getQuestionsType',
+        method: 'GET'
+    })
+}

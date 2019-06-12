@@ -16,7 +16,11 @@ const FnRoute = props =>(
         }
     </Switch>
 )
+<<<<<<< HEAD
+爱上分身乏术 
+=======
 
+>>>>>>> wyx
 
 export default FnRoute;
 
