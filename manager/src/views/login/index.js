@@ -1,31 +1,57 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import styles from "./index.css";
 import { Form, Icon, Input, Button, Checkbox } from "antd";
 import { connect } from "dva";
 // import user from "../../models/user"
+=======
+import React, {useEffect } from "react";
+import styles from "./index.css";
+import { Form, Icon, Input, Button, Checkbox,message } from "antd";
+import { connect } from "dva";
+>>>>>>> wyx
 
 
 function Login(props) {
     let {login} = props;
     useEffect(()=>{
+<<<<<<< HEAD
        
     })
 
+=======
+        if(props.user.islogin===1){
+            message.success('登录成功')
+            console.log(props.history)
+            let pathName = decodeURIComponent(props.history.location.search.split('=')[1]);
+            props.history.replace(pathName);
+        }else if(props.user.islogin===-1){
+            message.error('用户名或密码错误')
+        }
+    },[props.user])
+>>>>>>> wyx
 
     let handleSubmit = e => {
         e.preventDefault();
         props.form.validateFields((err, values) => {
             if (!err) {
+<<<<<<< HEAD
+=======
+                console.log('Received values of form: ', values);
+>>>>>>> wyx
                 login({
                     user_name:values.username,
                     user_pwd:values.password
                 })
+<<<<<<< HEAD
                 // if(!(user.state.obj.code === undefined)){
                 //     alert(user.state.obj.msg);
                 //     if(user.state.obj.code === 1){
                 //         props.history.push("/main")
                 //     }
                 // }
+=======
+>>>>>>> wyx
             }
         });
     };
@@ -36,6 +62,10 @@ function Login(props) {
             <Form onSubmit={handleSubmit} className={styles["login-form"]}>
             <Form.Item>
                 {getFieldDecorator("username", {
+<<<<<<< HEAD
+=======
+                validateTrigger:"onBlur",
+>>>>>>> wyx
                 rules: [
                     { whitespace: true, message: "请输入用户名!" }
                 ]
@@ -50,6 +80,7 @@ function Login(props) {
             </Form.Item>
             <Form.Item>
                 {getFieldDecorator("password", {
+<<<<<<< HEAD
                 rules: [
                     { pattern: /^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])).*$/, message: "请输入你的密码!" }
                 ]
@@ -61,6 +92,19 @@ function Login(props) {
                     type="password"
                     placeholder="Password"
                 />
+=======
+                    rules: [
+                        { pattern: /^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])).*$/, message: "请输入你的密码!" }
+                    ]
+                    })(
+                    <Input
+                        prefix={
+                        <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
+                        }
+                        type="password"
+                        placeholder="Password"
+                    />
+>>>>>>> wyx
                 )}
             </Form.Item>
             <Form.Item>
@@ -73,12 +117,17 @@ function Login(props) {
                     忘记密码
                 </a>
                 </p>
+<<<<<<< HEAD
                 <Button
                     type="primary"
                     htmlType="submit"
                     className={styles["login-form-button"]}
                 >
                     登陆
+=======
+                <Button type = "primary" htmlType = "submit" className = { styles['login-form-button'] }>
+                    登陆 
+>>>>>>> wyx
                 </Button>
             </Form.Item>
             </Form>
@@ -87,6 +136,7 @@ function Login(props) {
     
 }
 
+<<<<<<< HEAD
 // class Login extends Component {
 //     constructor(props) {
 //         super(props);
@@ -157,6 +207,8 @@ function Login(props) {
 //     }
 // }
 
+=======
+>>>>>>> wyx
 const mapStateToProps = state => {
       return state;
 };
@@ -175,4 +227,8 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
+<<<<<<< HEAD
 )(Form.create({ name: "normal_login" })(Login));
+=======
+)(Form.create()(Login));
+>>>>>>> wyx
