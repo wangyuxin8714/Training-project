@@ -10,6 +10,7 @@ export function examType() {
         method: 'GET'
     })
 }
+
 //获取课程类型接口
 export function coursetype() {
     return request({
@@ -17,6 +18,7 @@ export function coursetype() {
         method: 'GET'
     })
 }
+
 //获取题目类型接口
 export function topictype() {
     return request({
@@ -76,5 +78,14 @@ export function updatequestion(params) {
         url: '/exam/questions/update',
         method: 'PUT',
         data:params
+    })
+
+}
+//添加试题类型
+export function insertExam(params){
+    return request({
+        url:'/exam/insertQuestionsType',
+        method:'GET',
+        params
     })
 }

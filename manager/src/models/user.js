@@ -48,7 +48,6 @@ export default {
 
             yield put({type:"updatalogin",payload:data.code===1?1:-1})
             
-
         },
         *fetch({payload}, {call,put}) { // eslint-disable-line
             yield put({ type: 'save' });

@@ -1,9 +1,8 @@
 //试题管理数据
 
-import {updatequestion,examType,coursetype,topictype,allNew,getuser,addquestion,addexam,testlist,lookquestion} from "../services"
+import {updatequestion,examType,coursetype,topictype,allNew,getuser,addquestion,addexam,testlist,lookquestion,insertExam} from "../services"
 export default {
-
-    namespace: 'question',
+  namespace: "question",
   
     state: {
         examtypelist:[],
@@ -95,6 +94,11 @@ export default {
           console.log(data)
           yield put({type:"updateupcode",payload:data.code===1?1:-1})
         },
+        //添加试题类型
+        *insertExam({payload}, { call, put }) {
+          let data = yield call(insertExam, payload);
+          console.log("data",data)
+        }
     },
   
     reducers: {
@@ -142,7 +146,6 @@ export default {
       updateupcode(state, {payload}) {
         return { ...state, upcode:payload };
       },
+      
     },
-  
-  };
-  
+  }

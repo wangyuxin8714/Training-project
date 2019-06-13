@@ -5,7 +5,6 @@ import { connect } from 'dva';
 
 
 
-
 function WatchQuestion(props) {
 
   let [ind,updateind]=useState(-1)
