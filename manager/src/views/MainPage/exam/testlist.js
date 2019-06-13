@@ -1,5 +1,7 @@
 import React,{useEffect} from 'react';
-import { Button,Select,Form, Layout, Breadcrumb ,Table,Divider, Tag  } from "antd";
+import { Button,Select,Form, Layout, Breadcrumb ,Table
+    // ,Divider, Tag
+  } from "antd";
 import { connect } from 'dva';
 import styles from "./testlist.scss"
 
