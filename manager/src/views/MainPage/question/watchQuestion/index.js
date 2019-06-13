@@ -28,7 +28,6 @@ function WatchQuestion(props) {
     props.coursetype()
     props.topictype()
     props.allNew()
-    console.log(props.question)
 },[])
 
 
@@ -46,27 +45,24 @@ function WatchQuestion(props) {
 
   const { Option } = Select;
 
-  console.log(props.question.allQuestion)
   const columns = [
     {
       dataIndex: '',
-      key: '', 
+      key: 'text', 
       render: text => (
         <>
-            
-                  <h4>{text.title}</h4>
-                  <h4>
-                      <Tag color="blue">{text.questions_type_text}</Tag>
-                      <Tag color="geekblue">{text.subject_text}</Tag>
-                      <Tag color="gold">{text.exam_name}</Tag>
-                  </h4>
-                  <a href="">{text.user_name}</a>
-                
+          <h4>{text.title}</h4>
+          <h4>
+              <Tag color="blue">{text.questions_type_text}</Tag>
+              <Tag color="geekblue">{text.subject_text}</Tag>
+              <Tag color="gold">{text.exam_name}</Tag>
+          </h4>
+          <a href="">{text.user_name}</a>
         </>
       ),
     },
     {
-      key: '',
+      key: 'text'+1,
       render: (text, record) => (
         <span style={{position:"absolute",right:20}}>
           <a href="">编辑</a>
@@ -167,7 +163,7 @@ function WatchQuestion(props) {
             }}
           >
           
-          <Table columns={columns} dataSource={props.question.allQuestion} />
+          <Table columns={columns} dataSource={props.question.allQuestion} rowKey={record => `${record.questions_id}`} />
           
           </Content>
         </Layout>
