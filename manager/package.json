@@ -7,17 +7,14 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.4",
     "antd": "^3.19.3",
     "axios": "^0.19.0",
     "babel-plugin-import": "^1.12.0",
     "dva": "^2.4.1",
     "for-editor": "^0.0.13",
-    "history": "^4.9.0",
     "js-cookie": "^2.2.0",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-markdown": "^4.0.8"
+    "react-dom": "^16.2.0"
   },
   "devDependencies": {
     "babel-plugin-dva-hmr": "^0.3.2",

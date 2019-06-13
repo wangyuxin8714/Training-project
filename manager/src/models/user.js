@@ -8,7 +8,7 @@ export default {
     namespace: 'user',
     
     state: {
-        
+        islogin:0
     },
 
     subscriptions: {
@@ -62,4 +62,5 @@ export default {
         }
     },
 
-}
+};
+

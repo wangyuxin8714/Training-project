@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Editor from 'for-editor'
-
+// import "./mark.css"
 class Markdown extends Component {
   constructor() {
     super()

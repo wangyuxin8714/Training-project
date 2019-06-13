@@ -32,7 +32,6 @@ export default {
         },
         *topictype({ payload }, { call, put }) {  // eslint-disable-line
             let data = yield call(topictype);
-            console.log(data)
             yield put({
             type: 'updatetopictype',
             payload: data.data
@@ -40,7 +39,6 @@ export default {
         },
         *allNew({ payload }, { call, put }) {  // eslint-disable-line
           let data = yield call(allNew);
-          console.log(data)
           yield put({
           type: 'upadataAll',
           payload: data.data

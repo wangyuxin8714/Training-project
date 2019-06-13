@@ -18,6 +18,7 @@ function AddQuestion(props){
     const { getFieldDecorator } = props.form;
     return(
         <Layout style={{ padding: 0}}>
+        {/* <div> */}
             <Breadcrumb style={{ margin: "30px 0" }}>
                 <Breadcrumb.Item style={{fontSize:"20px"}}>查看试题</Breadcrumb.Item>
             </Breadcrumb>

@@ -7,6 +7,7 @@ function TypeQuestion(props) {
   const { Content } = Layout;
   const size = "large";
 
+
   useEffect(()=>{
     props.topictype()
   },[])
@@ -34,6 +35,7 @@ function TypeQuestion(props) {
     obj.age = item.questions_type_text;
     data.push(obj);
   })
+
   return (
     <Layout>
       <Layout>

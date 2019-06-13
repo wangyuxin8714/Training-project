@@ -1,20 +1,12 @@
-
 import React, {useEffect } from "react";
-
 import styles from "./index.css";
 import { Form, Icon, Input, Button, Checkbox,message } from "antd";
 import { connect } from "dva";
 
 
-
 function Login(props) {
     let {login} = props;
     useEffect(()=>{
-
-       
-
-
-
         if(props.user.islogin===1){
             message.success('登录成功')
             console.log(props.history)
@@ -25,13 +17,11 @@ function Login(props) {
         }
     },[props.user])
 
-
     let handleSubmit = e => {
         e.preventDefault();
         props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
-
                 login({
                     user_name:values.username,
                     user_pwd:values.password
@@ -84,14 +74,8 @@ function Login(props) {
                     忘记密码
                 </a>
                 </p>
-
-                <Button
-                    type="primary"
-                    htmlType="submit"
-                    className={styles["login-form-button"]}
-                >
-                    登陆
-
+                <Button type = "primary" htmlType = "submit" className = { styles['login-form-button'] }>
+                    登陆 
                 </Button>
             </Form.Item>
             </Form>
@@ -99,10 +83,6 @@ function Login(props) {
         </div>
     
 }
-
-
-
-
 
 const mapStateToProps = state => {
       return state;
