@@ -4,6 +4,7 @@ import { connect } from "dva";
 
 
 function TypeQuestion(props) {
+
   const { Content } = Layout;
   const size = "large";
 
@@ -29,7 +30,7 @@ function TypeQuestion(props) {
   ];
 
   let data=[];
-  props.question.topictypelist.map((item,index)=>{
+  props.question.topictypelist.forEach((item,index)=>{
     const obj = {};
     obj.key = index;
     obj.name = item.questions_type_id;
