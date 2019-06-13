@@ -7,19 +7,15 @@ const { Option } = Select;
 const { Content } = Layout;
 
 
-function AddQuestion(props){
+function Questiondetail(props){
     
     useEffect(()=>{
-        props.examType()
-        props.coursetype()
-        props.topictype()
-        props.getuser()
         
     },[])
-
+    console.log(props.question.items)
     useEffect(()=>{
-        if(props.question.addquescode===1){
-            message.success('添加试题成功')
+        if(props.question.upcode===1){
+            message.success('更新成功')
         }
     },[props.question])
 
@@ -29,14 +25,14 @@ function AddQuestion(props){
         props.form.validateFields((err, values) => {
             if (!err) {
                 // console.log('Received values of form: ', values);
-                props.addquestion({
+                props.updatequestion({
                     questions_type_id:values.topictype,
                     questions_stem:values.username,
                     subject_id:values.coursetype,
                     exam_id:values.examtype,
-                    user_id:props.question.id,
                     questions_answer:values.topicinfor,
-                    title:values.topictheme
+                    title:values.topictheme,
+                    questions_id:props.question.items.questions_id
                 })
                 
             }
@@ -46,9 +42,8 @@ function AddQuestion(props){
     const { getFieldDecorator } = props.form;
     return(
         <Layout style={{ padding: 0}}>
-        {/* <div> */}
             <Breadcrumb style={{ margin: "30px 0" }}>
-                <Breadcrumb.Item style={{fontSize:"20px"}}>添加试题</Breadcrumb.Item>
+                <Breadcrumb.Item style={{fontSize:"20px"}}>编辑试题</Breadcrumb.Item>
             </Breadcrumb>
             <Content
                 style={{
@@ -60,20 +55,25 @@ function AddQuestion(props){
             >
                 <h3>题目信息</h3>
                 <Form.Item label="题干">
-                    {getFieldDecorator('username')(<Input placeholder="请输入题目标题，不超过20个字"/>)}
+                    {getFieldDecorator('username',{
+                        initialValue:props.question.items.title
+                    })(<Input />)}
                 </Form.Item>
                 <Form.Item label="题目主题">
-                    {getFieldDecorator('topictheme')(
+                    {getFieldDecorator('topictheme',{
+                        initialValue:props.question.items.questions_stem
+                    })(
                         <Editor height="auto" />
                     )}
                 </Form.Item>
                 
                 <Form.Item label="请选择考试类型">
-                    {getFieldDecorator('examtype')(
+                    {getFieldDecorator('examtype',{
+                        initialValue:props.question.items.exam_name
+                    })(
                         <Select
                         showSearch
                         style={{ width: 200 }}
-                        placeholder="周考1"
                         optionFilterProp="children"
                         filterOption={(input, option) =>
                             option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -89,11 +89,12 @@ function AddQuestion(props){
                     )}
                 </Form.Item>
                 <Form.Item label="请选择课程类型">
-                    {getFieldDecorator('coursetype')(
+                    {getFieldDecorator('coursetype',{
+                        initialValue:props.question.items.subject_text
+                    })(
                         <Select
                         showSearch
                         style={{ width: 200 }}
-                        placeholder="javaScript上"
                         optionFilterProp="children"
                         filterOption={(input, option) =>
                             option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -108,11 +109,12 @@ function AddQuestion(props){
                     )}
                 </Form.Item>
                 <Form.Item label="请选择题目类型">
-                    {getFieldDecorator('topictype')(
+                    {getFieldDecorator('topictype',{
+                        initialValue:props.question.items.questions_type_text
+                    })(
                         <Select
                         showSearch
                         style={{ width: 200 }}
-                        placeholder="简答题"
                         optionFilterProp="children"
                         filterOption={(input, option) =>
                             option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -127,7 +129,9 @@ function AddQuestion(props){
                     )}
                 </Form.Item>
                 <Form.Item label="答案信息">
-                    {getFieldDecorator('topicinfor')(
+                    {getFieldDecorator('topicinfor',{
+                        initialValue:props.question.items.questions_answer
+                    })(
                         <Editor height="auto" />
                     )}
                 </Form.Item>
@@ -143,34 +147,14 @@ const mapStateToProps = state=>{
   
   const mapDisaptchToProps = dispatch=>{
     return {
-        examType(){
+        updatequestion(payload){
             dispatch({
-                type: 'question/examType',
-            })
-        },
-        coursetype(){
-            dispatch({
-                type: 'question/coursetype',
-            })
-        },
-        topictype(){
-            dispatch({
-                type: 'question/topictype',
-            })
-        },
-        getuser(){
-            dispatch({
-                type: 'question/getuser',
-            })
-        },
-        addquestion(payload){
-            dispatch({
-                type:"question/addquestion",
+                type: 'question/updatequestion',
                 payload
             })
-        }
+          },
     }
   }
 
 
-export default connect(mapStateToProps, mapDisaptchToProps)(Form.create()(AddQuestion))
+export default connect(mapStateToProps, mapDisaptchToProps)(Form.create()(Questiondetail))

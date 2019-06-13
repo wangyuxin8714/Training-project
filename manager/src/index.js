@@ -3,14 +3,11 @@ import './index.css';
 import 'antd/dist/antd.css';
 import '@babel/polyfill';
 
-import { createBrowserHistory  as createHistory} from 'history';
 
 
 
 // 1. Initialize
-const app = dva({
-    history: createHistory()
-  });
+const app = dva();
 
 // 2. Plugins
 // app.use({});

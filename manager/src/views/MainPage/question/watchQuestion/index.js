@@ -1,28 +1,15 @@
-import React ,{useEffect}from "react";
-import { Layout, Breadcrumb, Tag, Select, Button ,Table } from "antd";
+import React ,{useState,useEffect}from "react";
+import { Layout, Form,Breadcrumb, Tag, Select, Button ,Table } from "antd";
 import styles from "./index.css"
 import { connect } from 'dva';
 
 
-function onChange(value) {
-  // console.log(`selected ${value}`);
-}
 
-function onBlur() {
-  // console.log("blur");
-}
-
-function onFocus() {
-  // console.log("focus");
-}
-
-function onSearch(val) {
-  // console.log("search:", val);
-}
 
 function WatchQuestion(props) {
 
-
+  let [ind,updateind]=useState(-1)
+  let [text,updatetext]=useState("")
   useEffect(()=>{
     props.examType()
     props.coursetype()
@@ -30,21 +17,9 @@ function WatchQuestion(props) {
     props.allNew()
 },[])
 
-
-
   const { Content } = Layout;
-
-  const CheckableTag = Tag.CheckableTag;
-
-  let tagsFromServer = [];
-  props.question.coursetypelist.forEach(item=>{
-    tagsFromServer.push(item.subject_text)
-  })
-
-  const selectedTags = [];
-
+  const { getFieldDecorator } = props.form;
   const { Option } = Select;
-
   const columns = [
     {
       dataIndex: '',
@@ -64,13 +39,31 @@ function WatchQuestion(props) {
     {
       key: 'text'+1,
       render: (text, record) => (
-        <span style={{position:"absolute",right:20}}>
-          <a href="">编辑</a>
+        <span style={{position:"absolute",right:20}} onClick={()=>godetail(text)}>
+          编辑
         </span>
       ),
     },
   ];
   
+  let godetail=(text)=>{
+    props.godetail(text)
+    props.history.push("/question/detail")
+  }
+
+let inquire = e => {
+  e.preventDefault();
+  props.form.validateFields((err, values) => {
+      if (!err) {
+          // console.log('Received values of form: ', values);
+          props.lookquestion({
+            questions_type_id:values.topictype,
+            exam_id:values.examtype,
+            subject_id:text,
+          })
+      }
+  });
+};
 
   return (
     <Layout>
@@ -92,63 +85,62 @@ function WatchQuestion(props) {
           >
             <div>
               <h4 style={{ marginRight: 8, display: "inline" }}>Categories:</h4>
-              {tagsFromServer.map((tag,index) => (
-                <CheckableTag
-                  key={index}
-                  checked={selectedTags.indexOf(tag) > -1}
-                  onChange={checked => this.handleChange(tag, checked)}
+              {props.question.coursetypelist.map((item,index) => (
+                <Tag
+                  key={item.subject_id}
+                  className={index===ind?styles.sp:null}
+                  onClick={()=>{updateind(index);updatetext(item.subject_id)}}
                 >
-                  {tag}
-                </CheckableTag>
+                  {item.subject_text}
+                </Tag>
               ))}
             </div>
 
             <div className={styles.headBottom}>
-              <span>考试类型:</span>
-              <Select
-                showSearch
-                style={{ width: 220 }}
-                optionFilterProp="children"
-                onChange={onChange}
-                onFocus={onFocus}
-                onBlur={onBlur}
-                onSearch={onSearch}
-                filterOption={(input, option) =>
-                  option.props.children
-                    .toLowerCase()
-                    .indexOf(input.toLowerCase()) >= 0
-                }
-              >
-              {
-                props.question.examtypelist.map(item=>(
-                  <Option value={item.exam_name} key={item.exam_id}>{item.exam_name}</Option>
-                ))
-              }
-              </Select>
 
-              <span>题目类型:</span>
-              <Select
-                showSearch
-                style={{ width: 210}}
-                optionFilterProp="children"
-                onChange={onChange}
-                onFocus={onFocus}
-                onBlur={onBlur}
-                onSearch={onSearch}
-                filterOption={(input, option) =>
-                  option.props.children
-                    .toLowerCase()
-                    .indexOf(input.toLowerCase()) >= 0
-                }
-              >
-              {
-                props.question.topictypelist.map(item=>(
-                  <Option value={item.questions_type_text} key={item.questions_type_id}>{item.questions_type_text}</Option>
-                ))
-              }
-              </Select>
+              <Form.Item label="考试类型">
+                    {getFieldDecorator('examtype')(
+                        <Select
+                        showSearch
+                        style={{ width: 200 }}
+                        placeholder="周考1"
+                        optionFilterProp="children"
+                        filterOption={(input, option) =>
+                            option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                        }
+                        >
+                            {
+                                props.question.examtypelist.map(item=>(
+                                    <Option key={item.exam_id} value={item.exam_id}>{item.exam_name}</Option>
+                                ))
+                            }
+                        
+                        </Select>
+                    )}
+                </Form.Item>
+                <Form.Item label="题目类型">
+                    {getFieldDecorator('topictype')(
+                        <Select
+                        showSearch
+                        style={{ width: 200 }}
+                        placeholder="javaScript上"
+                        optionFilterProp="children"
+                        filterOption={(input, option) =>
+                            option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                        }
+                        >
+                            {
+                              props.question.topictypelist.map(item=>(
+                                <Option value={item.questions_type_id} key={item.questions_type_id}>{item.questions_type_text}</Option>
+                              ))
+                            }
+                        </Select>
+                    )}
+                </Form.Item>
 
-              <Button type="primary" icon="search">
+              <Button type="primary" icon="search"
+                onClick={inquire}
+              >
                 查询
               </Button>
             </div>
@@ -198,11 +190,24 @@ const mapDisaptchToProps = dispatch=>{
         dispatch({
             type: 'question/allNew',
         })
-    }
+      },
+      lookquestion(payload){
+        dispatch({
+            type: 'question/lookquestion',
+            payload
+        })
+      },
+      godetail(payload){
+        dispatch({
+            type: 'question/godetail',
+            payload
+        })
+      },
+      
   }
 }
 
 
 
 
-export default connect(mapStateToProps,mapDisaptchToProps)(WatchQuestion);
+export default connect(mapStateToProps,mapDisaptchToProps)(Form.create()(WatchQuestion));

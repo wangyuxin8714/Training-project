@@ -2,10 +2,13 @@ import React from "react";
 import styles from "./index.css";
 import { Layout, Menu,Dropdown,Button } from 'antd';
 import Sidebar from "../../components/sidebar"
-import { Route,Switch  } from 'dva/router';
+import { Route,Switch ,Redirect } from 'dva/router';
 import AddQuestion from "./question/addquestion";
 import TypeQuestion from "./question/typeQuestion";
 import WatchQuestion from "./question/watchQuestion";
+import Addexam from "./exam/addexam";
+import Testlist from "./exam/testlist";
+import Questiondetail from "./question/questiondetail";
 
 const { Header, Content, Sider } = Layout;
 
@@ -69,9 +72,13 @@ function MainPage(props){
             }}
           >
             <Switch>
+              <Redirect from ="/" to="/exam/add" exact></Redirect>
               <Route path="/question/add"  component={AddQuestion} />
               <Route path="/question/type"  component={TypeQuestion} />
               <Route path="/question/watch"  component={WatchQuestion} />
+              <Route path="/exam/add"  component={Addexam} />
+              <Route path="/exam/list"  component={Testlist} />
+              <Route path="/question/detail"  component={Questiondetail} />
             </Switch>
           </Content>
         </Layout>

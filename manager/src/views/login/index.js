@@ -9,9 +9,8 @@ function Login(props) {
     useEffect(()=>{
         if(props.user.islogin===1){
             message.success('登录成功')
-            console.log(props.history)
             let pathName = decodeURIComponent(props.history.location.search.split('=')[1]);
-            props.history.replace(pathName);
+            props.history.replace(pathName||"/");
         }else if(props.user.islogin===-1){
             message.error('用户名或密码错误')
         }

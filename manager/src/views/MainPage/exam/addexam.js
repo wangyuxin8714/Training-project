@@ -1,42 +1,33 @@
 import React,{useEffect} from 'react';
-import { Button,Select,Form,Input, Layout, Breadcrumb,message } from "antd";
+import { Button,Select,Form,Input, Layout, Breadcrumb,InputNumber,DatePicker,message   } from "antd";
 import { connect } from 'dva';
-import Editor from 'for-editor'
 
 const { Option } = Select;
 const { Content } = Layout;
-
-
-function AddQuestion(props){
-    
+const { RangePicker } = DatePicker;
+function Addexam(props){
     useEffect(()=>{
         props.examType()
         props.coursetype()
-        props.topictype()
-        props.getuser()
-        
     },[])
 
     useEffect(()=>{
-        if(props.question.addquescode===1){
-            message.success('添加试题成功')
+        if(props.question.addexamcode===1){
+            message.success('添加考试试卷成功')
         }
     },[props.question])
-
-
-    let submitQuestion = e => {
+    let submitexam = e => {
         e.preventDefault();
         props.form.validateFields((err, values) => {
             if (!err) {
-                // console.log('Received values of form: ', values);
-                props.addquestion({
-                    questions_type_id:values.topictype,
-                    questions_stem:values.username,
+                console.log('Received values of form: ', values);
+                props.addexam({
                     subject_id:values.coursetype,
                     exam_id:values.examtype,
-                    user_id:props.question.id,
-                    questions_answer:values.topicinfor,
-                    title:values.topictheme
+                    title:values.username,
+                    number:values.questionnum,
+                    start_time:+values.examtime[0]._d,
+                    end_time:+values.examtime[1]._d
                 })
                 
             }
@@ -48,7 +39,7 @@ function AddQuestion(props){
         <Layout style={{ padding: 0}}>
         {/* <div> */}
             <Breadcrumb style={{ margin: "30px 0" }}>
-                <Breadcrumb.Item style={{fontSize:"20px"}}>添加试题</Breadcrumb.Item>
+                <Breadcrumb.Item style={{fontSize:"20px"}}>添加考试</Breadcrumb.Item>
             </Breadcrumb>
             <Content
                 style={{
@@ -56,20 +47,27 @@ function AddQuestion(props){
                     padding: 24,
                     margin: 0,
                     height:"auto"
-                }}
+                }} 
             >
-                <h3>题目信息</h3>
-                <Form.Item label="题干">
-                    {getFieldDecorator('username')(<Input placeholder="请输入题目标题，不超过20个字"/>)}
+                <Form.Item label="试卷名称">
+                    {getFieldDecorator('username', {
+                        rules: [
+                        {
+                            required: true,
+                            message: 'Please input your username!',
+                        }
+                        ],
+                    })(<Input />)}
                 </Form.Item>
-                <Form.Item label="题目主题">
-                    {getFieldDecorator('topictheme')(
-                        <Editor height="auto" />
-                    )}
-                </Form.Item>
-                
-                <Form.Item label="请选择考试类型">
-                    {getFieldDecorator('examtype')(
+                <Form.Item label="选择考试类型">
+                    {getFieldDecorator('examtype', {
+                        rules: [
+                        {
+                            required: true,
+                            message: 'Please input your username!',
+                        }
+                        ],
+                    })(
                         <Select
                         showSearch
                         style={{ width: 200 }}
@@ -88,8 +86,15 @@ function AddQuestion(props){
                         </Select>
                     )}
                 </Form.Item>
-                <Form.Item label="请选择课程类型">
-                    {getFieldDecorator('coursetype')(
+                <Form.Item label="选择课程">
+                    {getFieldDecorator('coursetype', {
+                        rules: [
+                        {
+                            required: true,
+                            message: 'Please input your username!',
+                        }
+                        ],
+                    })(
                         <Select
                         showSearch
                         style={{ width: 200 }}
@@ -107,31 +112,28 @@ function AddQuestion(props){
                         </Select>
                     )}
                 </Form.Item>
-                <Form.Item label="请选择题目类型">
-                    {getFieldDecorator('topictype')(
-                        <Select
-                        showSearch
-                        style={{ width: 200 }}
-                        placeholder="简答题"
-                        optionFilterProp="children"
-                        filterOption={(input, option) =>
-                            option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                <Form.Item label="设置题量">
+                    {getFieldDecorator('questionnum', {
+                        rules: [
+                        {
+                            required: true,
+                            message: 'Please input your username!',
                         }
-                        >
-                            {
-                                props.question.topictypelist.map(item=>(
-                                    <Option key={item.questions_type_id} value={item.questions_type_id}>{item.questions_type_text}</Option>
-                                ))
-                            }
-                        </Select>
+                        ],
+                    })(
+                        <InputNumber min={3} max={10} />
                     )}
                 </Form.Item>
-                <Form.Item label="答案信息">
-                    {getFieldDecorator('topicinfor')(
-                        <Editor height="auto" />
+                <Form.Item label="考试时间">
+                    {getFieldDecorator('examtime')(
+                        <RangePicker
+                            showTime={{ format: 'HH:mm' }}
+                            format="YYYY-MM-DD HH:mm"
+                            placeholder={['开始时间', '结束时间']}
+                        />
                     )}
                 </Form.Item>
-                <Button type="primary" onClick={submitQuestion}>提交</Button>
+                <Button type="primary" onClick={submitexam}>创建试卷</Button>
             </Content>
         </Layout>
     )
@@ -139,9 +141,9 @@ function AddQuestion(props){
 
 const mapStateToProps = state=>{
     return state
-  }
+}
   
-  const mapDisaptchToProps = dispatch=>{
+const mapDisaptchToProps = dispatch=>{
     return {
         examType(){
             dispatch({
@@ -153,24 +155,14 @@ const mapStateToProps = state=>{
                 type: 'question/coursetype',
             })
         },
-        topictype(){
+        addexam(payload){
             dispatch({
-                type: 'question/topictype',
-            })
-        },
-        getuser(){
-            dispatch({
-                type: 'question/getuser',
-            })
-        },
-        addquestion(payload){
-            dispatch({
-                type:"question/addquestion",
+                type: 'question/addexam',
                 payload
             })
-        }
+        },
     }
-  }
+}
 
 
-export default connect(mapStateToProps, mapDisaptchToProps)(Form.create()(AddQuestion))
+export default connect(mapStateToProps, mapDisaptchToProps)(Form.create()(Addexam))
