@@ -2,10 +2,12 @@ import React from "react";
 import styles from "./index.css";
 import { Layout, Menu,Dropdown,Button } from 'antd';
 import Sidebar from "../../components/sidebar"
-import { Route,Switch  } from 'dva/router';
+import { Route,Switch ,Redirect } from 'dva/router';
 import AddQuestion from "./question/addquestion";
 import TypeQuestion from "./question/typeQuestion";
 import WatchQuestion from "./question/watchQuestion";
+import AddUser from "./users/addUser"
+import ShowUser from "./users/showUser"
 
 const { Header, Content, Sider } = Layout;
 
@@ -72,7 +74,9 @@ function MainPage(props){
               <Route path="/question/add"  component={AddQuestion} />
               <Route path="/question/type"  component={TypeQuestion} />
               <Route path="/question/watch"  component={WatchQuestion} />
-              {/* <Redirect from="/" to="/question/add"></Redirect> */}
+              <Route path="/users/add"  component={AddUser} />
+              <Route path="/users/show"  component={ShowUser} />
+              <Redirect from="/" to="/question/type" />
             </Switch>
           </Content>
         </Layout>

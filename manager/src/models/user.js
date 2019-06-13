@@ -1,3 +1,4 @@
+//登录接口数据
 import {login} from "../services"
 import {routerRedux} from 'dva/router'
 import {getToken,setToken} from "../utils/user"
@@ -20,7 +21,8 @@ export default {
                   if (!getToken()){
                     // 利用redux做路由跳转
                     dispatch(routerRedux.replace({
-                      pathname: `/login?redirect=${encodeURIComponent(pathname)}`,
+                      pathname: `/login`,
+                      search:`?redirect=${encodeURIComponent(pathname)}`
                     }))
                   }
                 }else{
@@ -46,7 +48,6 @@ export default {
 
             yield put({type:"updatalogin",payload:data.code===1?1:-1})
             
-
         },
         *fetch({payload}, {call,put}) { // eslint-disable-line
             yield put({ type: 'save' });

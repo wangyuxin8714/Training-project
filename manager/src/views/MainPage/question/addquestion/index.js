@@ -1,7 +1,8 @@
 import React,{useEffect} from 'react';
 import { Button,Select,Form,Input, Layout, Breadcrumb } from "antd";
-import Markdown from "../../../../components/markdown"
 import { connect } from 'dva';
+import Editor from 'for-editor'
+
 
 const { Option } = Select;
 const { Content } = Layout;
@@ -18,9 +19,8 @@ function AddQuestion(props){
     const { getFieldDecorator } = props.form;
     return(
         <Layout style={{ padding: 0}}>
-        {/* <div> */}
             <Breadcrumb style={{ margin: "30px 0" }}>
-                <Breadcrumb.Item style={{fontSize:"20px"}}>查看试题</Breadcrumb.Item>
+                <Breadcrumb.Item style={{fontSize:"20px"}}>添加试题</Breadcrumb.Item>
             </Breadcrumb>
             <Content
                 style={{
@@ -35,7 +35,7 @@ function AddQuestion(props){
                     {getFieldDecorator('username')(<Input placeholder="请输入题目标题，不超过20个字"/>)}
                 </Form.Item>
                 <Form.Item label="题目主题">
-                    {getFieldDecorator('topic')(<Markdown></Markdown>)}
+                    {getFieldDecorator('topic')(<Editor height="auto" />)}
                 </Form.Item>
                 
                 <Form.Item label="请选择考试类型">
@@ -97,7 +97,7 @@ function AddQuestion(props){
                     )}
                 </Form.Item>
                 <Form.Item label="答案信息">
-                    {getFieldDecorator('topic')(<Markdown></Markdown>)}
+                    {getFieldDecorator('topic')(<Editor height="auto" />)}
                 </Form.Item>
                 <Button type="primary">提交</Button>
             </Content>

@@ -46,7 +46,6 @@ function WatchQuestion(props) {
 
   const { Option } = Select;
 
-  console.log(props.question.allQuestion)
   const columns = [
     {
       dataIndex: '',
@@ -165,8 +164,7 @@ function WatchQuestion(props) {
             }}
           >
           
-          <Table columns={columns} dataSource={props.question.allQuestion} rowKey={record => `${record.questions_id}`}
- />
+          <Table columns={columns} dataSource={props.question.allQuestion} rowKey={record => `${record.questions_id}`} />
           
           </Content>
         </Layout>
