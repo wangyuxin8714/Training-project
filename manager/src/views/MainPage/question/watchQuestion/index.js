@@ -165,7 +165,8 @@ function WatchQuestion(props) {
             }}
           >
           
-          <Table columns={columns} dataSource={props.question.allQuestion} />
+          <Table columns={columns} dataSource={props.question.allQuestion} rowKey={record => `${record.questions_id}`}
+ />
           
           </Content>
         </Layout>
