@@ -29,9 +29,9 @@ function TypeQuestion(props) {
   ];
 
   let data=[];
-  props.question.topictypelist.map(item=>{
+  props.question.topictypelist.map((item,index)=>{
     const obj = {};
-    obj.key = item.questions_type_sort;
+    obj.key = index;
     obj.name = item.questions_type_id;
     obj.age = item.questions_type_text;
     data.push(obj);
