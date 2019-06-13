@@ -53,23 +53,21 @@ function WatchQuestion(props) {
       key: '', 
       render: text => (
         <>
-            
-                  <h4>{text.title}</h4>
-                  <h4>
-                      <Tag color="blue">{text.questions_type_text}</Tag>
-                      <Tag color="geekblue">{text.subject_text}</Tag>
-                      <Tag color="gold">{text.exam_name}</Tag>
-                  </h4>
-                  <a href="javascript:;">{text.user_name}</a>
-                
+            <h4>{text.title}</h4>
+            <h4>
+                <Tag color="blue">{text.questions_type_text}</Tag>
+                <Tag color="geekblue">{text.subject_text}</Tag>
+                <Tag color="gold">{text.exam_name}</Tag>
+            </h4>
+            <a href="">{text.user_name}</a>
         </>
       ),
     },
     {
       key: '',
-      render: (text, record) => (
+      render: () => (
         <span style={{position:"absolute",right:20}}>
-          <a href="javascript:;">编辑</a>
+          <a href="">编辑</a>
         </span>
       ),
     },
