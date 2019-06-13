@@ -41,7 +41,7 @@ function TypeQuestion(props) {
     <Layout>
       <Layout>
         <Layout style={{ paddingLeft:24,paddingRight:24,paddingBottom:24 }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
+          <Breadcrumb style={{marginTop:16,marginBottom:16}}>
             <Breadcrumb.Item>
             <h2>试题分类</h2>
             </Breadcrumb.Item>
