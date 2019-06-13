@@ -5,19 +5,19 @@ import { connect } from 'dva';
 
 
 function onChange(value) {
-  console.log(`selected ${value}`);
+  // console.log(`selected ${value}`);
 }
 
 function onBlur() {
-  console.log("blur");
+  // console.log("blur");
 }
 
 function onFocus() {
-  console.log("focus");
+  // console.log("focus");
 }
 
 function onSearch(val) {
-  console.log("search:", val);
+  // console.log("search:", val);
 }
 
 function WatchQuestion(props) {
@@ -38,7 +38,7 @@ function WatchQuestion(props) {
   const CheckableTag = Tag.CheckableTag;
 
   let tagsFromServer = [];
-  props.question.coursetypelist.map(item=>{
+  props.question.coursetypelist.forEach(item=>{
     tagsFromServer.push(item.subject_text)
   })
 
@@ -46,25 +46,27 @@ function WatchQuestion(props) {
 
   const { Option } = Select;
 
-
+  console.log(props.question.allQuestion)
   const columns = [
     {
-      dataIndex: 'name',
-      key: 'name', 
+      dataIndex: '',
+      key: '', 
       render: text => (
         <>
-            <h4>{text}</h4>
-            <h4>
-                <Tag color="blue">blue</Tag>
-                <Tag color="geekblue">geekblue</Tag>
-                <Tag color="gold">gold</Tag>
-            </h4>
-            <a href="javascript:;">才能算扣除</a>
+            
+                  <h4>{text.title}</h4>
+                  <h4>
+                      <Tag color="blue">{text.questions_type_text}</Tag>
+                      <Tag color="geekblue">{text.subject_text}</Tag>
+                      <Tag color="gold">{text.exam_name}</Tag>
+                  </h4>
+                  <a href="javascript:;">{text.user_name}</a>
+                
         </>
       ),
     },
     {
-      key: 'action',
+      key: '',
       render: (text, record) => (
         <span style={{position:"absolute",right:20}}>
           <a href="javascript:;">编辑</a>
@@ -72,31 +74,6 @@ function WatchQuestion(props) {
       ),
     },
   ];
-  
-  // const data = [
-  //   {
-  //     key: '1',
-  //     name: 'John '
-  //   },
-  //   {
-  //     key: '2',
-  //     name: 'Jim Green'
-  //   },
-  //   {
-  //     key: '3',
-  //     name: 'Joe Black'
-  //   },
-  // ];
-  
-
-  let data=[];
-  props.question.allQuestion.map(item=>{
-    const obj = {};
-    obj.key = item.questions_type_sort;
-    obj.name = item.questions_type_id;
-    obj.age = item.questions_type_text;
-    data.push(obj);
-  })
 
 
   return (
@@ -119,9 +96,9 @@ function WatchQuestion(props) {
           >
             <div>
               <h4 style={{ marginRight: 8, display: "inline" }}>Categories:</h4>
-              {tagsFromServer.map(tag => (
+              {tagsFromServer.map((tag,index) => (
                 <CheckableTag
-                  key={tag}
+                  key={index}
                   checked={selectedTags.indexOf(tag) > -1}
                   onChange={checked => this.handleChange(tag, checked)}
                 >
@@ -190,7 +167,7 @@ function WatchQuestion(props) {
             }}
           >
           
-          <Table columns={columns} dataSource={data} />
+          <Table columns={columns} dataSource={props.question.allQuestion} />
           
           </Content>
         </Layout>
