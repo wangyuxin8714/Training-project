@@ -27,6 +27,7 @@ function TypeQuestion(props) {
       dataIndex: "address"
     }
   ];
+
   let data=[];
   props.question.topictypelist.map(item=>{
     const obj = {};
@@ -39,7 +40,7 @@ function TypeQuestion(props) {
   return (
     <Layout>
       <Layout>
-        <Layout style={{ padding: "0 24px 24px" }}>
+        <Layout style={{ paddingLeft:24,paddingRight:24,paddingBottom:24 }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>
             <h2>试题分类</h2>
