@@ -39,17 +39,14 @@ function AddQuestion(props) {
           title: "你确定要添加这道试题吗?",
           content: "真的要添加吗?",
           onOk() {
-            Modal.success({
-              title: "试题添加成功"
-            });
             props.addquestion({
               questions_type_id: values.topictype,
-              questions_stem: values.username,
+              questions_stem: values.topictheme,
               subject_id: values.coursetype,
               exam_id: values.examtype,
               user_id: props.question.id,
               questions_answer: values.topicinfor,
-              title: values.topictheme
+              title: values.username
             });
           }
         });
@@ -80,6 +77,7 @@ function AddQuestion(props) {
         <Form.Item label="题目主题">
           {getFieldDecorator("topictheme")(<Editor height="auto" />)}
         </Form.Item>
+    
 
         <Form.Item label="请选择考试类型">
           {getFieldDecorator("examtype")(

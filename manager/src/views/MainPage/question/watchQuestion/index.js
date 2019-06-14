@@ -4,14 +4,16 @@ import styles from "./index.css";
 import { connect } from "dva";
 
 function WatchQuestion(props) {
-  let [ind, updateind] = useState(-1);
-  let [text, updatetext] = useState("");
-  useEffect(() => {
-    props.examType();
-    props.coursetype();
-    props.topictype();
-    props.allNew();
-  }, []);
+
+  let [ind,updateind]=useState(-1)
+  let [text,updatetext]=useState(undefined)
+  let [flag,updateflag]=useState(false)
+  useEffect(()=>{
+    props.examType()
+    props.coursetype()
+    props.topictype()
+    props.allNew()
+},[])
 
   const { Content } = Layout;
   const { getFieldDecorator } = props.form;
@@ -21,7 +23,7 @@ function WatchQuestion(props) {
       dataIndex: "",
       key: "text",
       render: text => (
-        <div onClick={()=>godetails(text)}>
+        <div onClick={()=>godetails(text)} style={{cursor:"pointer"}}>
           <h4>{text.title}</h4>
           <h4>
             <Tag color="blue">{text.questions_type_text}</Tag>
@@ -30,31 +32,38 @@ function WatchQuestion(props) {
           </h4>
           <a href="">{text.user_name}</a>
         </div>
-      )
+      ),
     },
     {
       key: "text" + 1,
       render: (text, record) => (
-          <span
-            style={{ position: "absolute", right: 20 }}
-            onClick={() => godetail(text)}
-          >
-            编辑
-          </span>
-      )
-    }
+          <span style={{color:"#295eff",position:"absolute",right:20,cursor:"pointer"}} onClick={()=>godetail(text)}>
+          编辑
+        </span>
+      ),
+    },
   ];
+  
+  let godetail=(text)=>{
+    props.godetail({
+        questions_type_id:text.questions_type_id,
+        exam_id:text.exam_id,
+        subject_id:text.subject_id,
+        questions_id:text.questions_id
+    })
+    props.history.push("/question/detail")
+  }
+  let godetails=(text)=>{
+    props.godetail({
+      questions_type_id:text.questions_type_id,
+      exam_id:text.exam_id,
+      subject_id:text.subject_id,
+      questions_id:text.questions_id
+    })
+    props.history.push("/question/details")
+  }
 
-  let godetail = text => {
-    props.godetail(text);
-    props.history.push("/question/detail");
-  };
 
-  let godetails = text => {
-    console.log(text);
-    props.godetail(text);
-    props.history.push("/question/details");
-  };
 
   let inquire = e => {
     e.preventDefault();
@@ -88,15 +97,18 @@ function WatchQuestion(props) {
             }}
           >
             <div>
-              <h4 style={{ marginRight: 8, display: "inline" }}>课程类型:</h4>
-              {props.question.coursetypelist.map((item, index) => (
+              <h4 style={{ marginRight: 8, display: "inline" }}>Categories:</h4>
+              <Tag 
+                className={flag?styles.sp:null}
+                onClick={()=>{updateflag(!flag);updateind(-1);updatetext(undefined)}}
+                style={{cursor:"pointer",border:0}}
+              >All</Tag>
+              {props.question.coursetypelist.map((item,index) => (
                 <Tag
                   key={item.subject_id}
-                  className={index === ind ? styles.sp : null}
-                  onClick={() => {
-                    updateind(index);
-                    updatetext(item.subject_id);
-                  }}
+                  className={index===ind||flag?styles.sp:null}
+                  onClick={()=>{updateind(index);updatetext(item.subject_id)}}
+                  style={{cursor:"pointer",border:0}}
                 >
                   {item.subject_text}
                 </Tag>

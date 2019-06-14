@@ -75,7 +75,7 @@ export default {
           let data = yield call(addexam,payload);
           yield put({type:"updateexamcode",payload:data.code===1?1:-1})
         },
-        // 获取所有的试题
+        // 获取所有的试卷
         *testlist({ payload }, { call, put }) {  // eslint-disable-line
           let data = yield call(testlist);
           console.log(data)
@@ -87,13 +87,15 @@ export default {
           yield put({type:"updatelookquestion",payload:data.data})
         },
         //跳详情
-        *godetail({ payload }, { call, put }) {  // eslint-disable-line
-          yield put({type:"updategodetail",payload})
+        *godetail({ payload }, { call,put }) {  // eslint-disable-line
+          let data = yield call(lookquestion,payload);
+          window.localStorage.setItem("getquestions",JSON.stringify(data.data[0]))
+          yield put({type:"updateitems",payload:data.data[0]})
+
         },
         //更新试题
         *updatequestion({ payload }, { call, put }) {  // eslint-disable-line
           let data = yield call(updatequestion,payload);
-          console.log(data)
           yield put({type:"updateupcode",payload:data.code===1?1:-1})
         },
         //添加试题类型
@@ -147,10 +149,7 @@ export default {
       updatelookquestion(state, {payload}) {
         return { ...state, allQuestion:payload };
       },
-      //跳详情
-      updategodetail(state, {payload}) {
-        return { ...state, items:payload };
-      },
+      
       //更新试题
       updateupcode(state, {payload}) {
         return { ...state, upcode:payload };
@@ -163,6 +162,10 @@ export default {
       //删除指定的试题类型
       delType(state, {payload}) {
         return { ...state, del:payload };
+      },
+      //跳详情
+      updateitems(state, {payload}) {
+        return { ...state, items:payload };
       },
     },
   }

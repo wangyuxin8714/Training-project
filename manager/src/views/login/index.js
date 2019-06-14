@@ -20,7 +20,7 @@ function Login(props) {
         e.preventDefault();
         props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                // console.log('Received values of form: ', values);
                 login({
                     user_name:values.username,
                     user_pwd:values.password

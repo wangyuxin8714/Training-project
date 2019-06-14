@@ -84,6 +84,7 @@ function MainPage(props){
               <Route path="/exam/add"  component={Addexam} />
               <Route path="/exam/list"  component={Testlist} />
               <Route path="/question/detail"  component={Questiondetail} />
+              <Route path="/question/details"  component={Details} />
               <Route path="/users/add"  component={AddUser} />
               <Route path="/users/show"  component={ShowUser} />
               <Route path="/question/details"  component={Details} />
