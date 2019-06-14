@@ -41,7 +41,6 @@ export default {
     effects: {
         *login({payload}, {select,call, put}) {
             let data = yield call(login,payload)
-            console.log(data)
             if(data.code===1){
                 setToken(data.token)
             }

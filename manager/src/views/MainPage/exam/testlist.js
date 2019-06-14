@@ -10,10 +10,8 @@ const { Content } = Layout;
 
 const columns = [
     {
-      title: 'Name',
-      dataIndex: '',
-      key: '',
-      render: text => <a href="">{console.log(text)}</a>,
+      title: '试卷信息',
+      render: text =><span></span>,
     },
     // {
     //   title: 'Age',
@@ -67,7 +65,7 @@ function Testlist(props){
         props.coursetype()
         props.testlist()
     },[])
-    console.log(props.question)
+    // console.log(props.question)
     useEffect(()=>{
         
     },[props.question])
@@ -144,7 +142,7 @@ function Testlist(props){
                         </Select>
                     )}
                 </Form.Item>
-                <Button type="primary" >创建试卷</Button>
+                <Button type="primary" >查询</Button>
                 {/* <Button type="primary" onClick={submitexam}>创建试卷</Button> */}
             </Content>
             <Content

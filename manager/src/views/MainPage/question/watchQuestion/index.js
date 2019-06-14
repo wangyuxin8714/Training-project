@@ -8,7 +8,8 @@ import { connect } from 'dva';
 function WatchQuestion(props) {
 
   let [ind,updateind]=useState(-1)
-  let [text,updatetext]=useState("")
+  let [text,updatetext]=useState(undefined)
+  let [flag,updateflag]=useState(false)
   useEffect(()=>{
     props.examType()
     props.coursetype()
@@ -24,7 +25,7 @@ function WatchQuestion(props) {
       dataIndex: '',
       key: 'text', 
       render: text => (
-        <>
+        <div onClick={()=>godetails(text)} style={{cursor:"pointer"}}>
           <h4>{text.title}</h4>
           <h4>
               <Tag color="blue">{text.questions_type_text}</Tag>
@@ -32,13 +33,13 @@ function WatchQuestion(props) {
               <Tag color="gold">{text.exam_name}</Tag>
           </h4>
           <a href="">{text.user_name}</a>
-        </>
+        </div>
       ),
     },
     {
       key: 'text'+1,
       render: (text, record) => (
-        <span style={{position:"absolute",right:20}} onClick={()=>godetail(text)}>
+          <span style={{color:"#295eff",position:"absolute",right:20,cursor:"pointer"}} onClick={()=>godetail(text)}>
           编辑
         </span>
       ),
@@ -46,8 +47,22 @@ function WatchQuestion(props) {
   ];
   
   let godetail=(text)=>{
-    props.godetail(text)
+    props.godetail({
+        questions_type_id:text.questions_type_id,
+        exam_id:text.exam_id,
+        subject_id:text.subject_id,
+        questions_id:text.questions_id
+    })
     props.history.push("/question/detail")
+  }
+  let godetails=(text)=>{
+    props.godetail({
+      questions_type_id:text.questions_type_id,
+      exam_id:text.exam_id,
+      subject_id:text.subject_id,
+      questions_id:text.questions_id
+    })
+    props.history.push("/question/details")
   }
 
 let inquire = e => {
@@ -63,7 +78,10 @@ let inquire = e => {
       }
   });
 };
-
+// console.log(props.question.coursetypelist)
+//       props.question.coursetypelist.unshift({
+//         subject_text: "All"
+//       })
   return (
     <Layout>
       <Layout>
@@ -84,11 +102,17 @@ let inquire = e => {
           >
             <div>
               <h4 style={{ marginRight: 8, display: "inline" }}>Categories:</h4>
+              <Tag 
+                className={flag?styles.sp:null}
+                onClick={()=>{updateflag(!flag);updateind(-1);updatetext(undefined)}}
+                style={{cursor:"pointer",border:0}}
+              >All</Tag>
               {props.question.coursetypelist.map((item,index) => (
                 <Tag
                   key={item.subject_id}
-                  className={index===ind?styles.sp:null}
+                  className={index===ind||flag?styles.sp:null}
                   onClick={()=>{updateind(index);updatetext(item.subject_id)}}
+                  style={{cursor:"pointer",border:0}}
                 >
                   {item.subject_text}
                 </Tag>

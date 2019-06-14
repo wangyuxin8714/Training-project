@@ -1,11 +1,11 @@
 import React,{useEffect} from 'react';
-import { Button,Select,Form,Input, Layout, Breadcrumb,message } from "antd";
+import { Button,Select,Form,Input, Layout, Breadcrumb,message,Modal } from "antd";
 import { connect } from 'dva';
 import Editor from 'for-editor'
 
 const { Option } = Select;
 const { Content } = Layout;
-
+const confirm = Modal.confirm;
 
 function AddQuestion(props){
     
@@ -27,21 +27,25 @@ function AddQuestion(props){
     let submitQuestion = e => {
         e.preventDefault();
         props.form.validateFields((err, values) => {
-            if (!err) {
-                // console.log('Received values of form: ', values);
+          if (!err) {
+            confirm({
+              title: "你确定要添加这道试题吗?",
+              content: "真的要添加吗?",
+              onOk() {
                 props.addquestion({
-                    questions_type_id:values.topictype,
-                    questions_stem:values.username,
-                    subject_id:values.coursetype,
-                    exam_id:values.examtype,
-                    user_id:props.question.id,
-                    questions_answer:values.topicinfor,
-                    title:values.topictheme
-                })
-                
-            }
+                  questions_type_id: values.topictype,
+                  questions_stem: values.topictheme,
+                  subject_id: values.coursetype,
+                  exam_id: values.examtype,
+                  user_id: props.question.id,
+                  questions_answer: values.topicinfor,
+                  title: values.username
+                });
+              }
+            });
+          }
         });
-    };
+      };
 
     const { getFieldDecorator } = props.form;
     return(

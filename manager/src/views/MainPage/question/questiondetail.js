@@ -1,44 +1,61 @@
 import React,{useEffect} from 'react';
-import { Button,Select,Form,Input, Layout, Breadcrumb,message } from "antd";
+import { Button,Select,Form,Input, Layout, Breadcrumb,Modal } from "antd";
 import { connect } from 'dva';
 import Editor from 'for-editor'
 
 const { Option } = Select;
 const { Content } = Layout;
-
+const confirm = Modal.confirm;
 
 function Questiondetail(props){
     
     useEffect(()=>{
         
     },[])
-    console.log(props.question.items)
     useEffect(()=>{
-        if(props.question.upcode===1){
-            message.success('更新成功')
-        }
+        // if(props.question.upcode===1){
+        //     message.success("更新成功")
+        // }else if(props.question.upcode===-1){
+        //     message.error("更新失败")
+        // }
     },[props.question])
-
-
+    
+    let items=JSON.parse(window.localStorage.getItem("getquestions"))||props.question.items
+console.log("zzzzz")
     let submitQuestion = e => {
         e.preventDefault();
         props.form.validateFields((err, values) => {
-            if (!err) {
-                // console.log('Received values of form: ', values);
+          if (!err) {
+            // console.log('Received values of form: ', values);
+            confirm({
+              title: "您要修改吗?",
+              content: "确定要修改这道题吗?",
+              
+              onOk() {
+                  console.log(props)
+                  if(props.question.upcode===1){
+                      Modal.success({
+                          title:"更新成功"
+                      })
+                  }else if(props.question.upcode===-1){
+                      Modal.error({
+                          title:"更新失败"
+                      })
+                  }
                 props.updatequestion({
-                    questions_type_id:values.topictype,
-                    questions_stem:values.username,
-                    subject_id:values.coursetype,
-                    exam_id:values.examtype,
-                    questions_answer:values.topicinfor,
-                    title:values.topictheme,
-                    questions_id:props.question.items.questions_id
-                })
-                
-            }
+                  questions_type_id: values.topictype,
+                  questions_stem: values.topictheme,
+                  subject_id: values.coursetype,
+                  exam_id: values.examtype,
+                  questions_answer: values.topicinfor,
+                  title: values.username,
+                  questions_id: items.questions_id
+                });
+              }
+            });
+          }
         });
-    };
-
+      };
     const { getFieldDecorator } = props.form;
     return(
         <Layout style={{ padding: 0}}>
@@ -56,12 +73,12 @@ function Questiondetail(props){
                 <h3>题目信息</h3>
                 <Form.Item label="题干">
                     {getFieldDecorator('username',{
-                        initialValue:props.question.items.title
+                        initialValue:items.title
                     })(<Input />)}
                 </Form.Item>
                 <Form.Item label="题目主题">
                     {getFieldDecorator('topictheme',{
-                        initialValue:props.question.items.questions_stem
+                        initialValue:items.questions_stem
                     })(
                         <Editor height="auto" />
                     )}
@@ -69,7 +86,7 @@ function Questiondetail(props){
                 
                 <Form.Item label="请选择考试类型">
                     {getFieldDecorator('examtype',{
-                        initialValue:props.question.items.exam_name
+                        initialValue:items.exam_id
                     })(
                         <Select
                         showSearch
@@ -90,7 +107,7 @@ function Questiondetail(props){
                 </Form.Item>
                 <Form.Item label="请选择课程类型">
                     {getFieldDecorator('coursetype',{
-                        initialValue:props.question.items.subject_text
+                        initialValue:items.subject_id
                     })(
                         <Select
                         showSearch
@@ -110,7 +127,7 @@ function Questiondetail(props){
                 </Form.Item>
                 <Form.Item label="请选择题目类型">
                     {getFieldDecorator('topictype',{
-                        initialValue:props.question.items.questions_type_text
+                        initialValue:items.questions_type_id
                     })(
                         <Select
                         showSearch
@@ -130,7 +147,7 @@ function Questiondetail(props){
                 </Form.Item>
                 <Form.Item label="答案信息">
                     {getFieldDecorator('topicinfor',{
-                        initialValue:props.question.items.questions_answer
+                        initialValue:items.questions_answer
                     })(
                         <Editor height="auto" />
                     )}

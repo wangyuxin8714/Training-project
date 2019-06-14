@@ -11,6 +11,7 @@ import Testlist from "./exam/testlist";
 import Questiondetail from "./question/questiondetail";
 import AddUser from "./users/addUser"
 import ShowUser from "./users/showUser"
+import Details from "./question/details";
 
 const { Header, Content, Sider } = Layout;
 
@@ -81,6 +82,7 @@ function MainPage(props){
               <Route path="/exam/add"  component={Addexam} />
               <Route path="/exam/list"  component={Testlist} />
               <Route path="/question/detail"  component={Questiondetail} />
+              <Route path="/question/details"  component={Details} />
               <Route path="/users/add"  component={AddUser} />
               <Route path="/users/show"  component={ShowUser} />
             </Switch>

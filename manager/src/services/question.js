@@ -1,7 +1,5 @@
 //试题接口
-
 import request from '../utils/request';
-
 
 //获取考试类型接口
 export function examType() {
@@ -34,6 +32,7 @@ export function allNew() {
         method: 'GET'
     })
 }
+
 //获取当前接口
 export function getuser() {
     return request({
@@ -41,6 +40,7 @@ export function getuser() {
         method: 'GET'
     })
 }
+
 //添加试题接口
 export function addquestion(params) {
     return request({
@@ -49,6 +49,7 @@ export function addquestion(params) {
         data:params
     })
 }
+
 // 添加考试接口
 export function addexam(params) {
     return request({
@@ -57,13 +58,15 @@ export function addexam(params) {
         data:params
     })
 }
-// 添加考试接口
+
+// 获取所有试卷接口
 export function testlist() {
     return request({
-        url: '/user/view_authority',
+        url: '/exam/exam',
         method: 'GET'
     })
 }
+
 // 查询试题接口
 export function lookquestion(params) {
     return request({
@@ -72,6 +75,7 @@ export function lookquestion(params) {
         params
     })
 }
+
 // 更新试题接口
 export function updatequestion(params) {
     return request({
@@ -79,8 +83,8 @@ export function updatequestion(params) {
         method: 'PUT',
         data:params
     })
-
 }
+
 //添加试题类型
 export function insertExam(params){
     return request({
