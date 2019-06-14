@@ -11,6 +11,9 @@ import Testlist from "./exam/testlist";
 import Questiondetail from "./question/questiondetail";
 import AddUser from "./users/addUser"
 import ShowUser from "./users/showUser"
+import Details from "./question/details";
+
+
 
 const { Header, Content, Sider } = Layout;
 
@@ -74,7 +77,7 @@ function MainPage(props){
             }}
           >
             <Switch>
-              <Redirect from ="/" to="/exam/add" exact></Redirect>
+              <Redirect from ="/" to="/users/show" exact></Redirect>
               <Route path="/question/add"  component={AddQuestion} />
               <Route path="/question/type"  component={TypeQuestion} />
               <Route path="/question/watch"  component={WatchQuestion} />
@@ -83,6 +86,7 @@ function MainPage(props){
               <Route path="/question/detail"  component={Questiondetail} />
               <Route path="/users/add"  component={AddUser} />
               <Route path="/users/show"  component={ShowUser} />
+              <Route path="/question/details"  component={Details} />
             </Switch>
           </Content>
         </Layout>

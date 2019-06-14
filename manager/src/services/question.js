@@ -89,3 +89,12 @@ export function insertExam(params){
         params
     })
 }
+
+//删除指定的试题类型
+export function delQuestionType(params){
+    return request({
+        url:"/exam/delQuestionsType",
+        method:"POST",
+        data:params
+    })
+}

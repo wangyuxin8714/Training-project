@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Layout,Form, Button, Breadcrumb, Table, Modal, Input } from "antd";
+import {
+  Layout,
+  Form,
+  Button,
+  Breadcrumb,
+  Table,
+  Modal,
+  Input,
+  notification
+} from "antd";
 import { connect } from "dva";
 
 function TypeQuestion(props) {
@@ -8,32 +17,43 @@ function TypeQuestion(props) {
 
   useEffect(() => {
     props.topictype();
-    console.log(props)
+    console.log(props);
   }, []);
 
   const columns = [
     {
       title: "类型ID",
-      dataIndex: "name"
+      key: "id",
+      render: text => <>{text.questions_type_id}</>
     },
     {
       title: "类型名称",
-      dataIndex: "age"
+      key: "text",
+      render: text => <>{text.questions_type_text}</>
     },
     {
       title: "操作",
-      dataIndex: "address"
+      key: "del",
+      render: text => (
+        <span
+          onClick={() => {
+            props.delType({ id: text.questions_type_id });
+            if (props.question.del === 1) {
+              notification["success"]({
+                message: "删除成功"
+              });
+            } else {
+              notification["error"]({
+                message: "删除失败"
+              });
+            }
+          }}
+        >
+          删除
+        </span>
+      )
     }
   ];
-
-  let data = [];
-  props.question.topictypelist.forEach((item, index) => {
-    const obj = {};
-    obj.key = index;
-    obj.name = item.questions_type_id;
-    obj.age = item.questions_type_text;
-    data.push(obj);
-  });
 
   let [showDialog, updateDailog] = useState(false);
   const { getFieldDecorator } = props.form;
@@ -71,25 +91,37 @@ function TypeQuestion(props) {
               onCancel={() => {
                 updateDailog(false);
               }}
-              onOk={(e) => {
+              onOk={e => {
                 e.preventDefault();
                 props.form.validateFields((err, values) => {
-                    if (!err) {
-                        props.insertExam({
-                          text:values.text,
-                          sort:String((props.question.topictypelist.length+1))
-                        })
+                  if (!err) {
+                    props.insertExam({
+                      text: values.text,
+                      sort: String(props.question.topictypelist.length + 1)
+                    });
+
+                    if (props.question.insert === 1) {
+                      notification["success"]({
+                        message: "添加成功"
+                      });
+                    } else {
+                      notification["error"]({
+                        message: "添加失败"
+                      });
                     }
-                    updateDailog(false);
+                  }
+                  updateDailog(false);
                 });
               }}
             >
-              <Form.Item>
-                {getFieldDecorator('text')(<Input />)}
-              </Form.Item>
+              <Form.Item>{getFieldDecorator("text")(<Input />)}</Form.Item>
             </Modal>
 
-            <Table columns={columns} dataSource={data} />
+            <Table
+              columns={columns}
+              dataSource={props.question.topictypelist}
+              rowKey={record => `${record.questions_type_id}`}
+            />
           </Content>
         </Layout>
       </Layout>
@@ -113,7 +145,13 @@ const mapDispatchToProps = dispatch => {
     insertExam(params) {
       dispatch({
         type: "question/insertExam",
-        payload:params
+        payload: params
+      });
+    },
+    delType(payload) {
+      dispatch({
+        type: "question/delQuesType",
+        payload
       });
     }
   };

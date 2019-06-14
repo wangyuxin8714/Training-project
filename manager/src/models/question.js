@@ -1,6 +1,6 @@
 //试题管理数据
 
-import {updatequestion,examType,coursetype,topictype,allNew,getuser,addquestion,addexam,testlist,lookquestion,insertExam} from "../services"
+import {updatequestion,examType,coursetype,topictype,allNew,getuser,addquestion,addexam,testlist,lookquestion,insertExam,delQuestionType} from "../services"
 export default {
   namespace: "question",
   
@@ -14,7 +14,9 @@ export default {
         addexamcode:0,
         gettestlist:[],
         items:{},
-        upcode:0
+        upcode:0,
+        insert:1,
+        del:1
     },
     
     subscriptions: {
@@ -88,7 +90,7 @@ export default {
         *godetail({ payload }, { call, put }) {  // eslint-disable-line
           yield put({type:"updategodetail",payload})
         },
-        //跟新试题
+        //更新试题
         *updatequestion({ payload }, { call, put }) {  // eslint-disable-line
           let data = yield call(updatequestion,payload);
           console.log(data)
@@ -97,7 +99,14 @@ export default {
         //添加试题类型
         *insertExam({payload}, { call, put }) {
           let data = yield call(insertExam, payload);
-          console.log("data",data)
+          console.log(data)
+          yield put({type:"insertCode",payload:data.code})
+        },
+        //删除指定的试题类型
+        *delQuesType({payload}, { call, put }) {
+          let data = yield call(delQuestionType, payload);
+          console.log("data...",data)
+          yield put({type:"delType",payload:data.code === 1 ? 1 : -1})
         }
     },
   
@@ -142,10 +151,18 @@ export default {
       updategodetail(state, {payload}) {
         return { ...state, items:payload };
       },
-      //跟新试题
+      //更新试题
       updateupcode(state, {payload}) {
         return { ...state, upcode:payload };
       },
-      
+      //添加试题类型
+      insertCode(state, {payload}) {
+        console.log(payload)
+        return { ...state, insert:payload };
+      },
+      //删除指定的试题类型
+      delType(state, {payload}) {
+        return { ...state, del:payload };
+      },
     },
   }
