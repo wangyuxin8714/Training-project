@@ -77,7 +77,7 @@ function MainPage(props){
             }}
           >
             <Switch>
-              <Redirect from ="/" to="/users/show" exact></Redirect>
+              <Redirect from ="/" to="/question/add" exact></Redirect>
               <Route path="/question/add"  component={AddQuestion} />
               <Route path="/question/type"  component={TypeQuestion} />
               <Route path="/question/watch"  component={WatchQuestion} />
