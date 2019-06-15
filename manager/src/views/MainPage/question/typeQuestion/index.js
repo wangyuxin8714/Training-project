@@ -97,7 +97,8 @@ function TypeQuestion(props) {
                   if (!err) {
                     props.insertExam({
                       text: values.text,
-                      sort: +new Date()
+                      // sort: String(props.question.topictypelist.length + 1)
+                      sort:+new Date()
                     });
                     if (props.question.insert === 1) {
                       notification["success"]({
