@@ -44,7 +44,6 @@ export default {
             if(data.code===1){
                 setToken(data.token)
             }
-
             yield put({type:"updatalogin",payload:data.code===1?1:-1})
             
         },

@@ -87,6 +87,7 @@ export function updatequestion(params) {
 
 //添加试题类型
 export function insertExam(params){
+    console.log(params)
     return request({
         url:'/exam/insertQuestionsType',
         method:'GET',

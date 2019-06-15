@@ -100,9 +100,10 @@ export default {
         },
         //添加试题类型
         *insertExam({payload}, { call, put }) {
+          console.log(payload)
           let data = yield call(insertExam, payload);
           console.log(data)
-          yield put({type:"insertCode",payload:data.code})
+          // yield put({type:"insertCode",payload:data.code})
         },
         //删除指定的试题类型
         *delQuesType({payload}, { call, put }) {
