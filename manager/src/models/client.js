@@ -1,5 +1,5 @@
 //用户管理数据
-import {identity,apiAuthority,viewAuthority,showUser,identApiAuthor,viewAuthor,viewRelate} from "../services"
+import {identity,apiAuthority,viewAuthority,showUser,identApiAuthor,viewAuthor,viewRelate,userAdd} from "../services"
 
 
 export default {
@@ -13,7 +13,8 @@ export default {
       users:[],
       identityApi:[],
       viewAu:[],
-      viewRe:[]
+      viewRe:[],
+      addUser_code:-1
     },
   
     subscriptions: {
@@ -57,6 +58,13 @@ export default {
         let data = yield call(viewRelate);
         yield put({type:"viewRelation",payload:data.data})
       },
+      //添加用户
+      *usersAdd({payload},{call,put}){
+        console.log(payload)
+        let data = yield call(userAdd,payload);
+        console.log(data)
+        yield put({type:"addUser",payload:data})
+      },
       *fetch({ payload }, { call, put }) {  // eslint-disable-line
         yield put({ type: 'save' });
       },
@@ -86,6 +94,9 @@ export default {
       },
       viewRelation(state,{payload}){
         return {...state,viewRe:payload}
+      },
+      addUser(state,{payload}){
+        return {...state,addUser_code:payload}
       },
     },
   };

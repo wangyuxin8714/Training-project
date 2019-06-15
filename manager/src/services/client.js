@@ -60,3 +60,13 @@ export function viewRelate(){
         method:"GET"
     })
 }
+
+
+//添加用户 
+export function userAdd(data){
+    return request({
+        url:"/user",
+        method:"POST",
+        data
+    })
+}

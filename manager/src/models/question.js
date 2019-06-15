@@ -99,9 +99,8 @@ export default {
           yield put({type:"updateupcode",payload:data.code===1?1:-1})
         },
         //添加试题类型
-        *insertExam({payload}, { call, put }) {
+        *insertExams({payload}, { call, put }) {
           let data = yield call(insertExam, payload);
-          console.log(data)
           yield put({type:"insertCode",payload:data.code})
         },
         //删除指定的试题类型
