@@ -70,3 +70,44 @@ export function userAdd(data){
         data
     })
 }
+
+
+//更新用户信息 
+export function updataUser(data){
+    return request({
+        url:"/user/user",
+        method:"PUT",
+        data
+    })
+}
+
+
+//添加身份
+export function userIdent_edit(data){
+    return request({
+        url:"/user/identity/edit",
+        method:"GET",
+        params:data
+    })
+}
+
+//添加api接口权限
+export function userAuth_apiEdit(data){
+    console.log(data)
+    return request({
+        url:"/user/authorityApi/edit",
+        method:"GET",
+        params:data
+    })
+}
+
+
+//添加视图权限
+export function userAuth_viewEdit(data){
+    console.log(data)
+    return request({
+        url:"/user/authorityView/edit",
+        method:"GET",
+        params:data
+    })
+}

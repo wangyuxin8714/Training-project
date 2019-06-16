@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Layout, Breadcrumb, Input, Radio, Select, Button, Form } from "antd";
 import styles from "./index.css";
 import { connect } from "dva";
+import {isCode} from "../../../../utils/isCode";
+
 
 function onChange(value) {
   console.log(`selected ${value}`);
@@ -30,6 +32,13 @@ function AddUser(props) {
     props.viewAuthority();
     props.userShow();
   }, []);
+
+  useEffect(() => {
+    isCode(props.users.addUser_code)
+    isCode(props.users.updataUser_code)
+    isCode(props.users.userIdent_editCode)
+    isCode(props.users.authUser_apiEditCode)
+  }, [props.users]);
 
   return (
     <Layout>
@@ -84,7 +93,7 @@ function AddUser(props) {
                       </Form.Item>
 
                       <Form.Item>
-                        {getFieldDecorator("first_ident_id", {})(
+                        {getFieldDecorator("first_ident_id")(
                           <Select
                             showSearch
                             style={{ width: 150, marginBottom: 25 }}
@@ -102,7 +111,7 @@ function AddUser(props) {
                           >
                             {props.users.ident.map(item => (
                               <Option
-                                value={item.identity_text}
+                                value={item.identity_id}
                                 key={item.identity_id}
                               >
                                 {item.identity_text}
@@ -116,16 +125,27 @@ function AddUser(props) {
                         <Button
                           type="primary"
                           style={{ width: 120, marginRight: 25, height: 40 }}
-                          onClick={() => {
-                            props.userAdd({
-                              user_name: "Css-123_",
-                              user_pwd: "cSs!123"
+                          onClick={e => {
+                            e.preventDefault();
+                            props.form.validateFields((err, values) => {
+                              props.userAdd({
+                                user_name: values.first_user_name,
+                                user_pwd: values.first_user_pwd,
+                                identity_id:values.first_ident_id
+                              });
                             });
                           }}
                         >
                           确定
                         </Button>
-                        <Button>重置</Button>
+                        <Button
+                          onClick={e => {
+                            e.preventDefault();
+                            props.form.setFieldsValue({first_user_name:'',first_user_pwd:'',first_ident_id:""})
+                          }}
+                        >
+                          重置
+                        </Button>
                       </p>
                     </>
                   ) : (
@@ -170,7 +190,7 @@ function AddUser(props) {
                             }
                           >
                             {props.users.users.map(item => (
-                              <Option value={item.user_name} key={item.user_id}>
+                              <Option value={item.user_id} key={item.user_id}>
                                 {item.user_name}
                               </Option>
                             ))}
@@ -215,7 +235,7 @@ function AddUser(props) {
                           >
                             {props.users.ident.map(item => (
                               <Option
-                                value={item.identity_text}
+                                value={item.identity_id}
                                 key={item.identity_id}
                               >
                                 {item.identity_text}
@@ -229,16 +249,24 @@ function AddUser(props) {
                         <Button
                           type="primary"
                           style={{ width: 120, marginRight: 25, height: 40 }}
-                          onClick={() => {
-                            props.userAdd({
-                              user_name: "Css-123_",
-                              user_pwd: "cSs!123"
+                          onClick={e => {
+                            e.preventDefault();
+                            props.form.validateFields((err, values) => {
+                              props.updataUser({
+                                user_id:values.first_ident_updataId,
+                                user_name:values.first_user_updataName,
+                                user_pwd:values.first_user_updataPwd,
+                                identity_id:values.first_identity_updataId
+                              })
                             });
                           }}
                         >
                           确定
                         </Button>
-                        <Button>重置</Button>
+                        <Button onClick={e => {
+                            e.preventDefault();
+                            props.form.setFieldsValue({first_ident_updataId:'',first_user_updataName:'',first_user_updataPwd:"",first_identity_updataId:''})
+                          }}>重置</Button>
                       </p>
                     </>
                   )}
@@ -264,10 +292,21 @@ function AddUser(props) {
                     <Button
                       type="primary"
                       style={{ width: 120, marginRight: 25, height: 40 }}
+                      onClick={e => {
+                        e.preventDefault();
+                        props.form.validateFields((err, values) => {
+                          props.userIdent_edit({
+                            identity_text:values.second_person_name
+                          })
+                        });
+                      }}
                     >
                       确定
                     </Button>
-                    <Button>重置</Button>
+                    <Button onClick={e => {
+                            e.preventDefault();
+                            props.form.setFieldsValue({second_person_name:''})
+                          }}>重置</Button>
                   </p>
                 </div>
                 <div className={styles.addMain_sec}>
@@ -308,10 +347,23 @@ function AddUser(props) {
                     <Button
                       type="primary"
                       style={{ width: 120, marginRight: 25, height: 40 }}
+                      onClick={e => {
+                        e.preventDefault();
+                        props.form.validateFields((err, values) => {
+                          props.userAuth_apiEdit({
+                            api_authority_text:values.third_api_name,
+                            api_authority_url:values.third_api_url,
+                            api_authority_mehtod:values.third_api_method
+                          })
+                        });
+                      }}
                     >
                       确定
                     </Button>
-                    <Button>重置</Button>
+                    <Button onClick={e => {
+                            e.preventDefault();
+                            props.form.setFieldsValue({third_api_name:'',third_api_url:'',third_api_method:''})
+                          }}>重置</Button>
                   </p>
                 </div>
                 <div className={styles.addMain_sec}>
@@ -357,10 +409,21 @@ function AddUser(props) {
                     <Button
                       type="primary"
                       style={{ width: 120, marginRight: 25, height: 40 }}
+                      onClick={e => {
+                        e.preventDefault();
+                        props.form.validateFields((err, values) => {
+                          props.userAuth_apiEdit({
+                            api_authority_text:values.fourth_view_auther
+                          })
+                        });
+                      }}
                     >
                       确定
                     </Button>
-                    <Button>重置</Button>
+                    <Button onClick={e => {
+                            e.preventDefault();
+                            props.form.setFieldsValue({fourth_view_auther:''})
+                          }}>重置</Button>
                   </p>
                 </div>
                 <div className={styles.addMain_sec}>
@@ -563,7 +626,33 @@ const mapDispatchToProps = dispatch => {
         type: "users/usersAdd",
         payload
       });
-    }
+    },
+    updataUser(payload) {
+      dispatch({
+        type: "users/updataUser",
+        payload
+      });
+    },
+    userIdent_edit(payload) {
+      dispatch({
+        type: "users/userIdent_edit",
+        payload
+      });
+    },
+    userAuth_apiEdit(payload) {
+      console.log(payload)
+      dispatch({
+        type: "users/userAuth_apiEdits",
+        payload
+      });
+    },
+    userAuth_viewEdit(payload) {
+      console.log(payload)
+      dispatch({
+        type: "users/userAuth_viewEdit",
+        payload
+      });
+    },
   };
 };
 
