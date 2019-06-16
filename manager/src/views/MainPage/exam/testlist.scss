@@ -6,3 +6,22 @@
     display: flex;
     margin-right: 40px;
 }
+p{
+    font-size: 12px;
+}
+
+h3{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tab{
+    border: 0;
+    span{
+        border: 1px solid #ccc;
+        padding: 5px 15px;
+        color: dodgerblue;
+        cursor: pointer;
+    }
+}

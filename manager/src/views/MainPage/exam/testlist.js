@@ -1,5 +1,5 @@
-import React,{useEffect} from 'react';
-import { Button,Select,Form, Layout, Breadcrumb ,Table
+import React,{useEffect,useState} from 'react';
+import { Button,Select,Form, Layout, Breadcrumb ,Table,Card
     // ,Divider, Tag
   } from "antd";
 import { connect } from 'dva';
@@ -11,49 +11,62 @@ const { Content } = Layout;
 const columns = [
     {
       title: '试卷信息',
-      render: text =><span></span>,
+      key:"1",
+      render: text =>(
+          <>
+            <p>{text.title}</p>
+            <p>考试时间: 2:0:0  3道题作弊0分</p>
+          </>
+      ),
     },
-    // {
-    //   title: 'Age',
-    //   dataIndex: 'age',
-    //   key: 'age',
-    // },
-    // {
-    //   title: 'Address',
-    //   dataIndex: 'address',
-    //   key: 'address',
-    // },
-    // {
-    //   title: 'Tags',
-    //   key: 'tags',
-    //   dataIndex: 'tags',
-    //   render: tags => (
-    //     <span>
-    //       {tags.map(tag => {
-    //         let color = tag.length > 5 ? 'geekblue' : 'green';
-    //         if (tag === 'loser') {
-    //           color = 'volcano';
-    //         }
-    //         return (
-    //           <Tag color={color} key={tag}>
-    //             {tag.toUpperCase()}
-    //           </Tag>
-    //         );
-    //       })}
-    //     </span>
-    //   ),
-    // },
-    // {
-    //   title: 'Action',
-    //   key: 'action',
-    //   render: (text, record) => (
-    //     <span>
-    //       <a href="javascript:;">Invite {record.name}</a>
-    //       <Divider type="vertical" />
-    //       <a href="javascript:;">Delete</a>
-    //     </span>
-    //   ),
-    // },
+    {
+      title: '班级',
+      key:"2",
+      render: text =>(
+        <>
+          <p>考试班级</p>
+          <p>
+              {
+                  text.grade_name.map((item,index)=>(
+                      <span key={index}>{item}</span>
+                  ))
+              }
+          </p>
+        </>
+    ),
+    },
+    {
+      title: '创建人',
+      key:"3",
+      render: text =>(
+        <>
+          <p>{text.user_name}</p>
+        </>
+    ),
+    },
+    {
+      title: '开始时间',
+      key:"4",
+      render: text =>(
+        <>
+          <p>{new Date(Number(text.start_time)).toLocaleString()}</p>
+        </>
+    ),
+    },
+    {
+      title: '结束时间',
+      key:"5",
+      render: text =>(
+        <>
+          <p>{new Date(Number(text.end_time)).toLocaleString()}</p>
+        </>
+    ),
+    },
+    {
+        title: '操作',
+        key:"6",
+        render:text=><span>详情</span>
+    },
   ];
 
 
@@ -65,28 +78,33 @@ function Testlist(props){
         props.coursetype()
         props.testlist()
     },[])
-    // console.log(props.question)
     useEffect(()=>{
         
     },[props.question])
-    // let submitexam = e => {
-    //     e.preventDefault();
-    //     props.form.validateFields((err, values) => {
-    //         if (!err) {
-    //             console.log('Received values of form: ', values);
-    //             props.addexam({
-    //                 subject_id:values.coursetype,
-    //                 exam_id:values.examtype,
-    //                 title:values.username,
-    //                 number:values.questionnum,
-    //                 start_time:+values.examtime[0]._d,
-    //                 end_time:+values.examtime[1]._d
-    //             })
-                
-    //         }
-    //     });
-    // };
 
+    
+    let filtertab = status => {
+        if(!status){
+            props.testlist()
+        }else{
+            props.filtertab(status)
+        }
+
+    };
+
+    let inquiredata = e => {
+        e.preventDefault();
+        props.form.validateFields((err, values) => {
+            if (!err) {
+                console.log('Received values of form: ', values);
+                props.testlist({
+                    subject_id:values.coursetype,
+                    exam_exam_id:values.examtype,
+                })
+            }
+        });
+    };
+    const [colors,upcolors]= useState(0)
     const { getFieldDecorator } = props.form;
     return(
         <Layout style={{ padding: 0}}>
@@ -142,8 +160,7 @@ function Testlist(props){
                         </Select>
                     )}
                 </Form.Item>
-                <Button type="primary" >查询</Button>
-                {/* <Button type="primary" onClick={submitexam}>创建试卷</Button> */}
+                <Button type="primary" onClick={inquiredata}>查询</Button>
             </Content>
             <Content
                 style={{
@@ -154,6 +171,14 @@ function Testlist(props){
                     height:"auto"
                 }} 
             >
+                <h3>
+                    <span>试卷列表</span>
+                    <Card className={styles.tab}>
+                        <span style={{borderColor:colors===0?"dodgerblue":""}} onClick={()=>{upcolors(0);filtertab()}}>全部</span>
+                        <span style={{borderColor:colors===1?"dodgerblue":""}} onClick={()=>{upcolors(1);filtertab(1)}}>进行中</span>
+                        <span style={{borderColor:colors===2?"dodgerblue":""}} onClick={()=>{upcolors(2);filtertab(2)}}>已结束</span>
+                    </Card>
+                </h3>
                 <Table columns={columns} dataSource={props.question.gettestlist} rowKey={record => `${record.exam_exam_id}`}/>
             </Content>
         </Layout>
@@ -176,9 +201,16 @@ const mapDisaptchToProps = dispatch=>{
                 type: 'question/coursetype',
             })
         },
-        testlist(){
+        testlist(payload){
             dispatch({
                 type: 'question/testlist',
+                payload
+            })
+        },
+        filtertab(payload){
+            dispatch({
+                type: 'question/filtertab',
+                payload
             })
         },
         
