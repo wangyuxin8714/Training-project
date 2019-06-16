@@ -60,10 +60,11 @@ export function addexam(params) {
 }
 
 // 获取所有试卷接口
-export function testlist() {
+export function testlist(params) {
     return request({
         url: '/exam/exam',
-        method: 'GET'
+        method: 'GET',
+        params
     })
 }
 

@@ -77,7 +77,7 @@ export default {
         },
         // 获取所有的试卷
         *testlist({ payload }, { call, put }) {  // eslint-disable-line
-          let data = yield call(testlist);
+          let data = yield call(testlist,payload);
           console.log(data)
           yield put({type:"updatetestlist",payload:data.exam})
         },
@@ -108,6 +108,12 @@ export default {
           let data = yield call(delQuestionType, payload);
           console.log("data...",data)
           yield put({type:"delType",payload:data.code === 1 ? 1 : -1})
+        },
+        //过滤试卷
+        *filtertab({payload}, { call, put }) {
+          let data = yield call(testlist);
+          let datafilter = data.exam.filter(item=>item.status===payload)
+          yield put({type:"updatetestlist",payload:datafilter})
         }
     },
   
