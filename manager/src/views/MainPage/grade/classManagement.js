@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-    Button, Form, Layout, Breadcrumb, Table, Modal, Input, Select, message
+    Button, Form, Layout, Breadcrumb, Table, Modal, Input, Select
     // ,Divider, Tag
 } from "antd";
 import { connect } from 'dva';
