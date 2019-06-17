@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Form, Layout, Breadcrumb, Table, Pagination } from "antd";
+import { Form, Layout, Breadcrumb, Table } from "antd";
 import { connect } from "dva";
 const { Content } = Layout;
 
