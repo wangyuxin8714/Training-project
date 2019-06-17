@@ -21,7 +21,6 @@ function Questiondetail(props){
     },[props.question])
     
     let items=JSON.parse(window.localStorage.getItem("getquestions"))||props.question.items
-console.log("zzzzz")
     let submitQuestion = e => {
         e.preventDefault();
         props.form.validateFields((err, values) => {

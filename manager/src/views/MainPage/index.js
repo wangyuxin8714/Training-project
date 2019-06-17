@@ -15,6 +15,10 @@ import Details from "./question/details";
 import ClassPage from "./paper/classPage";
 import ClassMate from "./paper/classmate"
 import PaperDetail from "./paper/paperdetail";
+import classManagement from "./grade/classManagement";
+import roomManagement from "./grade/roomManagement";
+import studentManagement from "./grade/studentManagement";
+
 
 
 const { Header, Content, Sider } = Layout;
@@ -93,6 +97,9 @@ function MainPage(props){
               <Route path="/paper/nobatch" component={ClassPage} />
               <Route path="/paper/classmate" component={ClassMate} />
               <Route path="/paper/detail" component={PaperDetail} />
+              <Route path="/grade/class"  component={classManagement} />
+              <Route path="/grade/room"  component={roomManagement} />
+              <Route path="/grade/students"  component={studentManagement} />
             </Switch>
           </Content>
         </Layout>
