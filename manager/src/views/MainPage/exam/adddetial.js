@@ -1,10 +1,8 @@
 import React,{useEffect} from 'react';
-import { Button,Select,Form,Input, Layout, Breadcrumb,InputNumber,DatePicker,message   } from "antd";
+import { Form, Layout, Breadcrumb,message   } from "antd";
 import { connect } from 'dva';
 
-const { Option } = Select;
 const { Content } = Layout;
-const { RangePicker } = DatePicker;
 function Addexam(props){
     useEffect(()=>{
         props.examType()
@@ -33,7 +31,7 @@ function Addexam(props){
         });
     };
 
-    const { getFieldDecorator } = props.form;
+    // const { getFieldDecorator } = props.form;
     return(
         <Layout style={{ padding: 0}}>
         {/* <div> */}
