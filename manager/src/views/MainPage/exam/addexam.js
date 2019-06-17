@@ -15,7 +15,7 @@ function Addexam(props){
         if(props.question.addexamcode===1){
             message.success('添加考试试卷成功')
         }
-    },[props.question])
+    },[])
     let submitexam = e => {
         e.preventDefault();
         props.form.validateFields((err, values) => {
@@ -29,9 +29,9 @@ function Addexam(props){
                     start_time:+values.examtime[0]._d,
                     end_time:+values.examtime[1]._d
                 })
-                
             }
         });
+        // props.form.setFieldsValue({subject_id:'',exam_id:'',title:"",number:"",start_time:"",end_time:""})
     };
 
     const { getFieldDecorator } = props.form;

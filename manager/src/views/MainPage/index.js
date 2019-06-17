@@ -12,6 +12,9 @@ import Questiondetail from "./question/questiondetail";
 import AddUser from "./users/addUser"
 import ShowUser from "./users/showUser"
 import Details from "./question/details";
+import classManagement from "./grade/classManagement";
+import roomManagement from "./grade/roomManagement";
+import studentManagement from "./grade/studentManagement";
 
 
 
@@ -88,6 +91,9 @@ function MainPage(props){
               <Route path="/users/add"  component={AddUser} />
               <Route path="/users/show"  component={ShowUser} />
               <Route path="/question/details"  component={Details} />
+              <Route path="/grade/class"  component={classManagement} />
+              <Route path="/grade/room"  component={roomManagement} />
+              <Route path="/grade/students"  component={studentManagement} />
             </Switch>
           </Content>
         </Layout>

@@ -16,6 +16,7 @@ const app = dva();
 app.model(require('./models/user').default);
 app.model(require('./models/question').default);
 app.model(require('./models/client').default);
+app.model(require('./models/grade').default);
 
 
 // 4. Router
