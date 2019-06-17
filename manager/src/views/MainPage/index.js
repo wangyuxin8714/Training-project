@@ -12,7 +12,9 @@ import Questiondetail from "./question/questiondetail";
 import AddUser from "./users/addUser"
 import ShowUser from "./users/showUser"
 import Details from "./question/details";
-
+import ClassPage from "./paper/classPage";
+import ClassMate from "./paper/classmate"
+import PaperDetail from "./paper/paperdetail";
 
 
 const { Header, Content, Sider } = Layout;
@@ -88,6 +90,9 @@ function MainPage(props){
               <Route path="/users/add"  component={AddUser} />
               <Route path="/users/show"  component={ShowUser} />
               <Route path="/question/details"  component={Details} />
+              <Route path="/paper/nobatch" component={ClassPage} />
+              <Route path="/paper/classmate" component={ClassMate} />
+              <Route path="/paper/detail" component={PaperDetail} />
             </Switch>
           </Content>
         </Layout>

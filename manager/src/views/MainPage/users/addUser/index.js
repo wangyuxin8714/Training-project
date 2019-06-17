@@ -38,6 +38,9 @@ function AddUser(props) {
     isCode(props.users.updataUser_code)
     isCode(props.users.userIdent_editCode)
     isCode(props.users.authUser_apiEditCode)
+    isCode(props.users.authUser_viewEditCode)
+    isCode(props.users.setUserIdentCode)
+    isCode(props.users.setUserViewCode)
   }, [props.users]);
 
   return (
@@ -353,7 +356,7 @@ function AddUser(props) {
                           props.userAuth_apiEdit({
                             api_authority_text:values.third_api_name,
                             api_authority_url:values.third_api_url,
-                            api_authority_mehtod:values.third_api_method
+                            api_authority_method:values.third_api_method
                           })
                         });
                       }}
@@ -392,10 +395,11 @@ function AddUser(props) {
                             .toLowerCase()
                             .indexOf(input.toLowerCase()) >= 0
                         }
+                        
                       >
                         {props.users.viewAuth.map(item => (
                           <Option
-                            value={item.view_authority_text}
+                            value={item.view_authority_id}
                             key={item.view_authority_id}
                           >
                             {item.view_authority_text}
@@ -412,8 +416,13 @@ function AddUser(props) {
                       onClick={e => {
                         e.preventDefault();
                         props.form.validateFields((err, values) => {
-                          props.userAuth_apiEdit({
-                            api_authority_text:values.fourth_view_auther
+                          // props.userAuth_viewEdit({
+                          //   view_authority_text:"",
+                          //   view_id:values.fourth_view_auther
+                          // })
+                          props.userAuth_viewEdit({
+                              view_authority_text:"添加考试",
+                              view_id:"1orauc-piu6gm"
                           })
                         });
                       }}
@@ -457,7 +466,7 @@ function AddUser(props) {
                         >
                           {props.users.ident.map(item => (
                             <Option
-                              value={item.identity_text}
+                              value={item.identity_id}
                               key={item.identity_id}
                             >
                               {item.identity_text}
@@ -487,7 +496,7 @@ function AddUser(props) {
                         >
                           {props.users.apiAuth.map(item => (
                             <Option
-                              value={item.api_authority_text}
+                              value={item.api_authority_id}
                               key={item.api_authority_id}
                             >
                               {item.api_authority_text}
@@ -501,10 +510,22 @@ function AddUser(props) {
                     <Button
                       type="primary"
                       style={{ width: 120, marginRight: 25, height: 40 }}
+                      onClick={e => {
+                        e.preventDefault();
+                        props.form.validateFields((err, values) => {
+                          props.userSetIdent({
+                            identity_id:values.fifth_auth_id,
+                            api_authority_id:values.fifth_auth_text
+                          })
+                        });
+                      }}
                     >
                       确定
                     </Button>
-                    <Button>重置</Button>
+                    <Button onClick={e => {
+                            e.preventDefault();
+                            props.form.setFieldsValue({fifth_auth_id:'',fifth_auth_text:''})
+                          }}>重置</Button>
                   </p>
                 </div>
                 <div className={styles.addMain_sec}>
@@ -536,7 +557,7 @@ function AddUser(props) {
                         >
                           {props.users.ident.map(item => (
                             <Option
-                              value={item.identity_text}
+                              value={item.identity_id}
                               key={item.identity_id}
                             >
                               {item.identity_text}
@@ -566,7 +587,7 @@ function AddUser(props) {
                         >
                           {props.users.viewAuth.map(item => (
                             <Option
-                              value={item.view_authority_text}
+                              value={item.view_authority_id}
                               key={item.view_authority_id}
                             >
                               {item.view_authority_text}
@@ -580,10 +601,22 @@ function AddUser(props) {
                     <Button
                       type="primary"
                       style={{ width: 120, marginRight: 25, height: 40 }}
+                      onClick={e => {
+                        e.preventDefault();
+                        props.form.validateFields((err, values) => {
+                          props.userSetView({
+                            identity_id:values.sixth_ident_text,
+                            view_authority_id:values.sixth_view_id
+                          })
+                        });
+                      }}
                     >
                       确定
                     </Button>
-                    <Button>重置</Button>
+                    <Button onClick={e => {
+                            e.preventDefault();
+                            props.form.setFieldsValue({sixth_ident_text:'',sixth_view_id:''})
+                          }}>重置</Button>
                   </p>
                 </div>
               </div>
@@ -650,6 +683,18 @@ const mapDispatchToProps = dispatch => {
       console.log(payload)
       dispatch({
         type: "users/userAuth_viewEdit",
+        payload
+      });
+    },
+    userSetIdent(payload) {
+      dispatch({
+        type: "users/userSetIdent",
+        payload
+      });
+    },
+    userSetView(payload) {
+      dispatch({
+        type: "users/userSetView",
         payload
       });
     },

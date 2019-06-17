@@ -93,7 +93,7 @@ export function userIdent_edit(data){
 
 //添加api接口权限
 export function userAuth_apiEdit(data){
-    console.log(data)
+    console.log("data",data)
     return request({
         url:"/user/authorityApi/edit",
         method:"GET",
@@ -109,5 +109,25 @@ export function userAuth_viewEdit(data){
         url:"/user/authorityView/edit",
         method:"GET",
         params:data
+    })
+}
+
+
+//给身份设定api接口权限 
+export function userSetIdent(data){
+    return request({
+        url:"/user/setIdentityApi",
+        method:"POST",
+        data
+    })
+}
+
+
+//给身份设定视图权限 
+export function userSetView(data){
+    return request({
+        url:"/user/setIdentityView",
+        method:"POST",
+        data
     })
 }
