@@ -41,3 +41,11 @@ export function delClass(params) {
         data:params
     })
 }
+
+//获取所有学生
+export function getStudent() {
+    return request({
+        url: '/manger/student',
+        method: 'GET',
+    })
+}

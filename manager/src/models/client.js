@@ -81,7 +81,7 @@ export default {
     //添加用户
     *usersAdd({ payload }, { call, put }) {
       let data = yield call(userAdd, payload);
-      yield put({ type: "addUser", payload: data.code === 1 ? 1 : -1 });
+      yield put({ type: "addUser", payload: data.code });
     },
     //更新用户信息
     *updataUser({ payload }, { call, put }) {

@@ -6,11 +6,11 @@ import {
   Input,
   Layout,
   Breadcrumb,
-  message,
   Modal
 } from "antd";
 import { connect } from "dva";
 import Editor from "for-editor";
+import {isCode} from "../../../../utils/isCode"
 
 const confirm = Modal.confirm;
 
@@ -26,10 +26,8 @@ function AddQuestion(props) {
   }, []);
 
   useEffect(() => {
-    if (props.question.addquescode === 1) {
-      message.success("添加试题成功");
-    }
-  }, [props.question]);
+    isCode(props.question.addquescode)
+  }, []);
 
   let submitQuestion = e => {
     e.preventDefault();

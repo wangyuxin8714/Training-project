@@ -10,6 +10,7 @@ import {
   notification
 } from "antd";
 import { connect } from "dva";
+import { isCode } from "../../../../utils/isCode";
 
 function TypeQuestion(props) {
   const { Content } = Layout;
@@ -100,15 +101,7 @@ function TypeQuestion(props) {
                       sort: String(props.question.topictypelist.length + 1)
                       // sort:+new Date()
                     });
-                    if (props.question.insert === 1) {
-                      notification["success"]({
-                        message: "添加成功"
-                      });
-                    } else {
-                      notification["error"]({
-                        message: "添加失败"
-                      });
-                    }
+                    isCode(props.question.insert);
                   }
                   updateDailog(false);
                 });

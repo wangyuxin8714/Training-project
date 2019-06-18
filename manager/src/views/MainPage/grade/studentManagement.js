@@ -1,93 +1,171 @@
-import React,{useEffect} from 'react';
-import { Button,Form, Layout, Breadcrumb ,Table
-    // ,Divider, Tag
-  } from "antd";
-import { connect } from 'dva';
-
-const { Content } = Layout;
+import React, { useEffect } from "react";
+import { Button, Form, Layout, Table, Select, Input } from "antd";
+import { connect } from "dva";
+import styles from "./student.css";
 
 const columns = [
-    {
-      title: '班级名',
-      key:"1",
-      render: text =><p>{text.title}</p>,
-    },
-    {
-      title: '课程名',
-      key:"2",
-      render: text =><p>考试班级</p>
-    },
-    {
-      title: '教室号',
-      key:"3",
-      render: text =><p>{text.user_name}</p>
-    },
-    {
-        title: '操作',
-        key:"6",
-        render:text=>(
-            <>
-                <span>修改</span>|
-                <span>删除</span>
-            </>)
-    },
-  ];
+  {
+    title: "姓名",
+    key: "1",
+    render: text => <p>{text.student_name}</p>
+  },
+  {
+    title: "学号",
+    key: "2",
+    render: text => <p>{text.student_id}</p>
+  },
+  {
+    title: "班级",
+    key: "3",
+    render: text => <p>{text.grade_name}</p>
+  },
+  {
+    title: "教室",
+    key: "4",
+    render: text => <span>{text.room_text}</span>
+  },
+  {
+    title: "密码",
+    key: "5",
+    render: text => <span>{text.student_pwd}</span>
+  },
+  {
+    title: "操作",
+    key: "6",
+    render: text => <span>删除</span>
+  }
+];
 
+function StudentManagement(props) {
+  const { getFieldDecorator } = props.form;
+  const { Option } = Select;
 
+  useEffect(() => {
+    props.getStudent();
+    props.getRoom();
+    props.getClass();
+  }, []);
 
+  let search = e => {
+    e.preventDefault();
+    props.form.validateFields((err, values) => {
+        props.searchClick({
+            student_name:values.students,
+            room_text:values.classroom,
+            grade_name:values.gradeRoom
+        })
+    });
+  };
 
-function StudentManagement(props){
-    useEffect(()=>{
-        
-    },[])
-    
+  return (
+    <Layout style={{ padding: 0 }}>
+      <h2>学生管理</h2>
+      <div className={styles.student_div}>
+        <Form.Item style={{ margin: 0 }}>
+          {getFieldDecorator("students", {})(
+            <Input placeholder="请输入学生姓名" />
+          )}
+        </Form.Item>
 
-    // let inquiredata = e => {
-    //     e.preventDefault();
-    //     props.form.validateFields((err, values) => {
-    //         if (!err) {
-    //             console.log('Received values of form: ', values);
-    //             props.testlist({
-    //                 subject_id:values.coursetype,
-    //                 exam_exam_id:values.examtype,
-    //             })
-    //         }
-    //     });
-    // };
-    // const { getFieldDecorator } = props.form;
-    return(
-        <Layout style={{ padding: 0}}>
-        {/* <div> */}
-            <Breadcrumb style={{ margin: "30px 0" }}>
-                <Breadcrumb.Item style={{fontSize:"20px"}}>班级管理</Breadcrumb.Item>
-            </Breadcrumb>
-            <Content
-                style={{
-                    background: "#fff",
-                    padding: 24,
-                    margin: 0,
-                    marginTop:20,
-                    height:"auto"
-                }} 
+        <Form.Item style={{ margin: 0 }}>
+          {getFieldDecorator("classroom", {})(
+            <Select
+              showSearch
+              style={{ width: 170, margin: 0 }}
+              placeholder="请选择教室号"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                option.props.children
+                  .toLowerCase()
+                  .indexOf(input.toLowerCase()) >= 0
+              }
             >
-                {/* <Button type="primary" onClick={inquiredata}>+添加班级</Button> */}
-                <Button type="primary">+添加班级</Button>
-                <Table columns={columns} dataSource={props.question.gettestlist} rowKey={record => `${record.exam_exam_id}`}/>
-            </Content>
-        </Layout>
-    )
+              {props.grade.getRoomData.map(item => (
+                <Option key={item.room_id} value={item.room_text}>
+                  {item.room_text}
+                </Option>
+              ))}
+            </Select>
+          )}
+        </Form.Item>
+
+        <Form.Item style={{ margin: 0 }}>
+          {getFieldDecorator("gradeRoom", {})(
+            <Select
+              showSearch
+              style={{ width: 170, margin: 0 }}
+              placeholder="请选择班级名"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                option.props.children
+                  .toLowerCase()
+                  .indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              {props.grade.getClassData.map(item => (
+                <Option value={item.grade_name} key={item.grade_id}>
+                  {item.grade_name}
+                </Option>
+              ))}
+            </Select>
+          )}
+        </Form.Item>
+        <Button type="primary" onClick={search}>搜索</Button>
+        <Button
+          type="primary"
+          onClick={e => {
+            e.preventDefault();
+            props.form.setFieldsValue({
+              students: "",
+              classroom: "",
+              gradeRoom: ""
+            });
+          }}
+        >
+          重置
+        </Button>
+      </div>
+      <Table
+        columns={columns}
+        dataSource={props.grade.studentArr}
+        rowKey={record => `${record.student_id}`}
+        style={{ background: "#fff", padding: 5 }}
+      />
+    </Layout>
+  );
 }
 
-const mapStateToProps = state=>{
-    return state
-}
-  
-const mapDisaptchToProps = dispatch=>{
-    return {
-        
-        
-    }
-}
+const mapStateToProps = state => {
+  return state;
+};
 
+const mapDisaptchToProps = dispatch => {
+  return {
+    getStudent() {
+      dispatch({
+        type: "grade/getStudents"
+      });
+    },
+    getRoom() {
+      dispatch({
+        type: "grade/getRoom"
+      });
+    },
+    getClass() {
+        dispatch({
+          type: "grade/getClass"
+        });
+    },
+    searchClick(data) {
+        dispatch({
+          type: "grade/searchClick",
+          payload:data
+        });
+    },
+  };
+};
 
-export default connect(mapStateToProps, mapDisaptchToProps)(Form.create()(StudentManagement))
+export default connect(
+  mapStateToProps,
+  mapDisaptchToProps
+)(Form.create()(StudentManagement));

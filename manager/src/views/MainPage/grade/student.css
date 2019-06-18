@@ -1,0 +1,14 @@
+.student_div{
+    width: 55%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 30px 0 5px;
+}
+.student_div button{
+    width: 120px;
+    text-align: center;
+}
+.student_div input{
+    width: 170px;
+}
