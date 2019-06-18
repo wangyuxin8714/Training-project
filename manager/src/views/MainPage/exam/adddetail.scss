@@ -1,0 +1,21 @@
+.cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.del{
+    float: right;
+    color: dodgerblue;
+}
+.headBottom{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.sp{
+    border: 1px solid dodgerblue;
+    background: dodgerblue
+}

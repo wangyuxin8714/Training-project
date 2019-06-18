@@ -11,12 +11,13 @@ export default {
         allQuestion:[],
         id:null,
         addquescode:0,
-        addexamcode:0,
+        addexamlist:null,
         gettestlist:[],
         items:{},
         upcode:0,
         insert:1,
-        del:1
+        del:1,
+        // randomlist:[]
     },
     
     subscriptions: {
@@ -73,12 +74,28 @@ export default {
         //添加考试
         *addexam({ payload }, { call, put }) {  // eslint-disable-line
           let data = yield call(addexam,payload);
-          yield put({type:"updateexamcode",payload:data.code===1?1:-1})
+          if(data.code===1){
+            yield put({type:"updateexamcode",payload:data.data})
+            window.localStorage.setItem("detail",JSON.stringify(data.data))
+          }
         },
+        //删除试卷内试题
+        *dellist({ payload }, { call, put }) {  // eslint-disable-line
+            let obj=JSON.parse(window.localStorage.getItem("detail"))
+            obj.questions.splice(payload,1)
+            yield put({type:"updateexamcode",payload:obj})
+            window.localStorage.setItem("detail",JSON.stringify(obj))
+        },
+        //添加试卷内试题
+        *addques({ payload }, { call, put }) {  // eslint-disable-line
+          let obj=JSON.parse(window.localStorage.getItem("detail"))
+          obj.questions.push(payload)
+          yield put({type:"updateexamcode",payload:obj})
+          window.localStorage.setItem("detail",JSON.stringify(obj))
+      },
         // 获取所有的试卷
         *testlist({ payload }, { call, put }) {  // eslint-disable-line
           let data = yield call(testlist,payload);
-          console.log(data)
           yield put({type:"updatetestlist",payload:data.exam})
         },
         // 查询试题
@@ -114,7 +131,19 @@ export default {
           let data = yield call(testlist);
           let datafilter = data.exam.filter(item=>item.status===payload)
           yield put({type:"updatetestlist",payload:datafilter})
-        }
+        },
+        // //随机试题
+        // *randomQuestion({payload}, { call, put }) {
+        //   let data = yield call(allNew);
+        //   let arr=[]
+        //   while(arr.length<payload){
+        //       let index=Math.floor(Math.random()*(data.data.length-payload))
+        //       arr.push(data.data[index])
+        //       data.data.splice(index,1)
+        //   }
+        //   yield put({type:"random",payload:arr})
+
+        // }
     },
   
     reducers: {
@@ -144,7 +173,8 @@ export default {
       },
       //添加考试
       updateexamcode(state, {payload}) {
-        return { ...state, addexamcode:payload };
+        console.log(payload)
+        return { ...state, addexamlist:payload };
       },
       // 获取所有的试题
       updatetestlist(state, {payload}) {
@@ -161,7 +191,6 @@ export default {
       },
       //添加试题类型
       insertCode(state, {payload}) {
-        console.log(payload)
         return { ...state, insert:payload };
       },
       //删除指定的试题类型
@@ -172,5 +201,9 @@ export default {
       updateitems(state, {payload}) {
         return { ...state, items:payload };
       },
+      // //随机试题
+      // random(state, {payload}) {
+      //   return { ...state, randomlist:payload };
+      // },
     },
   }

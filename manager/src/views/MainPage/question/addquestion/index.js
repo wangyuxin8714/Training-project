@@ -18,6 +18,7 @@ const { Option } = Select;
 const { Content } = Layout;
 
 function AddQuestion(props) {
+
   useEffect(() => {
     props.examType();
     props.coursetype();
@@ -30,7 +31,6 @@ function AddQuestion(props) {
       message.success("添加试题成功");
     }
   }, [props.question]);
-
   let submitQuestion = e => {
     e.preventDefault();
     props.form.validateFields((err, values) => {

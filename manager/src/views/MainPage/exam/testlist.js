@@ -8,66 +8,7 @@ import styles from "./testlist.scss"
 const { Option } = Select;
 const { Content } = Layout;
 
-const columns = [
-    {
-      title: '试卷信息',
-      key:"1",
-      render: text =>(
-          <>
-            <p>{text.title}</p>
-            <p>考试时间: 2:0:0  3道题作弊0分</p>
-          </>
-      ),
-    },
-    {
-      title: '班级',
-      key:"2",
-      render: text =>(
-        <>
-          <p>考试班级</p>
-          <p>
-              {
-                  text.grade_name.map((item,index)=>(
-                      <span key={index}>{item}</span>
-                  ))
-              }
-          </p>
-        </>
-    ),
-    },
-    {
-      title: '创建人',
-      key:"3",
-      render: text =>(
-        <>
-          <p>{text.user_name}</p>
-        </>
-    ),
-    },
-    {
-      title: '开始时间',
-      key:"4",
-      render: text =>(
-        <>
-          <p>{new Date(Number(text.start_time)).toLocaleString()}</p>
-        </>
-    ),
-    },
-    {
-      title: '结束时间',
-      key:"5",
-      render: text =>(
-        <>
-          <p>{new Date(Number(text.end_time)).toLocaleString()}</p>
-        </>
-    ),
-    },
-    {
-        title: '操作',
-        key:"6",
-        render:text=><span>详情</span>
-    },
-  ];
+
 
 
 
@@ -91,6 +32,71 @@ function Testlist(props){
         }
 
     };
+
+    const columns = [
+        {
+          title: '试卷信息',
+          key:"1",
+          render: text =>(
+              <>
+                <p>{text.title}</p>
+                <p>考试时间: 2:0:0  3道题作弊0分</p>
+              </>
+          ),
+        },
+        {
+          title: '班级',
+          key:"2",
+          render: text =>(
+            <>
+              <p>考试班级</p>
+              <p>
+                  {
+                      text.grade_name.map((item,index)=>(
+                          <span key={index}>{item}</span>
+                      ))
+                  }
+              </p>
+            </>
+        ),
+        },
+        {
+          title: '创建人',
+          key:"3",
+          render: text =>(
+            <>
+              <p>{text.user_name}</p>
+            </>
+        ),
+        },
+        {
+          title: '开始时间',
+          key:"4",
+          render: text =>(
+            <>
+              <p>{new Date(Number(text.start_time)).toLocaleString()}</p>
+            </>
+        ),
+        },
+        {
+          title: '结束时间',
+          key:"5",
+          render: text =>(
+            <>
+              <p>{new Date(Number(text.end_time)).toLocaleString()}</p>
+            </>
+        ),
+        },
+        {
+            title: '操作',
+            key:"6",
+            render:text=><span onClick={()=>goListDetail()}>详情</span>
+        },
+      ];
+
+      let goListDetail=()=>{
+          props.history.push("/exam/listDetail")
+      }
 
     let inquiredata = e => {
         e.preventDefault();
