@@ -18,6 +18,7 @@ const { Option } = Select;
 const { Content } = Layout;
 
 function AddQuestion(props) {
+
   useEffect(() => {
     props.examType();
     props.coursetype();

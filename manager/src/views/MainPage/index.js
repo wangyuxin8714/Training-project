@@ -18,6 +18,8 @@ import PaperDetail from "./paper/paperdetail";
 import classManagement from "./grade/classManagement";
 import roomManagement from "./grade/roomManagement";
 import studentManagement from "./grade/studentManagement";
+import aAddDetial from "./exam/adddetial";
+import ListDetail from "./exam/listdetail";
 
 
 
@@ -88,7 +90,9 @@ function MainPage(props){
               <Route path="/question/type"  component={TypeQuestion} />
               <Route path="/question/watch"  component={WatchQuestion} />
               <Route path="/exam/add"  component={Addexam} />
+              <Route path="/exam/addDetail"  component={aAddDetial} />
               <Route path="/exam/list"  component={Testlist} />
+              <Route path="/exam/listDetail"  component={ListDetail} />
               <Route path="/question/detail"  component={Questiondetail} />
               <Route path="/question/details"  component={Details} />
               <Route path="/users/add"  component={AddUser} />

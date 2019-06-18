@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react';
-import { Button,Select,Form,Input, Layout, Breadcrumb,InputNumber,DatePicker,message   } from "antd";
+import { Button,Select,Form,Input, Layout, Breadcrumb,InputNumber,DatePicker   } from "antd";
 import { connect } from 'dva';
 
 const { Option } = Select;
@@ -11,27 +11,24 @@ function Addexam(props){
         props.coursetype()
     },[])
 
-    useEffect(()=>{
-        if(props.question.addexamcode===1){
-            message.success('添加考试试卷成功')
-        }
-    },[])
+
     let submitexam = e => {
         e.preventDefault();
         props.form.validateFields((err, values) => {
             if (!err) {
                 // console.log('Received values of form: ', values);
-                props.addexam({
+                let obj={
                     subject_id:values.coursetype,
                     exam_id:values.examtype,
                     title:values.username,
                     number:values.questionnum,
                     start_time:+values.examtime[0]._d,
                     end_time:+values.examtime[1]._d
-                })
+                }
+                props.addexam(obj)
+                props.history.push("/exam/addDetail")
             }
         });
-        // props.form.setFieldsValue({subject_id:'',exam_id:'',title:"",number:"",start_time:"",end_time:""})
     };
 
     const { getFieldDecorator } = props.form;
