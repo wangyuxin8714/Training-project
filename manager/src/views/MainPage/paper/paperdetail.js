@@ -11,7 +11,8 @@ import {
   Modal
 } from "antd";
 import { connect } from "dva";
-import styles from "./style.css";
+import styles from "./style.css"
+import ReactMarkdown from 'react-markdown'
 
 const { Content } = Layout;
 
@@ -88,20 +89,12 @@ function PaperDetail(props) {
             height: "auto"
           }}
         >
-          {props.page.paperdetail
-            ? props.page.paperdetail.questions.map((item, index) => (
-                <div
-                  key={index}
-                  style={{
-                    width: "100%",
-                    border: "1px solid #ccc",
-                    marginTop: "10px",
-                    padding: "20px"
-                  }}
-                >
-                  <h2>{`${index+1}、${item.title}${item.questions_type_text}`}</h2>
-                  <p>{item.questions_stem}</p>
-                  <pre style={{background:"#ececec",padding:"10px"}}>{item.questions_answer}</pre>
+          {
+            props.page.paperdetail?props.page.paperdetail.questions.map((item,index)=>(
+                <div key={index} style={{width:"100%",border:"1px solid #ccc",marginTop:"10px",padding:"20px"}}>
+                    <h2>{`${index+1}、${item.title}${item.questions_type_text}`}</h2>
+                    <div className={styles.img}><ReactMarkdown  source={item.questions_stem}/></div> 
+                    <pre style={{background:"#ececec",padding:"10px"}}>{item.questions_answer}</pre>
                 </div>
               ))
             : null}

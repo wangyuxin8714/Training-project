@@ -2,34 +2,19 @@ import React, { useEffect } from "react";
 import styles from "./index.css";
 import { Layout, Menu, Dropdown, Button, Select, Spin } from "antd";
 import Sidebar from "../../components/sidebar";
-import { Route, Switch, Redirect } from "dva/router";
 import { connect } from "dva";
 import { delToken } from "../../utils/user";
+import {MapRoute} from "../../route"
 
-import AddQuestion from "./question/addquestion";
-import TypeQuestion from "./question/typeQuestion";
-import WatchQuestion from "./question/watchQuestion";
-import Addexam from "./exam/addexam";
-import Testlist from "./exam/testlist";
-import Questiondetail from "./question/questiondetail";
-import AddUser from "./users/addUser";
-import ShowUser from "./users/showUser";
-import Details from "./question/details";
-import ClassPage from "./paper/classPage";
-import ClassMate from "./paper/classmate";
-import PaperDetail from "./paper/paperdetail";
-import classManagement from "./grade/classManagement";
-import roomManagement from "./grade/roomManagement";
-import studentManagement from "./grade/studentManagement";
-import aAddDetial from "./exam/adddetial";
-import ListDetail from "./exam/listdetail";
+
+
 
 const { Header, Content, Sider } = Layout;
 const { Option } = Select;
 
 function MainPage(props) {
   const { loading } = props;
-
+  
   const menu = (
     <Menu>
       <Menu.Item>
@@ -131,26 +116,8 @@ function MainPage(props) {
               margin: 0
             }}
           >
-            <Switch>
-              <Route path="/question/add" component={AddQuestion} />
-              <Route path="/question/type" component={TypeQuestion} />
-              <Route path="/question/watch" component={WatchQuestion} />
-              <Route path="/exam/add" component={Addexam} />
-              <Route path="/exam/addDetail" component={aAddDetial} />
-              <Route path="/exam/list" component={Testlist} />
-              <Route path="/exam/listDetail/:id" component={ListDetail} />
-              <Route path="/question/detail" component={Questiondetail} />
-              <Route path="/question/details" component={Details} />
-              <Route path="/users/add" component={AddUser} />
-              <Route path="/users/show" component={ShowUser} />
-              <Route path="/paper/nobatch" component={ClassPage} />
-              <Route path="/paper/classmate" component={ClassMate} />
-              <Route path="/paper/detail/:id" component={PaperDetail} />
-              <Route path="/grade/class" component={classManagement} />
-              <Route path="/grade/room" component={roomManagement} />
-              <Route path="/grade/students" component={studentManagement} />
-              <Redirect from="/" to="/question/add" exact />
-            </Switch>
+            <MapRoute route={props.route}></MapRoute>
+            
           </Content>
           {loading ? (
             <div className={styles.loading}>

@@ -2,6 +2,8 @@ import React from "react";
 import { Form, Layout, Breadcrumb } from "antd";
 import { connect } from "dva";
 import styles from "./detail.css";
+import ReactMarkdown from "react-markdown"
+
 const { Content } = Layout;
 
 function Detail(props) {
@@ -29,7 +31,7 @@ function Detail(props) {
             <span>{items.subject_text}</span>
             <span>{items.exam_name}</span>
           </p>
-          <div>{items.questions_stem}</div>
+          <div><ReactMarkdown  source={items.questions_stem}/></div>
         </Content>
         <Content
           style={{

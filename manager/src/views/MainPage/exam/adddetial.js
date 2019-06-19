@@ -12,6 +12,8 @@ import {
 } from "antd";
 import { connect } from "dva";
 import styles from "./adddetail.scss";
+import ReactMarkdown from "react-markdown"
+
 const { Content } = Layout;
 function AddDetial(props) {
   const { getFieldDecorator } = props.form;
@@ -146,7 +148,7 @@ function AddDetial(props) {
             }}
           >
             <p>{texts.title}</p>
-            <p>{texts.questions_stem}</p>
+            <ReactMarkdown  source={texts.questions_stem}/>
             <pre style={{background:"#ececec",padding:"10px"}}>{texts.questions_answer}</pre>
           </Modal>
         ) : null}
@@ -282,7 +284,7 @@ function AddDetial(props) {
                   删除
                 </span>
               </div>
-              <p>{item.questions_stem}</p>
+              <ReactMarkdown  source={item.questions_stem}/>
               <pre style={{background:"#ececec",padding:"10px"}}>{item.questions_answer}</pre>
             </div>
           ))}
