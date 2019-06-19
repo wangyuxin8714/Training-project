@@ -1,0 +1,18 @@
+export default {
+    'router.questions': '试题管理',
+    'router.questions.add': '添加试题',
+    'router.questions.type': '试题分类',
+    'router.questions.view': '查看试题',
+    'router.user': '用户管理',
+    'router.user.add': '添加用户',
+    'router.user.show': '用户展示',
+    'router.exam': '考试管理',
+    'router.exam.add': '添加考试',
+    'router.exam.list': '试卷列表',
+    'router.grade': '班级管理',
+    'router.grade.class': '班级管理',
+    'router.grade.room': '教室管理',
+    'router.grade.student': '学生管理',
+    'router.paper': '阅卷管理',
+    'router.paper.nobatch': '待批班级',
+}

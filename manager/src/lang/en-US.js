@@ -1,0 +1,18 @@
+export default {
+    'router.questions': 'Title Management',
+    'router.questions.add': 'Add item',
+    'router.questions.type': 'question classification',
+    'router.questions.view': 'Check the item',
+    'router.user': 'user management',
+    'router.user.add': 'add users',
+    'router.user.show': 'list user',
+    'router.exam': 'examination management',
+    'router.exam.add': 'add examination',
+    'router.exam.list': 'examination list',
+    'router.grade': 'class management',
+    'router.grade.class': 'class management',
+    'router.grade.room': 'Classroom management',
+    'router.grade.student': 'student management',
+    'router.paper': 'Marking management',
+    'router.paper.nobatch': 'Awaiting approval class',
+}

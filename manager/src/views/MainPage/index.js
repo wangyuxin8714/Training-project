@@ -1,8 +1,11 @@
 import React from "react";
 import styles from "./index.css";
-import { Layout, Menu,Dropdown,Button } from 'antd';
+import {Layout, Menu,Dropdown,Button,Select } from 'antd';
 import Sidebar from "../../components/sidebar"
 import { Route,Switch ,Redirect } from 'dva/router';
+import {connect} from 'dva';
+
+
 import AddQuestion from "./question/addquestion";
 import TypeQuestion from "./question/typeQuestion";
 import WatchQuestion from "./question/watchQuestion";
@@ -24,7 +27,7 @@ import ListDetail from "./exam/listdetail";
 
 
 const { Header, Content, Sider } = Layout;
-
+const { Option } = Select;
 const menu = (
   <Menu>
     <Menu.Item>
@@ -50,7 +53,15 @@ const menu = (
   </Menu>
 );
 
+
 function MainPage(props){
+
+
+  let zh_en=value=>{
+    props.changeLocal(value)
+  }
+
+
   return (
     <Layout className={styles.mainWrap}>
       <Header className={styles.mainHeader}>
@@ -60,18 +71,37 @@ function MainPage(props){
               alt=""
             />
           </div>
-          
-          <Dropdown overlay={menu} placement="bottomRight" className="asdfa">
-            <Button style={{height: 50}}>
-              <div className={styles.mainHeader_right}>
-                <img
-                  src="https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png"
-                  alt=""
-                />
-                <span>yonghuming</span>
-              </div>
-            </Button>
-          </Dropdown>
+          <div className={styles.right}>
+            <Select
+                showSearch
+                style={{ width: 80 }}
+                placeholder="中文"
+                defaultValue="zh"
+                optionFilterProp="children"
+                onChange={zh_en}
+                filterOption={(input, option) =>
+                  option.props.children
+                    .toLowerCase()
+                    .indexOf(input.toLowerCase()) >= 0
+                }
+              >
+                <Option value="zh">中文</Option>
+                <Option value="en">英文</Option>
+              </Select>
+            <Dropdown overlay={menu} placement="bottomRight" className="asdfa">
+              <Button style={{height: 50,border:0}}>
+                <div className={styles.mainHeader_right}>
+                  <img
+                    src="https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png"
+                    alt=""
+                  />
+                  <span>yonghuming</span>
+                </div>
+              </Button>
+            </Dropdown>
+
+          </div>
+            
       </Header>
       <Layout background="eee">
         <Sider>
@@ -92,7 +122,7 @@ function MainPage(props){
               <Route path="/exam/add"  component={Addexam} />
               <Route path="/exam/addDetail"  component={aAddDetial} />
               <Route path="/exam/list"  component={Testlist} />
-              <Route path="/exam/listDetail"  component={ListDetail} />
+              <Route path="/exam/listDetail/:id"  component={ListDetail} />
               <Route path="/question/detail"  component={Questiondetail} />
               <Route path="/question/details"  component={Details} />
               <Route path="/users/add"  component={AddUser} />
@@ -112,10 +142,25 @@ function MainPage(props){
   )
 }
 
+const mapStateToProps = state=>{
+  return {
+    locale: state.global.locale
+  }
+}
+
+const mapDispatchToProps = dispatch=>{
+  return {
+    changeLocal: payload=>{
+      dispatch({
+        type: 'global/changeLocale',
+        payload
+      })
+    }
+  }
+}
 
 
-
-export default MainPage;
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
 
 
 

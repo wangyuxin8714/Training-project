@@ -104,3 +104,20 @@ export function delQuestionType(params){
         data:params
     })
 }
+
+//更新试卷
+export function updateexam(params){
+    return request({
+        url:`/exam/exam/${params.id}`,
+        method:"PUT",
+        data:params.data
+    })
+}
+
+////获取指定试卷详情
+export function getlistdet(params){
+    return request({
+        url:`/exam/exam/${params}`,
+        method:"GET",
+    })
+}

@@ -39,8 +39,8 @@ function Testlist(props){
           key:"1",
           render: text =>(
               <>
-                <p>{text.title}</p>
-                <p>考试时间: 2:0:0  3道题作弊0分</p>
+                <p style={{fontSize:12}}>{text.title}</p>
+                <p style={{fontSize:12}}>考试时间: 2:0:0  3道题作弊0分</p>
               </>
           ),
         },
@@ -49,8 +49,8 @@ function Testlist(props){
           key:"2",
           render: text =>(
             <>
-              <p>考试班级</p>
-              <p>
+              <p style={{fontSize:12}}>考试班级</p>
+              <p style={{fontSize:12}}>
                   {
                       text.grade_name.map((item,index)=>(
                           <span key={index}>{item}</span>
@@ -65,7 +65,7 @@ function Testlist(props){
           key:"3",
           render: text =>(
             <>
-              <p>{text.user_name}</p>
+              <p style={{fontSize:12}}>{text.user_name}</p>
             </>
         ),
         },
@@ -74,7 +74,7 @@ function Testlist(props){
           key:"4",
           render: text =>(
             <>
-              <p>{new Date(Number(text.start_time)).toLocaleString()}</p>
+              <p style={{fontSize:12}}>{new Date(Number(text.start_time)).toLocaleString()}</p>
             </>
         ),
         },
@@ -83,19 +83,21 @@ function Testlist(props){
           key:"5",
           render: text =>(
             <>
-              <p>{new Date(Number(text.end_time)).toLocaleString()}</p>
+              <p style={{fontSize:12}}>{new Date(Number(text.end_time)).toLocaleString()}</p>
             </>
         ),
         },
         {
             title: '操作',
             key:"6",
-            render:text=><span onClick={()=>goListDetail()}>详情</span>
+            render:text=><span style={{color:"dodgerblue"}} onClick={()=>goListDetail(text)}>详情</span>
         },
       ];
 
-      let goListDetail=()=>{
-          props.history.push("/exam/listDetail")
+      let goListDetail=(text)=>{
+            // props.getlistdet(text.exam_exam_id)
+            // window.localStorage.setItem("listdet",JSON.stringify(text))
+            props.history.push({pathname:`/exam/listDetail/${text.exam_exam_id}`})
       }
 
     let inquiredata = e => {
@@ -114,7 +116,6 @@ function Testlist(props){
     const { getFieldDecorator } = props.form;
     return(
         <Layout style={{ padding: 0}}>
-        {/* <div> */}
             <Breadcrumb style={{ margin: "30px 0" }}>
                 <Breadcrumb.Item style={{fontSize:"20px"}}>试卷列表</Breadcrumb.Item>
             </Breadcrumb>
@@ -219,7 +220,12 @@ const mapDisaptchToProps = dispatch=>{
                 payload
             })
         },
-        
+        getlistdet(payload){
+            dispatch({
+                type:"question/getlistdet",
+                payload
+            })
+        }
     }
 }
 
