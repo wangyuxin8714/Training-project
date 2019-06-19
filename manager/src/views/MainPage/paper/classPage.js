@@ -73,7 +73,7 @@ function ClassPage(props) {
           <Table
             columns={columns}
             dataSource={props.page.merger}
-            rowKey={record => `${record.grade_id}`}
+            rowKey={record =>`${record.grade_id}`}
           />
         </Content>
       </div>

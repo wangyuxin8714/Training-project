@@ -4,16 +4,27 @@
     justify-content: space-between;
 }
 
+.main{
+    width: 100%;
+    display: flex;
+
+}
+
 .detail{
-    width: 880px;
+    flex: 1;
     border-radius: 10px;
 }
 
 .gam{
-    position: fixed;
-    right: 30px;
-    top: 189px;
-    width: 350px;
+    width: 400px;
+}
+
+
+.gamChild{
+    width: 400px;
     height: 250px;
     border-radius: 10px;
+    position: fixed;
+    top: 189px;
+    margin: 0 auto;
 }

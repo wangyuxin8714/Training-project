@@ -143,7 +143,6 @@ function MainPage(props) {
               <Route path="/question/details" component={Details} />
               <Route path="/users/add" component={AddUser} />
               <Route path="/users/show" component={ShowUser} />
-              <Route path="/question/details" component={Details} />
               <Route path="/paper/nobatch" component={ClassPage} />
               <Route path="/paper/classmate" component={ClassMate} />
               <Route path="/paper/detail/:id" component={PaperDetail} />
@@ -155,7 +154,7 @@ function MainPage(props) {
           </Content>
           {loading ? (
             <div className={styles.loading}>
-              <Spin size="large" />
+              <Spin size="large" style={{position:"relative",left:"50%",top:"50%",transform:"translate(-50%,-50%)"}}/>
             </div>
           ) : null}
         </Layout>

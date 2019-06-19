@@ -8,14 +8,6 @@ const { Content } = Layout;
 const confirm = Modal.confirm;
 
 function Questiondetail(props) {
-  useEffect(() => {}, []);
-  useEffect(() => {
-    // if(props.question.upcode===1){
-    //     message.success("更新成功")
-    // }else if(props.question.upcode===-1){
-    //     message.error("更新失败")
-    // }
-  }, [props.question]);
 
   let items =
     JSON.parse(window.localStorage.getItem("getquestions")) ||

@@ -147,7 +147,7 @@ function AddDetial(props) {
           >
             <p>{texts.title}</p>
             <p>{texts.questions_stem}</p>
-            <p>{texts.questions_answer}</p>
+            <pre style={{background:"#ececec",padding:"10px"}}>{texts.questions_answer}</pre>
           </Modal>
         ) : null}
         <Button
@@ -267,13 +267,12 @@ function AddDetial(props) {
               key={index}
               style={{
                 border: "1px solid #ccc",
-                marginTop: "10px",
-                padding: "20px"
+                margin: "10px 0",
+                padding: "20px",
               }}
             >
-              <p>
-                <span>{index + 1}:</span>
-                <span>{item.title}</span>
+              <div>
+                <h2>{`${index + 1}、${item.title}`}</h2>
                 <span
                   className={styles.del}
                   onClick={() => {
@@ -282,9 +281,9 @@ function AddDetial(props) {
                 >
                   删除
                 </span>
-              </p>
+              </div>
               <p>{item.questions_stem}</p>
-              <p>{item.questions_answer}</p>
+              <pre style={{background:"#ececec",padding:"10px"}}>{item.questions_answer}</pre>
             </div>
           ))}
           <Button type="primary" onClick={submitexam}>

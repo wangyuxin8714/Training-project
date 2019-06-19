@@ -1,7 +1,17 @@
-import React, { useEffect,useState } from "react";
-import {  Layout, Form, Breadcrumb,Slider, Input, Row, Col,Button,Modal } from "antd";
+import React, { useEffect, useState } from "react";
+import {
+  Layout,
+  Form,
+  Breadcrumb,
+  Slider,
+  Input,
+  Row,
+  Col,
+  Button,
+  Modal
+} from "antd";
 import { connect } from "dva";
-import styles from "./style.css"
+import styles from "./style.css";
 
 const { Content } = Layout;
 
@@ -10,29 +20,26 @@ function PaperDetail(props) {
     props.margerGrade(props.match.params.id);
   }, []);
 
+  let [grade, updetegrade] = useState(0);
+  let [flag, updeteflag] = useState(false);
+  let [flags, updeteflags] = useState(false);
 
-let [grade,updetegrade]=useState(0)
-let [flag,updeteflag]=useState(false)
-let [flags,updeteflags]=useState(false)
+  let onChange = value => {
+    updetegrade(value);
+  };
 
-let onChange=value=>{
-  updetegrade(value)
-}
+  useEffect(() => {}, []);
 
-useEffect(()=>{
-
-},[])
-
-let submitpapers=()=>{
-  props.submitpaper({
-    id:props.page.paperdetail.exam_student_id,
-    data:{
-      score:grade
-    }
-  })
-  window.localStorage.setItem("code",props.page.paperdetail.grade_id)
-  props.history.goBack()
-}
+  let submitpapers = () => {
+    props.submitpaper({
+      id: props.page.paperdetail.exam_student_id,
+      data: {
+        score: grade
+      }
+    });
+    window.localStorage.setItem("code", props.page.paperdetail.grade_id);
+    props.history.goBack();
+  };
   return (
     <Layout style={{ padding: 0 }}>
       <Breadcrumb style={{ margin: "30px 0" }}>
@@ -40,81 +47,123 @@ let submitpapers=()=>{
       </Breadcrumb>
 
       <Modal
-          visible={flag}
-          onOk={()=>{updeteflag(false);updeteflags(true)}}
-          onCancel={()=>{updeteflag(false)}}
-        >
-          <p>你确定提交阅卷结果吗？</p>
-          <p>分数值是{grade}</p>
+        visible={flag}
+        onOk={() => {
+          updeteflag(false);
+          updeteflags(true);
+        }}
+        onCancel={() => {
+          updeteflag(false);
+        }}
+      >
+        <p>你确定提交阅卷结果吗？</p>
+        <p>分数值是{grade}</p>
       </Modal>
-      {props.page.paperdetail?<Modal
+      {props.page.paperdetail ? (
+        <Modal
           visible={flags}
-          onOk={()=>{updeteflags(false);submitpapers()}}
-          onCancel={()=>{updeteflags(false)}}
+          onOk={() => {
+            updeteflags(false);
+            submitpapers();
+          }}
+          onCancel={() => {
+            updeteflags(false);
+          }}
         >
           <p>批卷结果</p>
-          <p>批改试卷成功，{props.page.paperdetail.student_name}得分{grade}</p>
-      </Modal>:null}
+          <p>
+            批改试卷成功，{props.page.paperdetail.student_name}得分{grade}
+          </p>
+        </Modal>
+      ) : null}
 
-
-      <div>
+      <div className={styles.main}>
         <Content
-         className={styles.detail}
+          className={styles.detail}
           style={{
             background: "#fff",
             padding: 24,
             margin: 0,
             marginRight: 20,
-            height: "auto",
+            height: "auto"
           }}
         >
-          {
-            props.page.paperdetail?props.page.paperdetail.questions.map((item,index)=>(
-                <div key={index} style={{width:"100%",border:"1px solid #ccc",marginTop:"10px",padding:"20px"}}>
-                    <p><span>{index+1}:</span>
-                        <span>{item.title}</span>
-                        <span>{item.questions_type_text}</span>
-                    </p>
-                    <p>{item.questions_stem}</p>
-                    <p>{item.questions_answer}</p>
+          {props.page.paperdetail
+            ? props.page.paperdetail.questions.map((item, index) => (
+                <div
+                  key={index}
+                  style={{
+                    width: "100%",
+                    border: "1px solid #ccc",
+                    marginTop: "10px",
+                    padding: "20px"
+                  }}
+                >
+                  <h2>{`${index+1}、${item.title}${item.questions_type_text}`}</h2>
+                  <p>{item.questions_stem}</p>
+                  <pre style={{background:"#ececec",padding:"10px"}}>{item.questions_answer}</pre>
                 </div>
-            )):null
-          }
+              ))
+            : null}
         </Content>
-        <Content
-          className={styles.gam}
-          style={{
-            background: "#fff",
-            padding: 24,
-            margin: 0,
-            marginRight: 20,
-
-          }}
-        >
-          {props.page.paperdetail?<>
-            <p style={{ fontSize:"25px"}}>{props.page.paperdetail.student_name}</p>
-            <div style={{display:"flex",fontSize:"25px"}}>得分:<Row>
+        <div className={styles.gam}>
+          <Content
+          className={styles.gamChild}
+            style={{
+              background: "#fff",
+              padding: 24,
+              margin: 0,
+              marginRight: 20
+            }}
+          >
+            {props.page.paperdetail ? (
+              <>
+                <p style={{ fontSize: "25px" }}>
+                  {props.page.paperdetail.student_name}
+                </p>
+                <div style={{ display: "flex", fontSize: "25px" }}>
+                  得分:
+                  <Row>
+                    <Col>
+                      <Input
+                        style={{
+                          width: "80px",
+                          marginLeft: 16,
+                          border: 0,
+                          fontSize: "25px",
+                          color: "blue"
+                        }}
+                        value={grade || props.page.paperdetail.score}
+                      />
+                    </Col>
+                  </Row>
+                </div>
+                <Row>
                   <Col>
-                  <Input
-                      style={{ width:"80px",marginLeft: 16,border:0 ,fontSize:"25px",color:"blue"}}
-                      value={grade||props.page.paperdetail.score}
+                    <Slider
+                      min={0}
+                      max={100}
+                      onChange={onChange}
+                      value={
+                        (typeof grade === "number" ? grade : 0) ||
+                        grade ||
+                        props.page.paperdetail.score
+                      }
                     />
                   </Col>
                 </Row>
-            </div>
-            <Row>
-              <Col>
-                <Slider
-                  min={0}
-                  max={100}
-                  onChange={onChange}
-                  value={(typeof grade === 'number' ? grade : 0)||grade||props.page.paperdetail.score}
-                />
-              </Col>
-            </Row>
-          </>:null}
-          <Button type="primary" onClick={()=>{updeteflag(true)}}>确定</Button>
-        </Content>
+              </>
+            ) : null}
+            <Button
+              type="primary"
+              onClick={() => {
+                updeteflag(true);
+              }}
+            >
+              确定
+            </Button>
+          </Content>
+        </div>
       </div>
     </Layout>
   );
@@ -132,13 +181,12 @@ const mapDisaptchToProps = dispatch => {
         payload
       });
     },
-    submitpaper(payload){
+    submitpaper(payload) {
       dispatch({
-        type:"page/submitpaper",
+        type: "page/submitpaper",
         payload
-      })
-    },
-    
+      });
+    }
   };
 };
 

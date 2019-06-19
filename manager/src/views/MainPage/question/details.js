@@ -23,7 +23,7 @@ function Detail(props) {
           }}
         >
           <div>出题人：{items.user_name}</div>
-          <h3>题目信息</h3>
+          <h2>题目信息</h2>
           <p>
             <span>{items.questions_type_text}</span>
             <span>{items.subject_text}</span>
@@ -40,8 +40,8 @@ function Detail(props) {
             flex: 1
           }}
         >
-          <h3>答案信息</h3>
-          <div>{items.questions_answer}</div>
+          <h2>答案信息</h2>
+          <pre style={{background:"#ececec",padding:"10px"}}>{items.questions_answer}</pre>
         </Content>
       </div>
     </Layout>
