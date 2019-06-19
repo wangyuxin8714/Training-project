@@ -18,7 +18,6 @@ function TypeQuestion(props) {
 
   useEffect(() => {
     props.topictype();
-    console.log(props);
   }, []);
 
   const columns = [

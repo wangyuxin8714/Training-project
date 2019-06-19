@@ -1,6 +1,6 @@
 //试题管理数据
 
-import {updatequestion,examType,coursetype,topictype,allNew,getuser,addquestion,addexam,testlist,lookquestion,insertExam,delQuestionType} from "../services"
+import {getlistdet,updateexam,updatequestion,examType,coursetype,topictype,allNew,getuser,addquestion,addexam,testlist,lookquestion,insertExam,delQuestionType} from "../services"
 export default {
   namespace: "question",
   
@@ -17,6 +17,7 @@ export default {
         upcode:0,
         insert:1,
         del:1,
+        getlistdets:null
         // randomlist:[]
     },
     
@@ -92,7 +93,11 @@ export default {
           obj.questions.push(payload)
           yield put({type:"updateexamcode",payload:obj})
           window.localStorage.setItem("detail",JSON.stringify(obj))
-      },
+        },
+        //更新试卷
+        *updateexam({ payload }, { call, put }) {  // eslint-disable-line
+            yield call(updateexam,payload);
+        },
         // 获取所有的试卷
         *testlist({ payload }, { call, put }) {  // eslint-disable-line
           let data = yield call(testlist,payload);
@@ -131,6 +136,12 @@ export default {
           let data = yield call(testlist);
           let datafilter = data.exam.filter(item=>item.status===payload)
           yield put({type:"updatetestlist",payload:datafilter})
+        },
+        //获取指定试卷详情
+        *getlistdet({payload}, { call, put }) {
+          let data = yield call(getlistdet,payload);
+          yield put({type:"getlistdeta",payload:data.data})
+          window.localStorage.setItem("listdet",JSON.stringify(data.data))
         },
         // //随机试题
         // *randomQuestion({payload}, { call, put }) {
@@ -200,6 +211,9 @@ export default {
       //跳详情
       updateitems(state, {payload}) {
         return { ...state, items:payload };
+      },
+      getlistdeta(state, {payload}) {
+        return { ...state, getlistdets:payload };
       },
       // //随机试题
       // random(state, {payload}) {

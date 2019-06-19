@@ -24,7 +24,17 @@ function AddDetial(props){
 
     let obj=props.question.addexamlist||JSON.parse(window.localStorage.getItem("detail"))
     let ques=obj.questions
-    let submitexam = e => {
+    let idsarr=[];
+    ques.forEach(item=>{
+      idsarr.push(item.questions_id)
+    })
+    let submitexam = () => {
+        props.updateexam({
+            id:obj.exam_exam_id,
+            data:{
+              question_ids:JSON.stringify(idsarr.join(","))
+            }
+        })
         props.history.push("/exam/list")
     };
     let del=index=>{
@@ -254,6 +264,12 @@ const mapDisaptchToProps = dispatch=>{
                 type: "question/addques",
                 payload
             })
+        },
+        updateexam(payload){
+          dispatch({
+            type:"question/updateexam",
+            payload
+          })
         }
     }
 }
