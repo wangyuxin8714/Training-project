@@ -6,12 +6,9 @@ function ListDetail(props){
 
 
 
-    
     useEffect(()=>{
         props.getlistdet(props.match.params.id)
     },[])
-
-    let listdet=props.question.getlistdet||JSON.parse(window.localStorage.getItem("listdet"))
     return(
         <Layout style={{ padding: 0}}>
             <Breadcrumb style={{ margin: "30px 0" }}>
@@ -26,7 +23,7 @@ function ListDetail(props){
                 }} 
             >
                 {
-                    listdet.questions.map((item,index)=>(
+                    props.question.getlistdets?props.question.getlistdets.questions.map((item,index)=>(
                         <div key={index} style={{width:"100%",border:"1px solid #ccc",marginTop:"10px",padding:"20px"}}>
                             <p><span>{index+1}:</span>
                                 <span>{item.title}</span>
@@ -34,7 +31,7 @@ function ListDetail(props){
                             <p>{item.questions_stem}</p>
                             <p>{item.questions_answer}</p>
                         </div>
-                    ))
+                    )):null
                 }
                 
 

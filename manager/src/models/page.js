@@ -1,4 +1,4 @@
-import {margerGrade,getnopaper,godetail} from "../services/page"
+import {margerGrade,getnopaper,godetail,submitpaper} from "../services"
 
 export default {
 
@@ -6,7 +6,8 @@ export default {
   
     state: {
         merger:[],
-        nopaperlist:[]
+        nopaperlist:[],
+        paperdetail:null,
     },
   
     subscriptions: {
@@ -25,8 +26,11 @@ export default {
         },
         *godetail({ payload }, { call, put }) {  // eslint-disable-line
           let data = yield call(godetail,payload)
-          console.log(data)
-          // yield put({ type: 'nopapardata',payload:data.exam });
+          yield put({ type: 'updatedetail',payload:data.data });
+        },
+        *submitpaper({ payload }, { call }) {  // eslint-disable-line
+          yield call(submitpaper,payload)
+          
         }
     },
   
@@ -36,6 +40,9 @@ export default {
       },
       nopapardata(state, {payload}) {
         return { ...state,nopaperlist:payload};
+      },
+      updatedetail(state, {payload}) {
+        return { ...state,paperdetail:payload};
       },
     },
   

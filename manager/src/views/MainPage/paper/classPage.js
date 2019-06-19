@@ -42,7 +42,7 @@ function ClassPage(props) {
   ];
 
   let goclass=(id,room)=>{
-    props.getnopaper({grade_id:id})
+    window.localStorage.setItem("code",id)
     window.localStorage.setItem("room",room)
     props.history.push("/paper/classmate")
   }

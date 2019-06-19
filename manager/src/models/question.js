@@ -18,7 +18,6 @@ export default {
         insert:1,
         del:1,
         getlistdets:null
-        // randomlist:[]
     },
     
     subscriptions: {
@@ -141,7 +140,6 @@ export default {
         *getlistdet({payload}, { call, put }) {
           let data = yield call(getlistdet,payload);
           yield put({type:"getlistdeta",payload:data.data})
-          window.localStorage.setItem("listdet",JSON.stringify(data.data))
         },
         // //随机试题
         // *randomQuestion({payload}, { call, put }) {
@@ -184,7 +182,6 @@ export default {
       },
       //添加考试
       updateexamcode(state, {payload}) {
-        console.log(payload)
         return { ...state, addexamlist:payload };
       },
       // 获取所有的试题

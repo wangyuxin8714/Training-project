@@ -8,11 +8,6 @@ import styles from "./testlist.scss"
 const { Option } = Select;
 const { Content } = Layout;
 
-
-
-
-
-
 function Testlist(props){
     useEffect(()=>{
         props.examType()
@@ -95,8 +90,6 @@ function Testlist(props){
       ];
 
       let goListDetail=(text)=>{
-            // props.getlistdet(text.exam_exam_id)
-            // window.localStorage.setItem("listdet",JSON.stringify(text))
             props.history.push({pathname:`/exam/listDetail/${text.exam_exam_id}`})
       }
 
@@ -104,7 +97,7 @@ function Testlist(props){
         e.preventDefault();
         props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                // console.log('Received values of form: ', values);
                 props.testlist({
                     subject_id:values.coursetype,
                     exam_exam_id:values.examtype,
