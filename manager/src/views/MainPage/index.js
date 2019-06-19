@@ -146,7 +146,7 @@ function MainPage(props) {
               <Route path="/question/details" component={Details} />
               <Route path="/paper/nobatch" component={ClassPage} />
               <Route path="/paper/classmate" component={ClassMate} />
-              <Route path="/paper/detail" component={PaperDetail} />
+              <Route path="/paper/detail/:id" component={PaperDetail} />
               <Route path="/grade/class" component={classManagement} />
               <Route path="/grade/room" component={roomManagement} />
               <Route path="/grade/students" component={studentManagement} />

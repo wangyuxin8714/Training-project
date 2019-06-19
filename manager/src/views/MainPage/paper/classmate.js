@@ -53,13 +53,16 @@ function ClassMate(props) {
   ];
 
   let godetails = id => {
-    props.godetail(id);
-    props.history.push("/paper/detail");
+    props.history.push({pathname:`/paper/detail/${id}`});
   };
 
   useEffect(() => {
+    let code=window.localStorage.getItem("code")
+    props.getnopaper({grade_id:code})
     props.getClass();
   }, []);
+
+  
 
   const { getFieldDecorator } = props.form;
   const { Option } = Select;
@@ -158,15 +161,15 @@ const mapStateToProps = state => {
 
 const mapDisaptchToProps = dispatch => {
   return {
-    godetail(id) {
-      dispatch({
-        type: "pape/godetail",
-        id
-      });
-    },
     getClass() {
       dispatch({
         type: "grade/getClass"
+      });
+    },
+    getnopaper(payload) {
+      dispatch({
+        type: "page/getnopaper",
+        payload
       });
     }
   };

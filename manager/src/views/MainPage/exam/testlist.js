@@ -15,109 +15,103 @@ import styles from "./testlist.scss";
 const { Option } = Select;
 const { Content } = Layout;
 
-function Testlist(props) {
-  useEffect(() => {
-    props.examType();
-    props.coursetype();
-    props.testlist();
-  }, []);
-  useEffect(() => {}, [props.question]);
+function Testlist(props){
+    useEffect(()=>{
+        props.examType()
+        props.coursetype()
+        props.testlist()
+    },[])
+    useEffect(()=>{
+        
+    },[props.question])
 
-  let filtertab = status => {
-    if (!status) {
-      props.testlist();
-    } else {
-      props.filtertab(status);
-    }
-  };
+    
+    let filtertab = status => {
+        if(!status){
+            props.testlist()
+        }else{
+            props.filtertab(status)
+        }
 
-  const columns = [
-    {
-      title: "试卷信息",
-      key: "1",
-      render: text => (
-        <>
-          <p style={{ fontSize: 12 }}>{text.title}</p>
-          <p style={{ fontSize: 12 }}>考试时间: 2:0:0 3道题作弊0分</p>
-        </>
-      )
-    },
-    {
-      title: "班级",
-      key: "2",
-      render: text => (
-        <>
-          <p style={{ fontSize: 12 }}>考试班级</p>
-          <p style={{ fontSize: 12 }}>
-            {text.grade_name.map((item, index) => (
-              <span key={index}>{item}</span>
-            ))}
-          </p>
-        </>
-      )
-    },
-    {
-      title: "创建人",
-      key: "3",
-      render: text => (
-        <>
-          <p style={{ fontSize: 12 }}>{text.user_name}</p>
-        </>
-      )
-    },
-    {
-      title: "开始时间",
-      key: "4",
-      render: text => (
-        <>
-          <p style={{ fontSize: 12 }}>
-            {new Date(Number(text.start_time)).toLocaleString()}
-          </p>
-        </>
-      )
-    },
-    {
-      title: "结束时间",
-      key: "5",
-      render: text => (
-        <>
-          <p style={{ fontSize: 12 }}>
-            {new Date(Number(text.end_time)).toLocaleString()}
-          </p>
-        </>
-      )
-    },
-    {
-      title: "操作",
-      key: "6",
-      render: text => (
-        <span
-          style={{ color: "dodgerblue" }}
-          onClick={() => goListDetail(text)}
-        >
-          详情
-        </span>
-      )
-    }
-  ];
+    };
 
-  let goListDetail = text => {
-    // props.getlistdet(text.exam_exam_id)
-    // window.localStorage.setItem("listdet",JSON.stringify(text))
-    props.history.push({ pathname: `/exam/listDetail/${text.exam_exam_id}` });
-  };
+    const columns = [
+        {
+          title: '试卷信息',
+          key:"1",
+          render: text =>(
+              <>
+                <p style={{fontSize:12}}>{text.title}</p>
+                <p style={{fontSize:12}}>考试时间: 2:0:0  3道题作弊0分</p>
+              </>
+          ),
+        },
+        {
+          title: '班级',
+          key:"2",
+          render: text =>(
+            <>
+              <p style={{fontSize:12}}>考试班级</p>
+              <p style={{fontSize:12}}>
+                  {
+                      text.grade_name.map((item,index)=>(
+                          <span key={index}>{item}</span>
+                      ))
+                  }
+              </p>
+            </>
+        ),
+        },
+        {
+          title: '创建人',
+          key:"3",
+          render: text =>(
+            <>
+              <p style={{fontSize:12}}>{text.user_name}</p>
+            </>
+        ),
+        },
+        {
+          title: '开始时间',
+          key:"4",
+          render: text =>(
+            <>
+              <p style={{fontSize:12}}>{new Date(Number(text.start_time)).toLocaleString()}</p>
+            </>
+        ),
+        },
+        {
+          title: '结束时间',
+          key:"5",
+          render: text =>(
+            <>
+              <p style={{fontSize:12}}>{new Date(Number(text.end_time)).toLocaleString()}</p>
+            </>
+        ),
+        },
+        {
+            title: '操作',
+            key:"6",
+            render:text=><span style={{color:"dodgerblue"}} onClick={()=>goListDetail(text)}>详情</span>
+        },
+      ];
 
-  let inquiredata = e => {
-    e.preventDefault();
-    props.form.validateFields((err, values) => {
-      if (!err) {
-        props.testlist({
-          subject_id: values.coursetype,
-          exam_exam_id: values.examtype
+      let goListDetail=(text)=>{
+            props.history.push({pathname:`/exam/listDetail/${text.exam_exam_id}`})
+      }
+
+    let inquiredata = e => {
+        e.preventDefault();
+        props.form.validateFields((err, values) => {
+            if (!err) {
+                // console.log('Received values of form: ', values);
+                props.testlist({
+                    subject_id:values.coursetype,
+                    exam_exam_id:values.examtype,
+                })
+            }
         });
       }
-    });
-  };
   const [colors, upcolors] = useState(0);
   const { getFieldDecorator } = props.form;
   return (

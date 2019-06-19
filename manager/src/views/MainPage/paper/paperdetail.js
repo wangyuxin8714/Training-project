@@ -1,45 +1,120 @@
-import React, { useEffect } from "react";
-import { Layout, Form, Breadcrumb } from "antd";
+import React, { useEffect,useState } from "react";
+import {  Layout, Form, Breadcrumb,Slider, Input, Row, Col,Button,Modal } from "antd";
 import { connect } from "dva";
+import styles from "./style.css"
+
 const { Content } = Layout;
 
 function PaperDetail(props) {
   useEffect(() => {
-    props.margerGrade();
+    props.margerGrade(props.match.params.id);
   }, []);
 
-  // let goclass = (id, room) => {
-  //   props.getnopaper({ grade_id: id });
-  //   window.localStorage.setItem("room", room);
-  //   props.history.push("/paper/classmate");
-  // };
 
+let [grade,updetegrade]=useState(0)
+let [flag,updeteflag]=useState(false)
+let [flags,updeteflags]=useState(false)
+
+let onChange=value=>{
+  updetegrade(value)
+}
+
+useEffect(()=>{
+
+},[])
+
+let submitpapers=()=>{
+  props.submitpaper({
+    id:props.page.paperdetail.exam_student_id,
+    data:{
+      score:grade
+    }
+  })
+  window.localStorage.setItem("code",props.page.paperdetail.grade_id)
+  props.history.goBack()
+}
   return (
     <Layout style={{ padding: 0 }}>
       <Breadcrumb style={{ margin: "30px 0" }}>
         <Breadcrumb.Item style={{ fontSize: "20px" }}>阅卷</Breadcrumb.Item>
       </Breadcrumb>
+
+      <Modal
+          visible={flag}
+          onOk={()=>{updeteflag(false);updeteflags(true)}}
+          onCancel={()=>{updeteflag(false)}}
+        >
+          <p>你确定提交阅卷结果吗？</p>
+          <p>分数值是{grade}</p>
+      </Modal>
+      {props.page.paperdetail?<Modal
+          visible={flags}
+          onOk={()=>{updeteflags(false);submitpapers()}}
+          onCancel={()=>{updeteflags(false)}}
+        >
+          <p>批卷结果</p>
+          <p>批改试卷成功，{props.page.paperdetail.student_name}得分{grade}</p>
+      </Modal>:null}
+
+
       <div>
         <Content
+         className={styles.detail}
           style={{
             background: "#fff",
             padding: 24,
             margin: 0,
             marginRight: 20,
             height: "auto",
-            flex: 1
           }}
-        />
+        >
+          {
+            props.page.paperdetail?props.page.paperdetail.questions.map((item,index)=>(
+                <div key={index} style={{width:"100%",border:"1px solid #ccc",marginTop:"10px",padding:"20px"}}>
+                    <p><span>{index+1}:</span>
+                        <span>{item.title}</span>
+                        <span>{item.questions_type_text}</span>
+                    </p>
+                    <p>{item.questions_stem}</p>
+                    <p>{item.questions_answer}</p>
+                </div>
+            )):null
+          }
+        </Content>
         <Content
+          className={styles.gam}
           style={{
             background: "#fff",
             padding: 24,
             margin: 0,
             marginRight: 20,
-            height: "auto",
-            flex: 1
+
           }}
-        />
+        >
+          {props.page.paperdetail?<>
+            <p style={{ fontSize:"25px"}}>{props.page.paperdetail.student_name}</p>
+            <div style={{display:"flex",fontSize:"25px"}}>得分:<Row>
+                  <Col>
+                  <Input
+                      style={{ width:"80px",marginLeft: 16,border:0 ,fontSize:"25px",color:"blue"}}
+                      value={grade||props.page.paperdetail.score}
+                    />
+                  </Col>
+                </Row>
+            </div>
+            <Row>
+              <Col>
+                <Slider
+                  min={0}
+                  max={100}
+                  onChange={onChange}
+                  value={(typeof grade === 'number' ? grade : 0)||grade||props.page.paperdetail.score}
+                />
+              </Col>
+            </Row>
+          </>:null}
+          <Button type="primary" onClick={()=>{updeteflag(true)}}>确定</Button>
+        </Content>
       </div>
     </Layout>
   );
@@ -51,11 +126,19 @@ const mapStateToProps = state => {
 
 const mapDisaptchToProps = dispatch => {
   return {
-    margerGrade() {
+    margerGrade(payload) {
       dispatch({
-        type: "page/godetail"
+        type: "page/godetail",
+        payload
       });
-    }
+    },
+    submitpaper(payload){
+      dispatch({
+        type:"page/submitpaper",
+        payload
+      })
+    },
+    
   };
 };
 

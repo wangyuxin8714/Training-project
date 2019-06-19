@@ -15,7 +15,7 @@ function StudentManagement(props) {
   }, []);
 
   useEffect(() => {
-    isCode(props.grade.delCode);
+    isCode(props.grade.delCode)
   });
 
   let search = e => {
@@ -74,13 +74,13 @@ function StudentManagement(props) {
     <Layout style={{ padding: 0 }}>
       <h2>学生管理</h2>
       <div className={styles.student_div}>
-        <Form.Item style={{ margin: 0, marginRight: 30 }}>
+        <Form.Item style={{ margin:0, marginRight:30 }}>
           {getFieldDecorator("students", {})(
             <Input placeholder="请输入学生姓名" />
           )}
         </Form.Item>
 
-        <Form.Item style={{ margin: 0, marginRight: 30 }}>
+        <Form.Item style={{ margin:0, marginRight:30 }}>
           {getFieldDecorator("classroom", {})(
             <Select
               showSearch
@@ -102,7 +102,7 @@ function StudentManagement(props) {
           )}
         </Form.Item>
 
-        <Form.Item style={{ margin: 0, marginRight: 30 }}>
+        <Form.Item style={{ margin:0, marginRight:30 }}>
           {getFieldDecorator("gradeRoom", {})(
             <Select
               showSearch
@@ -123,9 +123,7 @@ function StudentManagement(props) {
             </Select>
           )}
         </Form.Item>
-        <Button type="primary" style={{ marginRight: 30 }} onClick={search}>
-          搜索
-        </Button>
+        <Button style={{marginRight:30 }} type="primary" onClick={search}>搜索</Button>
         <Button
           type="primary"
           onClick={e => {

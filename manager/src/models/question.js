@@ -141,7 +141,6 @@ export default {
         *getlistdet({payload}, { call, put }) {
           let data = yield call(getlistdet,payload);
           yield put({type:"getlistdeta",payload:data.data})
-          window.localStorage.setItem("listdet",JSON.stringify(data.data))
         },
         // //随机试题
         // *randomQuestion({payload}, { call, put }) {

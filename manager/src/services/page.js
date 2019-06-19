@@ -18,9 +18,18 @@ export function getnopaper(params){
 }
 
 //获取未批卷学生试卷详情
-export function godetail(){
+export function godetail(params){
     return request({
-        url:"/exam/student/t27znv-gu7azm-qpq9ai-laaf9m",
+        url:`/exam/student/${params}`,
         method:"GET",
+    })
+}
+
+//批改试卷
+export function submitpaper(params){
+    return request({
+        url:`/exam/student/${params.id}`,
+        method:"PUT",
+        data:params.data
     })
 }
