@@ -86,26 +86,21 @@ export default {
     //更新用户信息
     *updataUser({ payload }, { call, put }) {
       let data = yield call(updataUser, payload);
-      console.log(data);
       yield put({ type: "userUpdata", payload: data.code === 1 ? 1 : -1 });
     },
     //添加身份
     *userIdent_edit({ payload }, { call, put }) {
       let data = yield call(userIdent_edit, payload);
-      console.log(data);
       yield put({ type: "identUser_edit", payload: data.code === 1 ? 1 : -1 });
     },
     //添加api接口权限
     *userAuth_apiEdits({ payload }, { call, put }) {
-      console.log(payload)
       let data = yield call(userAuth_apiEdit, payload);
-      console.log(data);
       yield put({ type: "authUser_apiEdit", payload: data.code === 1 ? 1 : -1 });
     },
     //添加视图权限
     *userAuth_viewEdit({ payload }, { call, put }) {
       let data = yield call(userAuth_viewEdit, payload);
-      console.log(data);
       yield put({ type: "authUser_viewEdit", payload: data.code === 1 ? 1 : -1 });
     },
     //给身份设定api接口权限 

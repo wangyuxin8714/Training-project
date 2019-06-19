@@ -3,7 +3,6 @@ import { Form, Layout, Breadcrumb, Table } from "antd";
 import { connect } from "dva";
 const { Content } = Layout;
 
-
 function ClassPage(props) {
   useEffect(() => {
     props.margerGrade();
@@ -37,15 +36,23 @@ function ClassPage(props) {
     {
       title: "操作",
       key: "del",
-      render: text => <a onClick={()=>{goclass(text.grade_id,text.grade_name)}}>批卷</a>
+      render: text => (
+        <a
+          onClick={() => {
+            goclass(text.grade_id, text.grade_name);
+          }}
+        >
+          批卷
+        </a>
+      )
     }
   ];
 
-  let goclass=(id,room)=>{
-    props.getnopaper({grade_id:id})
-    window.localStorage.setItem("room",room)
-    props.history.push("/paper/classmate")
-  }
+  let goclass = (id, room) => {
+    props.getnopaper({ grade_id: id });
+    window.localStorage.setItem("room", room);
+    props.history.push("/paper/classmate");
+  };
 
   return (
     <Layout style={{ padding: 0 }}>

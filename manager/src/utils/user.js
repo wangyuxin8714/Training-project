@@ -9,3 +9,7 @@ export function getToken(){
 export function setToken(value){
     Cookie.set(key,value,{expires:7})
 }
+
+export function delToken(){
+    Cookie.remove(key)
+}

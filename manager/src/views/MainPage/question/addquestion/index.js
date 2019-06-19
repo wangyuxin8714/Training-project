@@ -1,16 +1,8 @@
 import React, { useEffect } from "react";
-import {
-  Button,
-  Select,
-  Form,
-  Input,
-  Layout,
-  Breadcrumb,
-  Modal
-} from "antd";
+import { Button, Select, Form, Input, Layout, Breadcrumb, Modal } from "antd";
 import { connect } from "dva";
 import Editor from "for-editor";
-import {isCode} from "../../../../utils/isCode"
+import { isCode } from "../../../../utils/isCode";
 
 const confirm = Modal.confirm;
 
@@ -18,7 +10,6 @@ const { Option } = Select;
 const { Content } = Layout;
 
 function AddQuestion(props) {
-
   useEffect(() => {
     props.examType();
     props.coursetype();
@@ -27,7 +18,7 @@ function AddQuestion(props) {
   }, []);
 
   useEffect(() => {
-    isCode(props.question.addquescode)
+    isCode(props.question.addquescode);
   }, []);
 
   let submitQuestion = e => {
@@ -76,7 +67,6 @@ function AddQuestion(props) {
         <Form.Item label="题目主题">
           {getFieldDecorator("topictheme")(<Editor height="auto" />)}
         </Form.Item>
-    
 
         <Form.Item label="请选择考试类型">
           {getFieldDecorator("examtype")(

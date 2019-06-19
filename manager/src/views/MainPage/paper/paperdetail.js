@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import {  Layout, Form, Breadcrumb} from "antd";
+import { Layout, Form, Breadcrumb } from "antd";
 import { connect } from "dva";
 const { Content } = Layout;
 
@@ -13,8 +13,6 @@ function PaperDetail(props) {
   //   window.localStorage.setItem("room", room);
   //   props.history.push("/paper/classmate");
   // };
-
-
 
   return (
     <Layout style={{ padding: 0 }}>
@@ -31,9 +29,7 @@ function PaperDetail(props) {
             height: "auto",
             flex: 1
           }}
-        >
-         
-        </Content>
+        />
         <Content
           style={{
             background: "#fff",

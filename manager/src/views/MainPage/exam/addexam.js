@@ -24,7 +24,6 @@ function Addexam(props) {
     e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {
-        // console.log('Received values of form: ', values);
         let obj = {
           subject_id: values.coursetype,
           exam_id: values.examtype,
@@ -42,7 +41,7 @@ function Addexam(props) {
   const { getFieldDecorator } = props.form;
   return (
     <Layout style={{ padding: 0 }}>
-      <Breadcrumb  style={{margin:"30px 0"}}>
+      <Breadcrumb style={{ margin: "30px 0" }}>
         <Breadcrumb.Item style={{ fontSize: "20px" }}>添加考试</Breadcrumb.Item>
       </Breadcrumb>
       <Content

@@ -49,17 +49,17 @@ function AddUser(props) {
           columns={[
             {
               title: "用户名",
-              key:"name",
+              key: "name",
               render: text => <>{text.user_name}</>
             },
             {
               title: "密码",
-              key:"pwd",
+              key: "pwd",
               render: text => <>{text.user_pwd}</>
             },
             {
               title: "身份",
-              key:"text",
+              key: "text",
               render: text => <>{text.identity_text}</>
             }
           ]}
@@ -75,7 +75,7 @@ function AddUser(props) {
           columns={[
             {
               title: "身份名称",
-              key:"identTexts",
+              key: "identTexts",
               render: text => <>{text.identity_text}</>
             }
           ]}
@@ -91,16 +91,17 @@ function AddUser(props) {
           columns={[
             {
               title: "api权限名称",
-              key:"apiText",
+              key: "apiText",
               render: text => <>{text.api_authority_text}</>
             },
             {
               title: "api权限url",
-              key:"apiUrl",
+              key: "apiUrl",
               render: text => <>{text.api_authority_url}</>
-            },{
+            },
+            {
               title: "api权限方法",
-              key:"apiMrthod",
+              key: "apiMrthod",
               render: text => <>{text.api_authority_method}</>
             }
           ]}
@@ -109,26 +110,29 @@ function AddUser(props) {
         />
       </div>
     ),
-    tab4:(
+    tab4: (
       <div>
         <h2>身份和api接口关系</h2>
         <Table
           columns={[
             {
               title: "身份名称",
-              key:"textIdent",
+              key: "textIdent",
               render: text => <>{text.identity_text}</>
-            },{
+            },
+            {
               title: "api权限名称",
-              key:"textAuth",
+              key: "textAuth",
               render: text => <>{text.api_authority_text}</>
-            },{
+            },
+            {
               title: "api权限url",
-              key:"textUrl",
+              key: "textUrl",
               render: text => <>{text.api_authority_url}</>
-            },{
+            },
+            {
               title: "api权限方法",
-              key:"textMethod",
+              key: "textMethod",
               render: text => <>{text.api_authority_method}</>
             }
           ]}
@@ -137,19 +141,19 @@ function AddUser(props) {
         />
       </div>
     ),
-    tab5:(
+    tab5: (
       <div>
         <h2>视图接口权限</h2>
         <Table
           columns={[
             {
               title: "视图权限名称",
-              key:"viewText",
+              key: "viewText",
               render: text => <>{text.view_authority_text}</>
             },
             {
               title: "视图id",
-              key:"viewId",
+              key: "viewId",
               render: text => <>{text.view_id}</>
             }
           ]}
@@ -165,17 +169,17 @@ function AddUser(props) {
           columns={[
             {
               title: "身份",
-              key:"identText",
+              key: "identText",
               render: text => <>{text.identity_text}</>
             },
             {
               title: "视图名称",
-              key:"viewAuther",
+              key: "viewAuther",
               render: text => <>{text.view_authority_text}</>
             },
             {
               title: "视图id",
-              key:"textView",
+              key: "textView",
               render: text => <>{text.view_id}</>
             }
           ]}
@@ -185,7 +189,6 @@ function AddUser(props) {
       </div>
     )
   };
-
 
   const onTabChange = key => {
     updataKey(key);
@@ -252,7 +255,7 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: "users/viewRelate"
       });
-    },
+    }
   };
 };
 

@@ -83,7 +83,6 @@ function ClassManagement(props) {
   let addclass = e => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
-      console.log(values);
       props.addClass({
         grade_name: values.classname,
         room_id: values.roomname,

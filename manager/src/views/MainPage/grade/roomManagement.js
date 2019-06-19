@@ -28,7 +28,15 @@ function RoomManagement(props) {
     {
       title: "操作",
       key: "2",
-      render: text => <span onClick={()=>{props.delRoom({room_id:text.room_id})}}>删除</span>
+      render: text => (
+        <span
+          onClick={() => {
+            props.delRoom({ room_id: text.room_id });
+          }}
+        >
+          删除
+        </span>
+      )
     }
   ];
 
@@ -110,11 +118,11 @@ const mapDisaptchToProps = dispatch => {
       });
     },
     delRoom(payload) {
-        dispatch({
-          type: "grade/delRoom",
-          payload
-        });
-      },
+      dispatch({
+        type: "grade/delRoom",
+        payload
+      });
+    }
   };
 };
 

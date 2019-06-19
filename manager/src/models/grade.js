@@ -50,7 +50,6 @@ export default {
             //过滤数据
             const data = yield select(state => {
                 for(let k in obj){
-                    console.log(obj[k])
                     if(!obj[k]){
                         delete obj[k]
                     }
@@ -67,7 +66,6 @@ export default {
         },
         *addRoom({ payload }, { call, put }) { 
             let data=yield call(addRoom,payload)
-            console.log(data)
             yield put({ type: 'roomAdd',payload:data.code===1?1:-1});
         },
         *delRoom({ payload }, { call, put }) { 

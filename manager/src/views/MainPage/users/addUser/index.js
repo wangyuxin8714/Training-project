@@ -4,7 +4,6 @@ import styles from "./index.css";
 import { connect } from "dva";
 import { isCode } from "../../../../utils/isCode";
 
-
 function AddUser(props) {
   const { Option } = Select;
   const { getFieldDecorator } = props.form;
@@ -457,11 +456,15 @@ function AddUser(props) {
                       onClick={e => {
                         e.preventDefault();
                         props.form.validateFields((err, values) => {
-                          let val = props.users.viewAuth.find(item=>item.view_authority_id === values.fourth_view_auther)
+                          let val = props.users.viewAuth.find(
+                            item =>
+                              item.view_authority_id ===
+                              values.fourth_view_auther
+                          );
                           props.userAuth_viewEdit({
-                            view_authority_text:val.view_authority_text,
-                            view_id:values.fourth_view_auther
-                          })
+                            view_authority_text: val.view_authority_text,
+                            view_id: values.fourth_view_auther
+                          });
                         });
                       }}
                     >
@@ -716,14 +719,12 @@ const mapDispatchToProps = dispatch => {
       });
     },
     userAuth_apiEdit(payload) {
-      console.log(payload);
       dispatch({
         type: "users/userAuth_apiEdits",
         payload
       });
     },
     userAuth_viewEdit(payload) {
-      console.log(payload);
       dispatch({
         type: "users/userAuth_viewEdit",
         payload

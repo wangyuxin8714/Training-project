@@ -17,7 +17,8 @@ export default {
         upcode:0,
         insert:1,
         del:1,
-        getlistdets:null
+        getlistdets:null,
+        useName:""
         // randomlist:[]
     },
     
@@ -64,7 +65,7 @@ export default {
           let data = yield call(getuser);
           yield put({
           type: 'upadataid',
-          payload: data.data.user_id
+          payload: data.data
         })
         },
         // 添加试题
@@ -128,7 +129,6 @@ export default {
         //删除指定的试题类型
         *delQuesType({payload}, { call, put }) {
           let data = yield call(delQuestionType, payload);
-          console.log("data...",data)
           yield put({type:"delType",payload:data.code === 1 ? 1 : -1})
         },
         //过滤试卷
@@ -176,7 +176,7 @@ export default {
       },
       // 获取当前的用户
       upadataid(state, {payload}) {
-        return { ...state, id:payload };
+        return { ...state, id:payload.user_id,useName:payload.user_name };
       },
       // 添加试题
       updatecode(state, {payload}) {
@@ -184,7 +184,6 @@ export default {
       },
       //添加考试
       updateexamcode(state, {payload}) {
-        console.log(payload)
         return { ...state, addexamlist:payload };
       },
       // 获取所有的试题

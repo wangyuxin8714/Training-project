@@ -25,8 +25,6 @@ export default {
         },
         *godetail({ payload }, { call, put }) {  // eslint-disable-line
           let data = yield call(godetail,payload)
-          console.log(data)
-          // yield put({ type: 'nopapardata',payload:data.exam });
         }
     },
   
