@@ -17,3 +17,11 @@
     height: 250px;
     border-radius: 10px;
 }
+
+.img{
+    width: 880px;
+    
+}
+.img img{
+    width: 800px;
+}

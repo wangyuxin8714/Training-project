@@ -2,6 +2,7 @@ import React, { useEffect,useState } from "react";
 import {  Layout, Form, Breadcrumb,Slider, Input, Row, Col,Button,Modal } from "antd";
 import { connect } from "dva";
 import styles from "./style.css"
+import ReactMarkdown from 'react-markdown'
 
 const { Content } = Layout;
 
@@ -75,7 +76,7 @@ let submitpapers=()=>{
                         <span>{item.title}</span>
                         <span>{item.questions_type_text}</span>
                     </p>
-                    <p>{item.questions_stem}</p>
+                    <div className={styles.img}><ReactMarkdown  source={item.questions_stem}/></div> 
                     <p>{item.questions_answer}</p>
                 </div>
             )):null
