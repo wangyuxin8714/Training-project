@@ -3,6 +3,7 @@ import { Router, Route, Switch } from "dva/router";
 import MainPage from "./views/MainPage/";
 import Login from "./views/login";
 import {connect} from 'dva';
+import Wrong from "./views/wrong/notFound/"
 
 // 引入国际化
 import {IntlProvider, addLocaleData} from 'react-intl';
@@ -27,6 +28,7 @@ const RouterView = connect(mapStateToProps)(({locale,history})=>{
   return <IntlProvider locale={locale} messages={localMap[locale]}>
      <Switch>
         <Route path="/Login" component={Login} />
+        <Route path="/wrong" component={Wrong}></Route>
         <Route path="/" component={MainPage} />
       </Switch>
   </IntlProvider>
