@@ -1,16 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Layout, Table, Select, Button } from "antd";
 import { connect } from "dva";
-import styles from "./style.css"
-
-
+import styles from "./style.css";
 
 const { Content } = Layout;
 
-
 function ClassMate(props) {
-  console.log(props.page.nopaperlist);
-
   const columns = [
     {
       title: "班级",
@@ -61,6 +56,10 @@ function ClassMate(props) {
     props.godetail(id);
     props.history.push("/paper/detail");
   };
+
+  useEffect(() => {
+    props.getClass();
+  }, []);
 
   const { getFieldDecorator } = props.form;
   const { Option } = Select;
@@ -118,12 +117,9 @@ function ClassMate(props) {
                         .indexOf(input.toLowerCase()) >= 0
                     }
                   >
-                    {props.question.topictypelist.map(item => (
-                      <Option
-                        value={item.questions_type_id}
-                        key={item.questions_type_id}
-                      >
-                        {item.questions_type_text}
+                    {props.grade.getClassData.map(item => (
+                      <Option value={item.grade_name} key={item.grade_id}>
+                        {item.grade_name}
                       </Option>
                     ))}
                   </Select>
@@ -166,6 +162,11 @@ const mapDisaptchToProps = dispatch => {
       dispatch({
         type: "pape/godetail",
         id
+      });
+    },
+    getClass() {
+      dispatch({
+        type: "grade/getClass"
       });
     }
   };

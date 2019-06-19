@@ -68,7 +68,6 @@ function ClassPage(props) {
             dataSource={props.page.merger}
             rowKey={record => `${record.grade_id}`}
           />
-          {/* <Pagination size="small" showSizeChanger showQuickJumper total={props.page.merger.length}/> */}
         </Content>
       </div>
     </Layout>

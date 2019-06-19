@@ -15,6 +15,8 @@ export function getRoom() {
         method: 'GET',
     })
 }
+
+
 // 添加班级接口
 export function addClass(params) {
     return request({
@@ -47,5 +49,32 @@ export function getStudent() {
     return request({
         url: '/manger/student',
         method: 'GET',
+    })
+}
+
+//删除学生
+export function delStudent(params) {
+    return request({
+        url: `/manger/student/${params.id}`,
+        method: 'DELETE'
+    })
+}
+
+
+// 添加教室接口
+export function addRoom(params) {
+    return request({
+        url: '/manger/room',
+        method: 'POST',
+        data:params
+    })
+}
+
+// 删除教室信息
+export function delRoom(params) {
+    return request({
+        url: '/manger/room/delete',
+        method: 'DELETE',
+        data:params
     })
 }

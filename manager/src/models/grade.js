@@ -1,4 +1,4 @@
-import {getClass,getRoom,addClass,changeGrade,delClass,getStudent} from "../services"
+import {getClass,getRoom,addClass,changeGrade,delClass,getStudent,delStudent,addRoom,delRoom} from "../services"
 export default {
 
     namespace: 'grade',
@@ -8,7 +8,10 @@ export default {
         getRoomData:[],
         addclasscode:0,
         gradeChangeCode:0,
-        studentArr:[]
+        studentArr:[],
+        delCode:0,
+        roomAddCode:0,
+        roomDelCode:0
     },
   
     subscriptions: {
@@ -44,6 +47,7 @@ export default {
         },
         *searchClick({payload} , { select, put }) {
             let obj = JSON.parse(JSON.stringify(payload));
+            //过滤数据
             const data = yield select(state => {
                 for(let k in obj){
                     console.log(obj[k])
@@ -51,13 +55,24 @@ export default {
                         delete obj[k]
                     }
                 }
-
                 return state.grade.studentArr.filter(item=>{
                     return Object.keys(obj).every(val=>item[val] === obj[val])
                 });
             })
+            yield put({ type: 'search',payload:data});
+        },
+        *delStudent({payload} , { call, put }) {
+            let data=yield call(delStudent,payload);
+            yield put({ type: 'del',payload:data.code===1?1:-1});            
+        },
+        *addRoom({ payload }, { call, put }) { 
+            let data=yield call(addRoom,payload)
             console.log(data)
-            // yield put({ type: 'search',payload});
+            yield put({ type: 'roomAdd',payload:data.code===1?1:-1});
+        },
+        *delRoom({ payload }, { call, put }) { 
+            let data=yield call(delRoom,payload)
+            yield put({ type:"roomDel",payload:data.code===1?1:-1});
         },
     },
   
@@ -78,7 +93,16 @@ export default {
             return { ...state, studentArr:payload};
         },
         search(state, {payload}) {
-            return {...state};
+            return {...state,studentArr:payload};
+        },
+        del(state, {payload}) {
+            return {...state,delCode:payload};
+        },
+        roomAdd(state, {payload}) {
+            return {...state,roomAddCode:payload};
+        },
+        roomDel(state, {payload}) {
+            return {...state,roomDelCode:payload};
         },
     },
   

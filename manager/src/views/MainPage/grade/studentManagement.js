@@ -2,39 +2,8 @@ import React, { useEffect } from "react";
 import { Button, Form, Layout, Table, Select, Input } from "antd";
 import { connect } from "dva";
 import styles from "./student.css";
+import {isCode} from "../../../utils/isCode"
 
-const columns = [
-  {
-    title: "姓名",
-    key: "1",
-    render: text => <p>{text.student_name}</p>
-  },
-  {
-    title: "学号",
-    key: "2",
-    render: text => <p>{text.student_id}</p>
-  },
-  {
-    title: "班级",
-    key: "3",
-    render: text => <p>{text.grade_name}</p>
-  },
-  {
-    title: "教室",
-    key: "4",
-    render: text => <span>{text.room_text}</span>
-  },
-  {
-    title: "密码",
-    key: "5",
-    render: text => <span>{text.student_pwd}</span>
-  },
-  {
-    title: "操作",
-    key: "6",
-    render: text => <span>删除</span>
-  }
-];
 
 function StudentManagement(props) {
   const { getFieldDecorator } = props.form;
@@ -46,6 +15,11 @@ function StudentManagement(props) {
     props.getClass();
   }, []);
 
+  useEffect(() => {
+    isCode(props.grade.delCode)
+    console.log(props.grade.delCode)
+  });
+
   let search = e => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
@@ -56,6 +30,39 @@ function StudentManagement(props) {
         })
     });
   };
+
+  const columns = [
+    {
+      title: "姓名",
+      key: "1",
+      render: text => <p>{text.student_name}</p>
+    },
+    {
+      title: "学号",
+      key: "2",
+      render: text => <p>{text.student_id}</p>
+    },
+    {
+      title: "班级",
+      key: "3",
+      render: text => <p>{text.grade_name}</p>
+    },
+    {
+      title: "教室",
+      key: "4",
+      render: text => <span>{text.room_text}</span>
+    },
+    {
+      title: "密码",
+      key: "5",
+      render: text => <span>{text.student_pwd}</span>
+    },
+    {
+      title: "操作",
+      key: "6",
+      render: text => <span onClick={()=>{props.delStudent({id:text.student_id})}}>删除</span>
+    }
+  ];
 
   return (
     <Layout style={{ padding: 0 }}>
@@ -162,6 +169,12 @@ const mapDisaptchToProps = dispatch => {
           payload:data
         });
     },
+    delStudent(data) {
+      dispatch({
+        type: "grade/delStudent",
+        payload:data
+      });
+  },
   };
 };
 

@@ -79,7 +79,7 @@ function AddDetial(props){
 
     return(
         <Layout style={{ padding: 0}}>
-            <Breadcrumb style={{ margin: "30px 0" }}>
+            <Breadcrumb style={{margin:"30px 0"}}>
                 <Breadcrumb.Item style={{fontSize:"20px"}}>创建试卷</Breadcrumb.Item>
             </Breadcrumb>
             <Content

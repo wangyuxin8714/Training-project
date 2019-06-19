@@ -108,7 +108,7 @@ function ClassManagement(props) {
   const { getFieldDecorator } = props.form;
   return (
     <Layout style={{ padding: 0 }}>
-      <Breadcrumb style={{ margin: "30px 0" }}>
+      <Breadcrumb>
         <Breadcrumb.Item style={{ fontSize: "20px" }}>班级管理</Breadcrumb.Item>
       </Breadcrumb>
       <Content
@@ -120,8 +120,13 @@ function ClassManagement(props) {
           height: "auto"
         }}
       >
-        <Button type="primary" onClick={() => updateflag(true)}>
-          +添加班级
+        <Button
+          icon="plus"
+          size={"large"}
+          type="primary"
+          onClick={() => updateflag(true)}
+        >
+          添加班级
         </Button>
         <Modal
           title="添加班级"
