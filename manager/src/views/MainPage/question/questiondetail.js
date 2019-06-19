@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button, Select, Form, Input, Layout, Breadcrumb, Modal } from "antd";
 import { connect } from "dva";
 import Editor from "for-editor";
