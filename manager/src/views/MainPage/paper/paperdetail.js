@@ -94,7 +94,7 @@ function PaperDetail(props) {
                 <div key={index} style={{width:"100%",border:"1px solid #ccc",marginTop:"10px",padding:"20px"}}>
                     <h2>{`${index+1}、${item.title}${item.questions_type_text}`}</h2>
                     <div className={styles.img}><ReactMarkdown  source={item.questions_stem}/></div> 
-                    <pre style={{background:"#ececec",padding:"10px"}}>{item.questions_answer}</pre>
+                    <ReactMarkdown  source={item.questions_answer}/>
                 </div>
               ))
             : null}

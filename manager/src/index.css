@@ -6,3 +6,8 @@ html,body{
   overflow: hidden;
 }
 *{margin: 0;padding: 0;list-style-type: none;}
+
+pre{
+  background: #eee;
+  width: 550px;
+}
