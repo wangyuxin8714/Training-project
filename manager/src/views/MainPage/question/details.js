@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Layout, Breadcrumb } from "antd";
 import { connect } from "dva";
 import styles from "./detail.css";
-import ReactMarkdown from "react-markdown"
+import ReactMarkdown from "react-markdown";
 
 const { Content } = Layout;
 
@@ -14,37 +14,43 @@ function Detail(props) {
         <Breadcrumb.Item style={{ fontSize: "20px" }}>试题详情</Breadcrumb.Item>
       </Breadcrumb>
       <div className={styles.detail}>
-        <Content
-          style={{
-            background: "#fff",
-            padding: 24,
-            margin: 0,
-            marginRight: 20,
-            height: "auto",
-            flex: 1
-          }}
-        >
-          <div>出题人：{items.user_name}</div>
-          <h2>题目信息</h2>
-          <p>
-            <span>{items.questions_type_text}</span>
-            <span>{items.subject_text}</span>
-            <span>{items.exam_name}</span>
-          </p>
-          <div><ReactMarkdown  source={items.questions_stem}/></div>
-        </Content>
-        <Content
-          style={{
-            background: "#fff",
-            padding: 24,
-            margin: 0,
-            height: "auto",
-            flex: 1
-          }}
-        >
-          <h2>答案信息</h2>
-          <pre style={{background:"#ececec",padding:"10px"}}>{items.questions_answer}</pre>
-        </Content>
+        <section style={{marginRight: 20,}}>
+          <Content
+            style={{
+              background: "#fff",
+              padding: 24,
+              margin: 0,
+              height: "auto"
+            }}
+          >
+            <div>出题人：{items.user_name}</div>
+            <h2>题目信息</h2>
+            <p>
+              <span>{items.questions_type_text}</span>
+              <span>{items.subject_text}</span>
+              <span>{items.exam_name}</span>
+            </p>
+            <div>
+              <ReactMarkdown source={items.questions_stem} />
+            </div>
+          </Content>
+        </section>
+
+        <section>
+          <Content
+            style={{
+              background: "#fff",
+              padding: 24,
+              margin: 0,
+              height: "auto"
+            }}
+          >
+            <h2>答案信息</h2>
+            <pre style={{ background: "#ececec", padding: "10px", whiteSpace:"pre-wrap"}}>
+              {items.questions_answer}
+            </pre>
+          </Content>
+        </section>
       </div>
     </Layout>
   );

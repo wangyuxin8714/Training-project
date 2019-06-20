@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./index.css";
-import { Layout, Menu, Dropdown, Button, Select, Spin } from "antd";
+import { Layout, Menu, Dropdown, Button, Select } from "antd";
 import Sidebar from "../../components/sidebar";
 import { connect } from "dva";
 import { delToken } from "../../utils/user";
@@ -121,7 +121,7 @@ function MainPage(props) {
           </Content>
           {loading ? (
             <div className={styles.loading}>
-              <Spin size="large" style={{position:"relative",left:"50%",top:"50%",transform:"translate(-50%,-50%)"}}/>
+              <p></p>
             </div>
           ) : null}
         </Layout>

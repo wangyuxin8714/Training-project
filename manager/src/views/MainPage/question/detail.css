@@ -1,3 +1,6 @@
 .detail{
     display: flex;
 }
+.detail section{
+    flex: 1;
+}

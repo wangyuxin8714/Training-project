@@ -25,6 +25,7 @@ function AddQuestion(props) {
     e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {
+        console.log(values);
         confirm({
           title: "你确定要添加这道试题吗?",
           content: "真的要添加吗?",
