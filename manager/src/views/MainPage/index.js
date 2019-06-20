@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styles from "./index.css";
 import { Route, Switch, Redirect } from 'dva/router';
-import { Layout, Menu, Dropdown, Button, Select, Spin } from "antd";
+import { Layout, Menu, Dropdown, Button, Select } from "antd";
 import Sidebar from "../../components/sidebar";
 import { connect } from "dva";
 import { delToken } from "../../utils/user";
