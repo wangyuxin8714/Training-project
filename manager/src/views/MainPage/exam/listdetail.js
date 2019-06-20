@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import { Form, Layout, Breadcrumb } from "antd";
 import { connect } from "dva";
 import ReactMarkdown from "react-markdown"
+import "./listdetail.css"
+
+
 const { Content } = Layout;
 function ListDetail(props) {
   useEffect(() => {
@@ -30,8 +33,8 @@ function ListDetail(props) {
                     props.question.getlistdets?props.question.getlistdets.questions.map((item,index)=>(
                         <div key={index} style={{width:"100%",border:"1px solid #ccc",marginTop:"10px",padding:"20px"}}>
                             <h2>{`${index+1}、${item.title}`}</h2>
-                            <ReactMarkdown  source={item.questions_stem}/>
-                            <pre style={{background:"#ececec",padding:"10px"}}>{item.questions_answer}</pre>
+                            <ReactMarkdown source={item.questions_stem}/>
+                            <ReactMarkdown source={item.questions_answer}/>
                         </div>
                     )):null
                 }

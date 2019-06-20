@@ -56,3 +56,7 @@
     justify-content: center; */
     z-index: 999;
 }
+img{
+    width: 200px;
+    height: 20px;
+}

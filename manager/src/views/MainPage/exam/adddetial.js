@@ -148,8 +148,8 @@ function AddDetial(props) {
             }}
           >
             <p>{texts.title}</p>
-            <ReactMarkdown  source={texts.questions_stem}/>
-            <pre style={{background:"#ececec",padding:"10px"}}>{texts.questions_answer}</pre>
+            <div className={styles.gams}><ReactMarkdown  source={texts.questions_stem}/></div> 
+            <ReactMarkdown source={texts.questions_answer}/>
           </Modal>
         ) : null}
         <Button
@@ -271,6 +271,7 @@ function AddDetial(props) {
                 border: "1px solid #ccc",
                 margin: "10px 0",
                 padding: "20px",
+                // width:"100%"
               }}
             >
               <div>
@@ -284,8 +285,8 @@ function AddDetial(props) {
                   删除
                 </span>
               </div>
-              <ReactMarkdown  source={item.questions_stem}/>
-              <pre style={{background:"#ececec",padding:"10px"}}>{item.questions_answer}</pre>
+              <div className={styles.gam}><ReactMarkdown  source={item.questions_stem}/></div>
+              <ReactMarkdown source={item.questions_answer}/>
             </div>
           ))}
           <Button type="primary" onClick={submitexam}>

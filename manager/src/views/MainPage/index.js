@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import styles from "./index.css";
+import { Route, Switch, Redirect } from 'dva/router';
 import { Layout, Menu, Dropdown, Button, Select, Spin } from "antd";
 import Sidebar from "../../components/sidebar";
 import { connect } from "dva";
 import { delToken } from "../../utils/user";
-import {MapRoute} from "../../route"
 
 
 
@@ -13,6 +13,11 @@ const { Header, Content, Sider } = Layout;
 const { Option } = Select;
 
 function MainPage(props) {
+  if (!props.myView.length){
+    return null;
+  }
+
+
   const { loading } = props;
   
   const menu = (
@@ -116,12 +121,30 @@ function MainPage(props) {
               margin: 0
             }}
           >
-            <MapRoute route={props.route}></MapRoute>
-            
+            <Switch>
+              <Redirect exact from="/" to="/question/add"/>
+              {/* 渲染该用户拥有的路由 */}
+              {
+                props.myView.map(item=>{
+                  
+                    return item.children&&item.children.map((value,key)=>{
+                      return  <Route key={key} path={value.path} component={value.component}/>
+                    })
+                })
+              }
+              {/* 403路由 */}
+              {props.forbiddenView.map((item)=>{
+                return <Redirect key={item} from={item} to="/access"/>
+              })}
+              {/* 剩余路由去404 */}
+              <Redirect to="/notFound"/>
+            </Switch>
+
+
           </Content>
           {loading ? (
             <div className={styles.loading}>
-              <Spin size="large" style={{position:"relative",left:"50%",top:"50%",transform:"translate(-50%,-50%)"}}/>
+              <img src="../../assets/loading.gif" alt=""/>
             </div>
           ) : null}
         </Layout>
@@ -134,7 +157,9 @@ const mapStateToProps = state => {
   return {
     locale: state.global.locale,
     loading: state.loading.global,
-    question: state.question
+    question: state.question,
+    myView: state.user.myView,
+    forbiddenView: state.user.forbiddenView
   };
 };
 
