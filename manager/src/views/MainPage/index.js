@@ -144,7 +144,7 @@ function MainPage(props) {
           </Content>
           {loading ? (
             <div className={styles.loading}>
-              <img src="../../assets/loading.gif" alt=""/>
+              <p></p>
             </div>
           ) : null}
         </Layout>

@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState}from "react";
 import { Menu, Icon } from "antd";
 import { Link } from "dva/router";
 import { injectIntl } from "react-intl";
@@ -7,13 +7,21 @@ import {connect} from 'dva';
 
 const { SubMenu } = Menu;
 function SideBar(props) {
+
+  const [openKey]=useState(["router.questions"])
+  let onOpenChange = openKeys => {
+      let ind=openKeys.findIndex(item=>openKey.indexOf(item)===-1)
+      openKey[0]=openKeys[ind]
+  };
+
   return (
     <Menu
       theme="dark"
       style={{ width: 200 }}
       mode="inline"
       defaultSelectedKeys={["0"]}
-      defaultOpenKeys={["router.question"]}
+      openKeys={openKey}
+      onOpenChange={onOpenChange}
     >
       {
         props.myView.map((item,index)=>(

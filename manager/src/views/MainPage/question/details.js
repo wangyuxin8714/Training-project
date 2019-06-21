@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Layout, Breadcrumb } from "antd";
 import { connect } from "dva";
 import styles from "./detail.css";
-import ReactMarkdown from "react-markdown"
+import ReactMarkdown from "react-markdown";
 
 
 const { Content } = Layout;
