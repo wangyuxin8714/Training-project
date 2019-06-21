@@ -1,22 +1,59 @@
-// 引入路由
-import AddQuestion from "../views/MainPage/question/addquestion";
-import TypeQuestion from "../views/MainPage/question/typeQuestion";
-import WatchQuestion from "../views/MainPage/question/watchQuestion";
-import Questiondetail from "../views/MainPage/question/questiondetail";
-import Details from "../views/MainPage/question/details";
-import AddUser from "../views/MainPage/users/addUser";
-import ShowUser from "../views/MainPage/users/showUser";
-import Addexam from "../views/MainPage/exam/addexam";
-import AddDetial from "../views/MainPage/exam/adddetial";
-import Testlist from "../views/MainPage/exam/testlist";
-import ListDetail from "../views/MainPage/exam/listdetail";
-import ClassManagement from "../views/MainPage/grade/classManagement";
-import RoomManagement from "../views/MainPage/grade/roomManagement";
-import StudentManagement from "../views/MainPage/grade/studentManagement";
-import ClassPage from "../views/MainPage/paper/classPage";
-import ClassMate from "../views/MainPage/paper/classmate";
-import PaperDetail from "../views/MainPage/paper/paperdetail";
+import dynamic from 'dva/dynamic';
 
+
+// 引入路由
+
+const AddQuestion = dynamic({
+  component: () => import('../views/MainPage/question/addquestion'),
+});
+const TypeQuestion = dynamic({
+  component: () => import('../views/MainPage/question/typeQuestion'),
+});
+const WatchQuestion = dynamic({
+  component: () => import('../views/MainPage/question/watchQuestion'),
+});
+const Questiondetail = dynamic({
+  component: () => import('../views/MainPage/question/questiondetail'),
+});
+const Details = dynamic({
+  component: () => import('../views/MainPage/question/details'),
+});
+const AddUser = dynamic({
+  component: () => import('../views/MainPage/users/addUser'),
+});
+const ShowUser = dynamic({
+  component: () => import('../views/MainPage/users/showUser'),
+});
+const Addexam = dynamic({
+  component: () => import('../views/MainPage/exam/addexam'),
+});
+const AddDetial = dynamic({
+  component: () => import('../views/MainPage/exam/adddetial'),
+});
+const Testlist = dynamic({
+  component: () => import('../views/MainPage/exam/testlist'),
+});
+const ListDetail = dynamic({
+  component: () => import('../views/MainPage/exam/listdetail'),
+});
+const ClassManagement = dynamic({
+  component: () => import('../views/MainPage/grade/classManagement'),
+});
+const RoomManagement = dynamic({
+  component: () => import('../views/MainPage/grade/roomManagement'),
+});
+const StudentManagement = dynamic({
+  component: () => import('../views/MainPage/grade/studentManagement'),
+});
+const ClassPage = dynamic({
+  component: () => import('../views/MainPage/paper/classPage'),
+});
+const ClassMate = dynamic({
+  component: () => import('../views/MainPage/paper/classmate'),
+});
+const PaperDetail = dynamic({
+  component: () => import('../views/MainPage/paper/paperdetail'),
+});
 
 export default {
   routes: [{
