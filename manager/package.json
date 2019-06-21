@@ -17,7 +17,8 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-intl": "^2.9.0",
-    "react-markdown": "^4.0.8"
+    "react-markdown": "^4.0.8",
+    "xlsx": "^0.14.3"
   },
   "devDependencies": {
     "babel-plugin-dva-hmr": "^0.3.2",

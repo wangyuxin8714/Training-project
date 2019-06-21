@@ -1,6 +1,4 @@
 // 引入路由
-// import Login from "../views/login";
-// import MainPage from "../views/MainPage";
 import AddQuestion from "../views/MainPage/question/addquestion";
 import TypeQuestion from "../views/MainPage/question/typeQuestion";
 import WatchQuestion from "../views/MainPage/question/watchQuestion";
@@ -18,18 +16,16 @@ import StudentManagement from "../views/MainPage/grade/studentManagement";
 import ClassPage from "../views/MainPage/paper/classPage";
 import ClassMate from "../views/MainPage/paper/classmate";
 import PaperDetail from "../views/MainPage/paper/paperdetail";
-// import NotFound from "../views/wrong/NotFound";
-// import Access from "../views/wrong/Access";
 
 
 export default {
   routes: [{
     name: 'router.questions',
     children: [{
-      name: 'router.questions.add',
-      id: 'main-addQuestions',
-      path: '/question/add',
-      component: AddQuestion
+      name: 'router.questions.add',//国际化匹配
+      id: 'main-addQuestions',//视图权限
+      path: '/question/add',//路由匹配路径
+      component: AddQuestion//路由跳转文件
     },{
       name: 'router.questions.view',
       id: 'main-watchQuestions',
