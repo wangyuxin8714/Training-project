@@ -53,8 +53,8 @@ function MainPage(props) {
         <a
           rel="noopener noreferrer"
           onClick={() => {
-            props.history.push("/Login");
             delToken();
+            props.history.push("/login");
           }}
         >
           退出登录
@@ -126,7 +126,6 @@ function MainPage(props) {
               {/* 渲染该用户拥有的路由 */}
               {
                 props.myView.map(item=>{
-                  
                     return item.children&&item.children.map((value,key)=>{
                       return  <Route key={key} path={value.path} component={value.component}/>
                     })

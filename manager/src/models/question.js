@@ -15,8 +15,8 @@ export default {
         gettestlist:[],
         items:{},
         upcode:0,
-        insert:1,
-        del:1,
+        insert:0,
+        del:0,
         getlistdets:null,
         useName:""
         // randomlist:[]
@@ -72,6 +72,7 @@ export default {
         *addquestion({ payload }, { call, put }) {  // eslint-disable-line
           let data = yield call(addquestion,payload);
           yield put({type:"updatecode",payload:data.code===1?1:-1})
+          yield put({type:"updatecode",payload:0})
         },
         //添加考试
         *addexam({ payload }, { call, put }) {  // eslint-disable-line
@@ -120,6 +121,7 @@ export default {
         *updatequestion({ payload }, { call, put }) {  // eslint-disable-line
           let data = yield call(updatequestion,payload);
           yield put({type:"updateupcode",payload:data.code===1?1:-1})
+          yield put({type:"updateupcode",payload:0})
         },
         //添加试题类型
         *insertExams({payload}, { call, put }) {
@@ -130,6 +132,7 @@ export default {
         *delQuesType({payload}, { call, put }) {
           let data = yield call(delQuestionType, payload);
           yield put({type:"delType",payload:data.code === 1 ? 1 : -1})
+          yield put({type:"delType",payload:0})
         },
         //过滤试卷
         *filtertab({payload}, { call, put }) {

@@ -5,18 +5,7 @@ import { connect } from "dva";
 
 function Login(props) {
   let { login } = props;
-  useEffect(() => {
-    if (props.user.islogin === 1) {
-      message.success("登录成功");
-      let pathName = decodeURIComponent(
-        props.history.location.search.split("=")[1]
-      );
-      props.history.replace(pathName || "/");
-    } else if (props.user.islogin === -1) {
-      message.error("用户名或密码错误");
-    }
-  }, [props.user]);
-
+  const { getFieldDecorator } = props.form;
   let handleSubmit = e => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
@@ -29,7 +18,26 @@ function Login(props) {
     });
   };
 
-  const { getFieldDecorator } = props.form;
+  useEffect(() => {
+    if (props.user.islogin === 1) {
+      // message.success("登录成功");
+      let pathName = decodeURIComponent(
+        props.history.location.search.split("=")[1]||'/'
+      );
+
+      setTimeout(()=>{
+        // console.log(props.history);
+        props.history.replace(pathName);
+        
+      },0)
+
+    } else if (props.user.islogin === -1) {
+      message.error("用户名或密码错误");
+    }
+  }, [props.user]);
+
+  
+
   return (
     <div className={styles.login}>
       <div className={styles.mask}>
