@@ -7,3 +7,7 @@ export function isCode(code){
         message.error('失败');
     }
 }
+
+export function alertMessage(text){
+    message.warning(text+'已存在,请重新输入'+text+'!');
+}

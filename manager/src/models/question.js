@@ -125,11 +125,17 @@ export default {
         *insertExams({payload}, { call, put }) {
           let data = yield call(insertExam, payload);
           yield put({type:"insertCode",payload:data.code})
+          if(data.code){
+            yield put({type:"topictype"})
+          }
         },
         //删除指定的试题类型
         *delQuesType({payload}, { call, put }) {
           let data = yield call(delQuestionType, payload);
           yield put({type:"delType",payload:data.code === 1 ? 1 : -1})
+          if(data.code){
+            yield put({type:"topictype"})
+          }
         },
         //过滤试卷
         *filtertab({payload}, { call, put }) {

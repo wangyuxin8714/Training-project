@@ -10,7 +10,7 @@ import {
   notification
 } from "antd";
 import { connect } from "dva";
-import { isCode } from "../../../../utils/isCode";
+import { isCode ,alertMessage} from "../../../../utils/isCode";
 
 function TypeQuestion(props) {
   const { Content } = Layout;
@@ -95,14 +95,25 @@ function TypeQuestion(props) {
                 e.preventDefault();
                 props.form.validateFields((err, values) => {
                   if (!err) {
-                    props.insertExam({
-                      text: values.text,
-                      sort: String(props.question.topictypelist.length + 1)
-                      // sort:+new Date()
-                    });
-                    isCode(props.question.insert);
+                    if (
+                      props.question.topictypelist.findIndex(
+                        item => item.questions_type_text === values.text
+                      ) === -1
+                    ) {
+                      props.insertExam({
+                        text: values.text,
+                        sort: String(props.question.topictypelist.length + 1)
+                        // sort:+new Date()
+                      });
+                      isCode(props.question.insert);
+                    }else{
+                      alertMessage("试题类型")
+                    }
                   }
                   updateDailog(false);
+                  props.form.setFieldsValue({
+                    text: ""
+                  });
                 });
               }}
             >

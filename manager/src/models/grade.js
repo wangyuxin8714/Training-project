@@ -67,6 +67,9 @@ export default {
         *addRoom({ payload }, { call, put }) { 
             let data=yield call(addRoom,payload)
             yield put({ type: 'roomAdd',payload:data.code===1?1:-1});
+            if(data.code){
+                yield put({type:"getRoom"})
+            }
         },
         *delRoom({ payload }, { call, put }) { 
             let data=yield call(delRoom,payload)
