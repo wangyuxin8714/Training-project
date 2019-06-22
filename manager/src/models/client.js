@@ -87,11 +87,13 @@ export default {
     *updataUser({ payload }, { call, put }) {
       let data = yield call(updataUser, payload);
       yield put({ type: "userUpdata", payload: data.code === 1 ? 1 : -1 });
+      yield put({ type: "userUpdata", payload:0 });
     },
     //添加身份
     *userIdent_edit({ payload }, { call, put }) {
       let data = yield call(userIdent_edit, payload);
       yield put({ type: "identUser_edit", payload: data.code === 1 ? 1 : -1 });
+      yield put({ type: "identUser_edit", payload:0});
     },
     //添加api接口权限
     *userAuth_apiEdits({ payload }, { call, put }) {
@@ -99,6 +101,10 @@ export default {
       yield put({
         type: "authUser_apiEdit",
         payload: data.code === 1 ? 1 : -1
+      });
+      yield put({
+        type: "authUser_apiEdit",
+        payload: 0
       });
     },
     //添加视图权限
@@ -108,16 +114,22 @@ export default {
         type: "authUser_viewEdit",
         payload: data.code === 1 ? 1 : -1
       });
+      yield put({
+        type: "authUser_viewEdit",
+        payload: 0
+      });
     },
     //给身份设定api接口权限
     *userSetIdent({ payload }, { call, put }) {
       let data = yield call(userSetIdent, payload);
       yield put({ type: "setUserIdent", payload: data.code === 1 ? 1 : -1 });
+      yield put({ type: "setUserIdent", payload: 0 });
     },
     //给身份设定视图权限
     *userSetView({ payload }, { call, put }) {
       let data = yield call(userSetView, payload);
       yield put({ type: "setUserView", payload: data.code === 1 ? 1 : -1 });
+      yield put({ type: "setUserView", payload: 0 });
     }
   },
 

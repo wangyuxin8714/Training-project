@@ -21,9 +21,13 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {  // eslint-disable-line
       return history.listen(({ pathname }) => {
+      //   console.log('pathname...',pathname)
+      // console.log('Token...',getToken())
+
         // console.log('pathname...', pathname);
         // 1.判断去的页面是否是登陆页面
         if (pathname.indexOf('/login') === -1) {
+          // 不是登录页
           // 1.1 判断是否有登陆态
           if (!getToken()){
             // 1.1.1没有登陆态，利用redux做路由跳转
@@ -58,6 +62,8 @@ export default {
                 setToken(data.token)
             }
             yield put({type:"updatalogin",payload:data.code===1?1:-1})
+            yield put({type:"updatalogin",payload:0})
+
         },
         *fetch({payload}, {call,put}) { // eslint-disable-line
             yield put({ type: 'save' });
