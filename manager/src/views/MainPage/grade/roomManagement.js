@@ -72,27 +72,27 @@ function RoomManagement(props) {
           onOk={e => {
             e.preventDefault();
             props.form.validateFields((err, values) => {
-              if (props.grade.getRoomData.findIndex(
-                item => item.room_text === values.text
-              ) === -1) {
-                props.addRoom({ room_text: values.text });
-              }else{
-                alertMessage("教室号");
+              if (!err) {
+                  if(values.text){
+                    if (props.grade.getRoomData.findIndex(
+                      item => item.room_text === values.text
+                    ) === -1) {
+                      props.addRoom({ room_text: values.text });
+                    }else{
+                      alertMessage("教室号");
+                    }
+                    updateDailog(false);
+                    props.form.setFieldsValue({
+                      text: ""
+                    });
+                  }
               }
-              updateDailog(false);
-              props.form.setFieldsValue({
-                text: ""
-              });
             });
           }}
         >
           <Form.Item label="教室号">
             {getFieldDecorator("text", {
-              rules: [
-                {
-                  required: true
-                }
-              ]
+              rules: [{ required: true, message: '请输入教室号' }]
             })(<Input />)}
           </Form.Item>
         </Modal>

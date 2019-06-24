@@ -31,16 +31,26 @@ export default {
         *addClass({ payload }, { call, put }) { 
             let data=yield call(addClass,payload)
             yield put({ type: 'updateaddclasscode',payload:data.code===1?1:-1});
+            yield put({ type: 'updateaddclasscode',payload:0});
+            if(data.code){
+                yield put({type:"getClass"})
+            }
         },
         *changeGrade({ payload }, { call, put }) {  
             let data=yield call(changeGrade,payload)
             yield put({ type: 'gradeChange',payload:data.code===1?1:-1});
             yield put({ type: 'gradeChange',payload:0});
+            if(data.code){
+                yield put({type:"getClass"})
+            }
         },
         *delClass({ payload }, { call, put }) {  
             let data=yield call(delClass,payload)
             yield put({ type: 'gradeChange',payload:data.code===1?1:-1});
             yield put({ type: 'gradeChange',payload:0});
+            if(data.code){
+                yield put({type:"getClass"})
+            }
         },
         *getStudents({ payload }, { call, put }) {  
             let data=yield call(getStudent);
@@ -65,6 +75,9 @@ export default {
             let data=yield call(delStudent,payload);
             yield put({ type: 'del',payload:data.code===1?1:-1});            
             yield put({ type: 'del',payload:0});            
+            if(data.code){
+                yield put({type:"getStudents"})
+            }
         },
         *addRoom({ payload }, { call, put }) { 
             let data=yield call(addRoom,payload)
@@ -77,6 +90,9 @@ export default {
         *delRoom({ payload }, { call, put }) { 
             let data=yield call(delRoom,payload)
             yield put({ type:"roomDel",payload:data.code===1?1:-1});
+            if(data.code){
+                yield put({type:"getRoom"})
+            }
             yield put({ type:"roomDel",payload:0});
         },
     },
