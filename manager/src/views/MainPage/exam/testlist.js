@@ -21,9 +21,6 @@ function Testlist(props){
         props.coursetype()
         props.testlist()
     },[])
-    useEffect(()=>{
-        
-    },[props.question])
 
     
     let filtertab = status => {
@@ -42,7 +39,7 @@ function Testlist(props){
           render: text =>(
               <>
                 <p style={{fontSize:12}}>{text.title}</p>
-                <p style={{fontSize:12}}>考试时间: {new Date(Number(text.end_time - text.start_time)).toLocaleTimeString()}  3道题作弊0分</p>
+                <p style={{fontSize:12}}>考试时间: {(new Date(Number(text.end_time - text.start_time))/1000/60/60).toFixed(0)+':0:0'}  {text.number}道题作弊0分</p>
               </>
           ),
         },

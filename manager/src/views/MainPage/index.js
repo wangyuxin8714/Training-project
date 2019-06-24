@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./index.css";
-import { Route, Switch, Redirect } from 'dva/router';
+import { Route, Switch, Redirect } from "dva/router";
 import { Layout, Menu, Dropdown, Button, Select } from "antd";
 import Sidebar from "../../components/sidebar";
 import { connect } from "dva";
@@ -12,13 +12,12 @@ const { Header, Content, Sider } = Layout;
 const { Option } = Select;
 
 function MainPage(props) {
-  if (!props.myView.length){
+  if (!props.myView.length) {
     return null;
   }
 
-
   const { loading } = props;
-  
+
   const menu = (
     <Menu>
       <Menu.Item>
@@ -34,22 +33,10 @@ function MainPage(props) {
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="http://www.taobao.com/"
-        >
-          我的班级
-        </a>
+        <a>我的班级</a>
       </Menu.Item>
       <Menu.Item>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="http://www.tmall.com/"
-        >
-          设置
-        </a>
+        <a>设置</a>
       </Menu.Item>
       <Menu.Item>
         <a
@@ -123,28 +110,33 @@ function MainPage(props) {
             }}
           >
             <Switch>
-              <Redirect exact from="/" to="/question/add"/>
+              <Redirect exact from="/" to="/question/add" />
               {/* 渲染该用户拥有的路由 */}
-              {
-                props.myView.map(item=>{
-                    return item.children&&item.children.map((value,key)=>{
-                      return  <Route key={key} path={value.path} component={value.component}/>
-                    })
-                })
-              }
+              {props.myView.map(item => {
+                return (
+                  item.children &&
+                  item.children.map((value, key) => {
+                    return (
+                      <Route
+                        key={key}
+                        path={value.path}
+                        component={value.component}
+                      />
+                    );
+                  })
+                );
+              })}
               {/* 403路由 */}
-              {props.forbiddenView.map((item)=>{
-                return <Redirect key={item} from={item} to="/access"/>
+              {props.forbiddenView.map(item => {
+                return <Redirect key={item} from={item} to="/access" />;
               })}
               {/* 剩余路由去404 */}
-              <Redirect to="/notFound"/>
+              <Redirect to="/notFound" />
             </Switch>
-
-
           </Content>
           {loading ? (
             <div className={styles.loading}>
-              <p></p>
+              <p />
             </div>
           ) : null}
         </Layout>

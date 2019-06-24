@@ -116,7 +116,6 @@ export default {
           let data = yield call(lookquestion,payload);
           window.localStorage.setItem("getquestions",JSON.stringify(data.data[0]))
           yield put({type:"updateitems",payload:data.data[0]})
-
         },
         //更新试题
         *updatequestion({ payload }, { call, put }) {  // eslint-disable-line

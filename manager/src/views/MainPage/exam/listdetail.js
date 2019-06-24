@@ -38,8 +38,6 @@ function ListDetail(props) {
                         </div>
                     )):null
                 }
-                
-
             </Content>
         </Layout>
     )

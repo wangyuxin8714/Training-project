@@ -103,7 +103,7 @@ function ClassManagement(props) {
   let changeClass = e => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
-      if(values.alterclass&&values.altercourse&&values.alterroom){
+      if (values.alterclass && values.altercourse && values.alterroom) {
         props.changeGrade({
           grade_id: list.grade_id,
           grade_name: values.alterclass,

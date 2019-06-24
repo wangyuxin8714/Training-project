@@ -9,7 +9,7 @@ import {
   Input
 } from "antd";
 import { connect } from "dva";
-import { isCode ,alertMessage} from "../../../../utils/isCode";
+import { isCode, alertMessage } from "../../../../utils/isCode";
 
 function TypeQuestion(props) {
   const { Content } = Layout;
@@ -43,6 +43,7 @@ function TypeQuestion(props) {
           onClick={() => {
             props.delType({ id: text.questions_type_id });
             
+
           }}
         >
           删除
