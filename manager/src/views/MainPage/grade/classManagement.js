@@ -12,7 +12,7 @@ import {
 } from "antd";
 import { connect } from "dva";
 import styles from "./class.scss";
-import { isCode } from "../../../utils/isCode";
+import { isCode, alertMessage } from "../../../utils/isCode";
 const { Content } = Layout;
 const { Option } = Select;
 
@@ -23,8 +23,8 @@ function ClassManagement(props) {
     props.coursetype();
   }, []);
   useEffect(() => {
-    isCode(props.grade.addclasscode);
     isCode(props.grade.gradeChangeCode);
+    isCode(props.grade.addclasscode);
   }, [props.grade]);
 
   let [flag, updateflag] = useState(false);
@@ -83,12 +83,25 @@ function ClassManagement(props) {
   let addclass = e => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
-      props.addClass({
-        grade_name: values.classname,
-        room_id: values.roomname,
-        subject_id: values.coursename
-      });
+      if (
+        props.grade.getClassData.findIndex(
+          item => item.grade_name === values.classname
+        ) === -1
+      ) {
+        props.addClass({
+          grade_name: values.classname,
+          room_id: values.roomname,
+          subject_id: values.coursename
+        });
+      } else {
+        alertMessage("班级名");
+      }
       updateflag(false);
+      props.form.setFieldsValue({
+        classname: "",
+        roomname: "",
+        coursename: ""
+      });
     });
   };
 

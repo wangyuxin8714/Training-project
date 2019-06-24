@@ -42,7 +42,7 @@ function Testlist(props){
           render: text =>(
               <>
                 <p style={{fontSize:12}}>{text.title}</p>
-                <p style={{fontSize:12}}>考试时间: 2:0:0  3道题作弊0分</p>
+                <p style={{fontSize:12}}>考试时间: {new Date(Number(text.end_time - text.start_time)).toLocaleTimeString()}  3道题作弊0分</p>
               </>
           ),
         },
@@ -104,7 +104,6 @@ function Testlist(props){
         e.preventDefault();
         props.form.validateFields((err, values) => {
             if (!err) {
-                // console.log('Received values of form: ', values);
                 props.testlist({
                     subject_id:values.coursetype,
                     exam_exam_id:values.examtype,

@@ -31,7 +31,6 @@ export default {
         *addClass({ payload }, { call, put }) { 
             let data=yield call(addClass,payload)
             yield put({ type: 'updateaddclasscode',payload:data.code===1?1:-1});
-            yield put({ type: 'updateaddclasscode',payload:0});
         },
         *changeGrade({ payload }, { call, put }) {  
             let data=yield call(changeGrade,payload)
@@ -40,7 +39,6 @@ export default {
         },
         *delClass({ payload }, { call, put }) {  
             let data=yield call(delClass,payload)
-            // console.log(data)
             yield put({ type: 'gradeChange',payload:data.code===1?1:-1});
             yield put({ type: 'gradeChange',payload:0});
         },
