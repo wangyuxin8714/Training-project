@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from "dva";
 
 import axios from "axios"
-import imag from "../../assets/2.jpg"
+// import imag from "../../assets/2.jpg"
 
 
  const Personal=props=>{
