@@ -33,7 +33,7 @@ export function allNew() {
     })
 }
 
-//获取当前接口
+//获取当前用户接口
 export function getuser() {
     return request({
         url: '/user/userInfo',

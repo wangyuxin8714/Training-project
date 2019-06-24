@@ -46,7 +46,6 @@ export default {
         },
         *delClass({ payload }, { call, put }) {  
             let data=yield call(delClass,payload)
-            // console.log(data)
             yield put({ type: 'gradeChange',payload:data.code===1?1:-1});
             yield put({ type: 'gradeChange',payload:0});
             if(data.code){

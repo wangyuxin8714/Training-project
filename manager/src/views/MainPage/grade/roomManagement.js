@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Layout, Breadcrumb, Table, Input, Modal } from "antd";
 import { connect } from "dva";
-import { isCode } from "../../../utils/isCode";
+import { isCode ,alertMessage} from "../../../utils/isCode";
 
 const { Content } = Layout;
 const size = "large";
@@ -74,8 +74,17 @@ function RoomManagement(props) {
             props.form.validateFields((err, values) => {
               if (!err) {
                   if(values.text){
+                    if (props.grade.getRoomData.findIndex(
+                      item => item.room_text === values.text
+                    ) === -1) {
                       props.addRoom({ room_text: values.text });
-                      updateDailog(false);
+                    }else{
+                      alertMessage("教室号");
+                    }
+                    updateDailog(false);
+                    props.form.setFieldsValue({
+                      text: ""
+                    });
                   }
               }
             });

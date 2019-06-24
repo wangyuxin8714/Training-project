@@ -22,3 +22,13 @@ export function getUserInfo(){
       url: '/user/new?user_id='+user_id
     })
   }
+
+  // 更新用户
+  export function imgadd(params){
+    console.log(params)
+    return request({
+      url:'/user/user',
+      method: 'PUT',
+      data: params
+    })
+  }

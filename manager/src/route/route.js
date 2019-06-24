@@ -1,4 +1,5 @@
 import dynamic from 'dva/dynamic';
+import Personal from '../views/personal/personal';
 
 // 引入路由
 
@@ -21,6 +22,9 @@ const Excel = dynamic({
 
 const route=[
     {
+        path:"/personal",
+        component:Personal
+    },{
         path:"/excel",
         component:Excel
     },{

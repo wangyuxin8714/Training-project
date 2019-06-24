@@ -4,7 +4,6 @@ import { Route, Switch, Redirect } from 'dva/router';
 import { Layout, Menu, Dropdown, Button, Select } from "antd";
 import Sidebar from "../../components/sidebar";
 import { connect } from "dva";
-import { delToken } from "../../utils/user";
 
 
 
@@ -26,7 +25,10 @@ function MainPage(props) {
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href="http://www.alipay.com/"
+          onClick={()=>{
+              props.history.push("/personal")
+            }
+          }
         >
           个人中心
         </a>
@@ -53,7 +55,7 @@ function MainPage(props) {
         <a
           rel="noopener noreferrer"
           onClick={() => {
-            delToken();
+            props.outlogin()
             props.history.push("/login");
           }}
         >
@@ -70,7 +72,6 @@ function MainPage(props) {
   let zh_en = value => {
     props.changeLocal(value);
   };
-
   return (
     <Layout className={styles.mainWrap}>
       <Header className={styles.mainHeader}>
@@ -101,7 +102,7 @@ function MainPage(props) {
             <Button style={{ height: 50, border: 0 }}>
               <div className={styles.mainHeader_right}>
                 <img
-                  src="https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png"
+                  src={props.question.avatar}
                   alt=""
                 />
                 <span>{props.question.useName}</span>
@@ -158,7 +159,8 @@ const mapStateToProps = state => {
     loading: state.loading.global,
     question: state.question,
     myView: state.user.myView,
-    forbiddenView: state.user.forbiddenView
+    forbiddenView: state.user.forbiddenView,
+    imgsrc:state.user.imgsrc
   };
 };
 
@@ -174,6 +176,11 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: "question/getuser"
       });
+    },
+    outlogin(){
+      dispatch({
+        type:"user/outlogin"
+      })
     }
   };
 };

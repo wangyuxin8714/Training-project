@@ -18,7 +18,8 @@ export default {
         insert:0,
         del:0,
         getlistdets:null,
-        useName:""
+        useName:"",
+        avatar:""
         // randomlist:[]
     },
     
@@ -126,7 +127,8 @@ export default {
         //添加试题类型
         *insertExams({payload}, { call, put }) {
           let data = yield call(insertExam, payload);
-          yield put({type:"insertCode",payload:data.code})
+          yield put({type:"insertCode",payload:data.code===1?1:-1})
+          yield put({type:"insertCode",payload:0})
           if(data.code){
             yield put({type:"topictype"})
           }
@@ -184,7 +186,7 @@ export default {
       },
       // 获取当前的用户
       upadataid(state, {payload}) {
-        return { ...state, id:payload.user_id,useName:payload.user_name };
+        return { ...state, id:payload.user_id,useName:payload.user_name,avatar:payload.avatar};
       },
       // 添加试题
       updatecode(state, {payload}) {

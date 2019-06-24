@@ -1,7 +1,7 @@
 //登录接口数据
-import {login,getUserInfo, getViewAuthority} from "../services"
+import {login,getUserInfo, getViewAuthority,imgadd} from "../services"
 import {routerRedux} from 'dva/router'
-import {getToken,setToken} from "../utils/user"
+import {getToken,setToken,delToken} from "../utils/user"
 
 import allView from '../route/config.js'
 
@@ -14,7 +14,7 @@ export default {
         userInfo: {},
         viewAuthority: [],  // 用户所拥有的视图权限
         myView: [],  // 拥有权限的前端路由
-        forbiddenView: [] //没有权限访问的路由
+        forbiddenView: [], //没有权限访问的路由
     },
 
     // 订阅路由跳转
@@ -68,6 +68,12 @@ export default {
         *fetch({payload}, {call,put}) { // eslint-disable-line
             yield put({ type: 'save' });
         },
+        *imgadd({payload}, {call,put}) { // eslint-disable-line
+          let userInfo = yield call(getUserInfo);
+          let params={...payload}
+          params.user_id=userInfo.data.user_id
+          yield call(imgadd,params);
+        },
         *getUserInfo({payload}, {call, put, select}){
           // 1.判断是否有权限信息
           let myView = yield select(state=>state.user.myView);
@@ -89,7 +95,10 @@ export default {
             type: 'updateViewAuthority',
             payload: viewAuthority.data
           })
-       }
+       },
+       *outlogin({ payload }, { call, put }) {
+        yield put({ type: "loginout" });
+      }
     },
 
     reducers: {
@@ -117,6 +126,10 @@ export default {
             })
           })
           return {...state, viewAuthority: payload, myView, forbiddenView}
+        },
+        loginout(state){
+          delToken()
+          return {...state,userInfo: {},viewAuthority: [],myView: [],forbiddenView: []}
         }
     },
 

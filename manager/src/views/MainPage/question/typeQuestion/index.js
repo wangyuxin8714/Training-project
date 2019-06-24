@@ -6,8 +6,7 @@ import {
   Breadcrumb,
   Table,
   Modal,
-  Input,
-  notification
+  Input
 } from "antd";
 import { connect } from "dva";
 import { isCode ,alertMessage} from "../../../../utils/isCode";
@@ -19,7 +18,12 @@ function TypeQuestion(props) {
   useEffect(() => {
     props.topictype();
   }, []);
-
+  useEffect(() => {
+    isCode(props.question.del)
+  }, [props.question]);
+  useEffect(() => {
+    isCode(props.question.insert)
+  }, [props.question]);
   const columns = [
     {
       title: "类型ID",
@@ -38,15 +42,7 @@ function TypeQuestion(props) {
         <span
           onClick={() => {
             props.delType({ id: text.questions_type_id });
-            if (props.question.del === 1) {
-              notification["success"]({
-                message: "删除成功"
-              });
-            } else {
-              notification["error"]({
-                message: "删除失败"
-              });
-            }
+            
           }}
         >
           删除
@@ -95,29 +91,39 @@ function TypeQuestion(props) {
                 e.preventDefault();
                 props.form.validateFields((err, values) => {
                   if (!err) {
-                    if (
-                      props.question.topictypelist.findIndex(
-                        item => item.questions_type_text === values.text
-                      ) === -1
-                    ) {
-                      props.insertExam({
-                        text: values.text,
-                        sort: String(props.question.topictypelist.length + 1)
-                        // sort:+new Date()
-                      });
-                      isCode(props.question.insert);
-                    }else{
-                      alertMessage("试题类型")
+                    if(values.text){
+                      if (
+                        props.question.topictypelist.findIndex(
+                          item => item.questions_type_text === values.text
+                        ) === -1
+                      ) {
+                        props.insertExam({
+                          text: values.text,
+                          sort: String(props.question.topictypelist.length + 1)
+                          // sort:+new Date()
+                        });
+                        // isCode(props.question.insert);
+                      }else{
+                        alertMessage("试题类型")
+                      }
+                      updateDailog(false);
                     }
                   }
-                  updateDailog(false);
                   props.form.setFieldsValue({
                     text: ""
                   });
                 });
               }}
             >
-              <Form.Item>{getFieldDecorator("text")(<Input />)}</Form.Item>
+              <Form.Item>
+              {getFieldDecorator("text",{
+                rules: [
+                {
+                  required: true,
+                  message: "请输入类型"
+                }]
+              })(<Input />)}
+              </Form.Item>
             </Modal>
 
             <Table
