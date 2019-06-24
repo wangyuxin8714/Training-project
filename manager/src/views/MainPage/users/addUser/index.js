@@ -24,7 +24,7 @@ function AddUser(props) {
     isCode(props.users.authUser_viewEditCode);
     isCode(props.users.setUserIdentCode);
     isCode(props.users.setUserViewCode);
-  }, []);
+  }, [props.users]);
 
   return (
     <Layout>

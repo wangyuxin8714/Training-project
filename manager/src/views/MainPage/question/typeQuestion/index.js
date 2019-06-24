@@ -9,7 +9,7 @@ import {
   Input
 } from "antd";
 import { connect } from "dva";
-import { isCode ,alertMessage} from "../../../../utils/isCode";
+import { isCode, alertMessage } from "../../../../utils/isCode";
 
 function TypeQuestion(props) {
   const { Content } = Layout;
@@ -42,7 +42,7 @@ function TypeQuestion(props) {
         <span
           onClick={() => {
             props.delType({ id: text.questions_type_id });
-            
+
           }}
         >
           删除
@@ -91,7 +91,7 @@ function TypeQuestion(props) {
                 e.preventDefault();
                 props.form.validateFields((err, values) => {
                   if (!err) {
-                    if(values.text){
+                    if (values.text) {
                       if (
                         props.question.topictypelist.findIndex(
                           item => item.questions_type_text === values.text
@@ -103,7 +103,7 @@ function TypeQuestion(props) {
                           // sort:+new Date()
                         });
                         // isCode(props.question.insert);
-                      }else{
+                      } else {
                         alertMessage("试题类型")
                       }
                       updateDailog(false);
@@ -116,13 +116,13 @@ function TypeQuestion(props) {
               }}
             >
               <Form.Item>
-              {getFieldDecorator("text",{
-                rules: [
-                {
-                  required: true,
-                  message: "请输入类型"
-                }]
-              })(<Input />)}
+                {getFieldDecorator("text", {
+                  rules: [
+                    {
+                      required: true,
+                      message: "请输入类型"
+                    }]
+                })(<Input />)}
               </Form.Item>
             </Modal>
 
