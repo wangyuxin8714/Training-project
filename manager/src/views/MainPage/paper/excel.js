@@ -4,6 +4,7 @@ import XLSX from 'xlsx';
 
 const Excel=props=>{
 
+
   let [columns, setColumns] = useState([]);
   let [dataSource, setDataSource] = useState([]);
 
@@ -74,7 +75,14 @@ const Excel=props=>{
     <Button onClick={()=>exportExcel()}>导出excel</Button>
     {/* 列表 */}
     <Table dataSource={dataSource} columns={columns}/>
+
+
   </div>;
+
+
+    
+
+
 }
 
 export default Excel
