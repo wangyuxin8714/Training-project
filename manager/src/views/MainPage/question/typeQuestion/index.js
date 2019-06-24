@@ -6,8 +6,7 @@ import {
   Breadcrumb,
   Table,
   Modal,
-  Input,
-  notification
+  Input
 } from "antd";
 import { connect } from "dva";
 import { isCode ,alertMessage} from "../../../../utils/isCode";
@@ -19,6 +18,11 @@ function TypeQuestion(props) {
   useEffect(() => {
     props.topictype();
   }, []);
+
+
+  useEffect(()=>{
+    isCode(props.question.del)
+  },[props.question])
 
   const columns = [
     {
@@ -38,15 +42,6 @@ function TypeQuestion(props) {
         <span
           onClick={() => {
             props.delType({ id: text.questions_type_id });
-            if (props.question.del === 1) {
-              notification["success"]({
-                message: "删除成功"
-              });
-            } else {
-              notification["error"]({
-                message: "删除失败"
-              });
-            }
           }}
         >
           删除

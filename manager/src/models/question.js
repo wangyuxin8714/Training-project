@@ -115,7 +115,6 @@ export default {
           let data = yield call(lookquestion,payload);
           window.localStorage.setItem("getquestions",JSON.stringify(data.data[0]))
           yield put({type:"updateitems",payload:data.data[0]})
-
         },
         //更新试题
         *updatequestion({ payload }, { call, put }) {  // eslint-disable-line
@@ -126,7 +125,7 @@ export default {
         //添加试题类型
         *insertExams({payload}, { call, put }) {
           let data = yield call(insertExam, payload);
-          yield put({type:"insertCode",payload:data.code})
+          yield put({type:"insertCode",payload:data.code === 1 ? 1 : -1})
           if(data.code){
             yield put({type:"topictype"})
           }
