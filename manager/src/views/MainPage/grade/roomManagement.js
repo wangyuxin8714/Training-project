@@ -33,6 +33,7 @@ function RoomManagement(props) {
           onClick={() => {
             props.delRoom({ room_id: text.room_id });
           }}
+          style={{color: "dodgerblue",cursor:"pointer"}}
         >
           删除
         </span>
@@ -51,7 +52,8 @@ function RoomManagement(props) {
           padding: 24,
           margin: 0,
           marginTop: 20,
-          height: "auto"
+          height: "auto",
+          borderRadius:15
         }}
       >
         <Button

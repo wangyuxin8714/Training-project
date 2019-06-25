@@ -26,6 +26,7 @@ function Detail(props) {
               margin: 0,
               marginRight: 20,
               height: "auto",
+              borderRadius:15
             }}
           >
             <div>出题人：{items.user_name}</div>
@@ -45,6 +46,7 @@ function Detail(props) {
               padding: 24,
               margin: 0,
               height: "auto",
+              borderRadius:15
             }}
           >
             <h2>答案信息</h2>

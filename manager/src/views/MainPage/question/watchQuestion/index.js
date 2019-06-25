@@ -98,7 +98,8 @@ function WatchQuestion(props) {
               padding: 24,
               paddingLeft: 60,
               marginBottom: 20,
-              minHeight: 120
+              minHeight: 120,
+              borderRadius:15
             }}
           >
             <div>
@@ -114,7 +115,7 @@ function WatchQuestion(props) {
               >
                 All
               </Tag>
-              {props.question.coursetypelist.map((item, index) => (
+              {props.question.coursetypelist&&props.question.coursetypelist.map((item, index) => (
                 <Tag
                   key={item.subject_id}
                   className={index === ind || flag ? styles.sp : null}
@@ -130,7 +131,7 @@ function WatchQuestion(props) {
             </div>
 
             <div className={styles.headBottom}>
-              <Form.Item label="考试类型">
+              <Form.Item label="考试类型" style={{display:"flex",margin:0,marginRight:50}}>
                 {getFieldDecorator("examtype")(
                   <Select
                     showSearch
@@ -151,7 +152,7 @@ function WatchQuestion(props) {
                   </Select>
                 )}
               </Form.Item>
-              <Form.Item label="题目类型">
+              <Form.Item label="题目类型" style={{display:"flex",margin:0,marginRight:50}}>
                 {getFieldDecorator("topictype")(
                   <Select
                     showSearch
@@ -164,7 +165,7 @@ function WatchQuestion(props) {
                         .indexOf(input.toLowerCase()) >= 0
                     }
                   >
-                    {props.question.topictypelist.map(item => (
+                    {props.question.topictypelist&&props.question.topictypelist.map(item => (
                       <Option
                         value={item.questions_type_id}
                         key={item.questions_type_id}
@@ -187,7 +188,8 @@ function WatchQuestion(props) {
               background: "#fff",
               padding: 24,
               margin: 0,
-              minHeight: 280
+              minHeight: 280,
+              borderRadius:15
             }}
           >
             <Table

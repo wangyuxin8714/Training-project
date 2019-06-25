@@ -1,86 +1,82 @@
-import React from "react";
+import React from 'react';
 import { connect } from "dva";
 
-import axios from "axios";
-// import imag from "../../assets/2.jpg";
+import axios from "axios"
+// import imag from "../../assets/2.jpg"
 
 
-const Personal = props => {
-    //直接上传服务器
-  /*let changehand = e => {
-    // console.log('e...', e);
+ const Personal=props=>{
+
+  // let changehand=e=>{
+  //   // console.log('e...', e);
+  //   let files = e.target.files;
+  //   // console.log(files)
+  //   // 创建一个formData
+  //   let form = new FormData();
+  //   for (let i=0,len=files.length; i<len;i++){
+  //       // console.log(files[i].name);
+  //       form.append(files[i].name, files[i]);
+  //   }
+
+  //   axios({
+  //       method: 'post',
+  //       url: 'http://123.206.55.50:11000/upload',
+  //       data: form
+  //   }).then(body=>{
+  //       console.log('body...', body);
+  //       let code = {
+  //           width: 160,
+  //           height: 160,
+  //           src: body.data.data[0].path
+  //       }
+  //       img(code)
+  //       // props.imgadd({avatar:body.data.data[0].path})
+  //   }).catch(e=>{
+  //       console.log('e..', e);
+  //   })
+  // }
+  // let bg = {
+  //   width: 600,
+  //   height: 600,
+  //   src: imag
+  // }
+  // function img(code){
+  //     var image = new Image();
+  //     image.src = bg.src;
+  //     image.crossOrigin = 'Anonymous';
+  //     var canvas = document.getElementById("myCanvas");
+  //     var ctx = canvas.getContext("2d");
+      
+  //     image.onload = function() {
+  //       ctx.drawImage(image, 0, 0, bg.width, bg.height);
+  //       ctx.save();
+        
+  //       var image1 = new Image();
+  //       image1.src=code.src
+  //       image1.crossOrigin="Anonymous"
+  //       image1.onload = function() {
+  //           ctx.drawImage(image1, 220, 220, code.width, code.height);
+  //           ctx.save();
+  //           var base64 = canvas.toDataURL("image/jpg");
+  //           console.log(base64)
+  //           axios({
+  //               method: 'post',
+  //               url: 'http://123.206.55.50:11000/upload_base64',
+  //               data: {base64}
+  //           }).then(body=>{
+  //               console.log('body...', body);
+  //               props.imgadd({avatar:body.data.data.path})
+  //           }).catch(e=>{
+  //               console.log('e..', e);
+  //           })
+  //       }
+            
+  //     }
+  // }
+
+
+let changehand=e=>{
     let files = e.target.files;
-    // console.log(files)
-    // 创建一个formData
-    let form = new FormData();
-    for (let i = 0, len = files.length; i < len; i++) {
-      // console.log(files[i].name);
-      form.append(files[i].name, files[i]);
-    }
-    axios({
-      method: "post",
-      url: "http://123.206.55.50:11000/upload",
-      data: form
-    })
-      .then(body => {
-        console.log("body...", body);
-        let code = {
-          width: 160,
-          height: 160,
-          src: body.data.data[0].path
-        };
-        img(code);
-        // props.imgadd({avatar:body.data.data[0].path})
-      })
-      .catch(e => {
-        console.log("e..", e);
-      });
-  };
-  let bg = {
-    width: 600,
-    height: 600,
-    src: imag
-  };
-  function img(code) {
-    var image = new Image();
-    image.src = bg.src;
-    image.crossOrigin = "Anonymous";
-    var canvas = document.getElementById("myCanvas");
-    var ctx = canvas.getContext("2d");
-
-    image.onload = function() {
-      ctx.drawImage(image, 0, 0, bg.width, bg.height);
-      ctx.save();
-
-      var image1 = new Image();
-      image1.src = code.src;
-      image1.crossOrigin = "Anonymous";
-      image1.onload = function() {
-        ctx.drawImage(image1, 220, 220, code.width, code.height);
-        ctx.save();
-        var base64 = canvas.toDataURL("image/jpg");
-        console.log(base64);
-        axios({
-          method: "post",
-          url: "http://123.206.55.50:11000/upload_base64",
-          data: { base64 }
-        })
-          .then(body => {
-            console.log("body...", body);
-            props.imgadd({ avatar: body.data.data.path });
-          })
-          .catch(e => {
-            console.log("e..", e);
-          });
-      };
-    };
-  }*/
-
-
-  //转为base64格式
-  let changehand=e=>{
-    let files = e.target.files;
-    console.log(files)
     var reader = new FileReader();
     reader.onload = function() {
         axios({
@@ -98,10 +94,9 @@ const Personal = props => {
               axios({
                 method: 'post',
                 url: 'http://123.206.55.50:11000/tobase64',
-                data: {url: props.question.avatar}
+                data: {url: (props.question.avatar||"http://img.duoziwang.com/2018/05/201712311370200.jpg")}
               }).then(body=>{
                 // console.log('body...', body);
-                // console.log(code)
                 let bg = {
                   width: 600,
                   height: 600,
@@ -120,66 +115,69 @@ const Personal = props => {
     reader.readAsDataURL(files[0]);
 }
 
-
 function img(bg,code){
-      var image = new Image();
-      image.src = bg.src;
-      image.crossOrigin = 'Anonymous';
-      var canvas = document.getElementById("myCanvas");
-      var ctx = canvas.getContext("2d");
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+
+    var image = new Image();
+    image.src = bg.src;
+    image.crossOrigin = 'Anonymous';
+    image.onload = function() {
+      ctx.drawImage(image, 0, 0, bg.width, bg.height);
+      ctx.save();
       
-      image.onload = function() {
-        ctx.drawImage(image, 0, 0, bg.width, bg.height);
-        ctx.save();
-        
-        var image1 = new Image();
-        image1.src=code.src
-        image1.crossOrigin="Anonymous"
-        image1.onload = function() {
-            ctx.drawImage(image1, 220, 220, code.width, code.height);
-            ctx.save();
-            var base64 = canvas.toDataURL("image/jpg");
-            console.log(base64)
-            axios({
-                method: 'post',
-                url: 'http://123.206.55.50:11000/upload_base64',
-                data: {base64}
-            }).then(body=>{
-                console.log('body...', body);
-                props.imgadd({avatar:body.data.data.path})
-            }).catch(e=>{
-                console.log('e..', e);
-            })
-        }
-            
+      var image1 = new Image();
+      image1.src=code.src
+      image1.crossOrigin="Anonymous"
+      image1.onload = function() {
+          ctx.drawImage(image1, 220, 220, code.width, code.height);
+          ctx.save();
+
+          var base64 = canvas.toDataURL("image/jpg");
+          axios({
+              method: 'post',
+              url: 'http://123.206.55.50:11000/upload_base64',
+              data: {base64}
+          }).then(body=>{
+              // console.log('body...', body);a
+              props.imgadd({avatar:body.data.data.path})
+          }).catch(e=>{
+              console.log('e..', e);
+          })
       }
+          
+    }
 }
 
-  return (
-    <div>
-      <input className="inp" type="file" onChange={changehand} />
-      {/* <img src={props.question.avatar} alt=""/> */}
-      {/* <canvas></canvas> */}
-      <canvas width="600" height="600" id="myCanvas" />
-    </div>
-  );
-};
-const mapStateToProps = state => {
-  return state;
-};
 
+  return <div>
+    <div>
+      <input className="inp" type="file" onChange={changehand}/>
+    </div>
+    <div>
+      <canvas width="600" height="600" id="myCanvas"></canvas>
+    </div>
+  </div>;
+
+}
+
+const mapStateToProps = state => {
+    return state
+};
+  
 const mapDispatchToProps = dispatch => {
-  return {
-    imgadd(payload) {
-      dispatch({
-        type: "user/imgadd",
-        payload
-      });
-    }
-  };
+    return {
+        imgadd(payload){
+          console.log(payload)
+            dispatch({
+                type:"user/imgadd",
+                payload
+            })
+        }
+    };
 };
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Personal);
+    mapStateToProps,
+    mapDispatchToProps
+  )(Personal);

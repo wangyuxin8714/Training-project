@@ -67,7 +67,8 @@ function ClassPage(props) {
             margin: 0,
             marginRight: 20,
             height: "auto",
-            flex: 1
+            flex: 1,
+            borderRadius:15
           }}
         >
           <Table

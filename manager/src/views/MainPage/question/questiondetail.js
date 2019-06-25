@@ -55,7 +55,8 @@ function Questiondetail(props) {
           background: "#fff",
           padding: 24,
           margin: 0,
-          height: "auto"
+          height: "auto",
+          borderRadius:15
         }}
       >
         <h3>题目信息</h3>

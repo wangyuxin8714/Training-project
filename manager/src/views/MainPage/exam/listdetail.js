@@ -12,10 +12,6 @@ function ListDetail(props) {
   }, []);
 
 
-
-    useEffect(()=>{
-        props.getlistdet(props.match.params.id)
-    },[])
     return(
         <Layout style={{ padding: 0}}>
             <Breadcrumb style={{ margin: "30px 0" }}>
@@ -26,7 +22,8 @@ function ListDetail(props) {
                     background: "#fff",
                     padding: 24,
                     margin: 0,
-                    height:"auto"
+                    height:"auto",
+                    borderRadius:15
                 }} 
             >
                 {

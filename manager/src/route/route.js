@@ -1,5 +1,5 @@
 import dynamic from 'dva/dynamic';
-import Personal from '../views/personal/personal';
+
 
 // 引入路由
 
@@ -17,6 +17,9 @@ const Access = dynamic({
 });
 const Excel = dynamic({
     component: () => import('../views/MainPage/paper/excel'),
+});
+const Personal = dynamic({
+    component: () => import('../views/personal/personal'),
 });
 
 

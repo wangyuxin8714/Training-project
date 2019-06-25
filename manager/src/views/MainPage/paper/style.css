@@ -1,7 +1,7 @@
 .classmate_search{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
 .main{
@@ -36,3 +36,33 @@
 .img img{
     width: 800px;
 }
+
+.answ pre{
+    width: 400px;
+}
+.cover:hover{
+    background: #f7f8ff
+}
+
+h3{
+    position: relative;
+    padding-left: 22px;
+}
+h3 p::after {
+    content: "";
+    width: 300px;
+    height: 1px;
+    background: #ddd;
+    position: absolute;
+    top: 12px;
+    left: 90px;
+  }
+  h3 p::before {
+    content: "";
+    width: 20px;
+    height: 1px;
+    background: #ddd;
+    position: absolute;
+    top: 12px;
+    left: 0;
+  }

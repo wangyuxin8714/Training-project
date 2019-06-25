@@ -42,8 +42,8 @@ function TypeQuestion(props) {
         <span
           onClick={() => {
             props.delType({ id: text.questions_type_id });
-
           }}
+          style={{color: "dodgerblue",cursor:"pointer"}}
         >
           删除
         </span>
@@ -70,7 +70,8 @@ function TypeQuestion(props) {
               background: "#fff",
               padding: 24,
               margin: 0,
-              minHeight: 280
+              minHeight: 280,
+              borderRadius:15
             }}
           >
             <Button
@@ -91,7 +92,7 @@ function TypeQuestion(props) {
                 e.preventDefault();
                 props.form.validateFields((err, values) => {
                   if (!err) {
-                    if (values.text) {
+                    if(values.text){
                       if (
                         props.question.topictypelist.findIndex(
                           item => item.questions_type_text === values.text
@@ -100,18 +101,17 @@ function TypeQuestion(props) {
                         props.insertExam({
                           text: values.text,
                           sort: String(props.question.topictypelist.length + 1)
-                          // sort:+new Date()
                         });
-                        // isCode(props.question.insert);
-                      } else {
+                      }else{
                         alertMessage("试题类型")
                       }
                       updateDailog(false);
                     }
+                    props.form.setFieldsValue({
+                      text: ""
+                    });
                   }
-                  props.form.setFieldsValue({
-                    text: ""
-                  });
+                  
                 });
               }}
             >
@@ -120,10 +120,11 @@ function TypeQuestion(props) {
                   rules: [
                     {
                       required: true,
-                      message: "请输入类型"
-                    }]
+                      message: "请输入类型!"
+                    }
+                  ]
                 })(<Input />)}
-              </Form.Item>
+          </Form.Item>
             </Modal>
 
             <Table

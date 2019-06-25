@@ -30,84 +30,66 @@ function Testlist(props) {
     }
   };
 
-  const columns = [
-    {
-      title: "试卷信息",
-      key: "1",
-      render: text => (
-        <>
-          <p style={{ fontSize: 12 }}>{text.title}</p>
-          <p style={{ fontSize: 12 }}>
-            考试时间:{" "}
-            {(
-              new Date(Number(text.end_time - text.start_time)) /
-              1000 /
-              60 /
-              60
-            ).toFixed(0) + ":0:0"}{" "}
-            {text.number}道题作弊0分
-          </p>
-        </>
-      )
-    },
-    {
-      title: "班级",
-      key: "2",
-      render: text => (
-        <>
-          <p style={{ fontSize: 12 }}>考试班级</p>
-          <p style={{ fontSize: 12 }}>
-            {text.grade_name.map((item, index) => (
-              <span key={index}>{item}</span>
-            ))}
-          </p>
-        </>
-      )
-    },
-    {
-      title: "创建人",
-      key: "3",
-      render: text => (
-        <>
-          <p style={{ fontSize: 12 }}>{text.user_name}</p>
-        </>
-      )
-    },
-    {
-      title: "开始时间",
-      key: "4",
-      render: text => (
-        <>
-          <p style={{ fontSize: 12 }}>
-            {new Date(Number(text.start_time)).toLocaleString()}
-          </p>
-        </>
-      )
-    },
-    {
-      title: "结束时间",
-      key: "5",
-      render: text => (
-        <>
-          <p style={{ fontSize: 12 }}>
-            {new Date(Number(text.end_time)).toLocaleString()}
-          </p>
-        </>
-      )
-    },
-    {
-      title: "操作",
-      key: "6",
-      render: text => (
-        <span
-          style={{ color: "dodgerblue" }}
-          onClick={() => goListDetail(text)}
-        >
-          详情
-        </span>
-      )
-    }
-  ];
+    const columns = [
+        {
+          title: '试卷信息',
+          key:"1",
+          render: text =>(
+              <>
+                <p style={{fontSize:12}}>{text.title}</p>
+                <p style={{fontSize:12}}>考试时间: {(new Date(Number(text.end_time - text.start_time))/1000/60/60).toFixed(0)+':0:0'}  {text.number}道题作弊0分</p>
+              </>
+          ),
+        },
+        {
+          title: '班级',
+          key:"2",
+          render: text =>(
+            <>
+              <p style={{fontSize:12}}>考试班级</p>
+              <p style={{fontSize:12}}>
+                  {
+                      text.grade_name.map((item,index)=>(
+                          <span key={index}>{item}</span>
+                      ))
+                  }
+              </p>
+            </>
+        ),
+        },
+        {
+          title: '创建人',
+          key:"3",
+          render: text =>(
+            <>
+              <p style={{fontSize:12}}>{text.user_name}</p>
+            </>
+        ),
+        },
+        {
+          title: '开始时间',
+          key:"4",
+          render: text =>(
+            <>
+              <p style={{fontSize:12}}>{new Date(Number(text.start_time)).toLocaleString()}</p>
+            </>
+        ),
+        },
+        {
+          title: '结束时间',
+          key:"5",
+          render: text =>(
+            <>
+              <p style={{fontSize:12}}>{new Date(Number(text.end_time)).toLocaleString()}</p>
+            </>
+        ),
+        },
+        {
+            title: '操作',
+            key:"6",
+            render:text=><span style={{color:"dodgerblue",cursor:"pointer"}} onClick={()=>goListDetail(text)}>详情</span>
+        },
+      ];
 
   let goListDetail = text => {
     props.history.push({ pathname: `/exam/listDetail/${text.exam_exam_id}` });
@@ -158,7 +140,8 @@ function Testlist(props) {
           background: "#fff",
           padding: 24,
           margin: 0,
-          height: "auto"
+          height: "auto",
+          borderRadius:15
         }}
       >
         <Form.Item label="选择考试类型" className={styles.type}>
@@ -213,7 +196,8 @@ function Testlist(props) {
           padding: 24,
           margin: 0,
           marginTop: 20,
-          height: "auto"
+          height: "auto",
+          borderRadius:15
         }}
       >
         <h3>

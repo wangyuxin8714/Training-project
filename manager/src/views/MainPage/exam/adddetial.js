@@ -45,7 +45,7 @@ function AddDetial(props) {
     props.updateexam({
       id: obj.exam_exam_id,
       data: {
-        question_ids: JSON.stringify(idsarr.join(","))
+        question_ids: JSON.stringify(idsarr)
       }
     });
     props.history.push("/exam/list");
@@ -132,7 +132,8 @@ function AddDetial(props) {
           background: "#fff",
           padding: 24,
           margin: 0,
-          height: "auto"
+          height: "auto",
+          borderRadius:15
         }}
       >
         {texts ? (
