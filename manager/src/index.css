@@ -10,4 +10,6 @@ html,body{
 pre{
   background: #eee;
   width: 550px;
+  padding: 10px;
+  box-sizing: border-box;
 }

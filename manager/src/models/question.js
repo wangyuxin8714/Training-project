@@ -99,8 +99,12 @@ export default {
         },
         //更新试卷
         *updateexam({ payload }, { call, put }) {  // eslint-disable-line
-            yield call(updateexam,payload);
-        },
+          console.log(payload)
+            let data=yield call(updateexam,payload);
+            if(data.code){
+              yield put({type:"testlist"})
+            }
+          },
         // 获取所有的试卷
         *testlist({ payload }, { call, put }) {  // eslint-disable-line
           let data = yield call(testlist,payload);

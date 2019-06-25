@@ -25,22 +25,33 @@ function AddQuestion(props) {
     e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {
-        console.log(values);
-        confirm({
-          title: "你确定要添加这道试题吗?",
-          content: "真的要添加吗?",
-          onOk() {
-            props.addquestion({
-              questions_type_id: values.topictype,
-              questions_stem: values.topictheme,
-              subject_id: values.coursetype,
-              exam_id: values.examtype,
-              user_id: props.question.id,
-              questions_answer: values.topicinfor,
-              title: values.username
-            });
-          }
-        });
+        // console.log(values);
+        if(values.topictype&&values.topictheme&&values.coursetype&&values.examtype&&values.topicinfor&&values.username){
+          confirm({
+            title: "你确定要添加这道试题吗?",
+            content: "真的要添加吗?",
+            onOk() {
+              props.addquestion({
+                questions_type_id: values.topictype,
+                questions_stem: values.topictheme,
+                subject_id: values.coursetype,
+                exam_id: values.examtype,
+                user_id: props.question.id,
+                questions_answer: values.topicinfor,
+                title: values.username
+              });
+              props.form.setFieldsValue({
+                topictype:"",
+                topictheme:"",
+                coursetype:"",
+                examtype:"",
+                topicinfor:"",
+                username:""
+              });
+            }
+          });
+        }
+        
       }
     });
   };
@@ -56,21 +67,28 @@ function AddQuestion(props) {
           background: "#fff",
           padding: 24,
           margin: 0,
-          height: "auto"
+          height: "auto",
+          borderRadius:15
         }}
       >
         <h3>题目信息</h3>
         <Form.Item label="题干">
-          {getFieldDecorator("username")(
+          {getFieldDecorator("username", {
+              rules: [{ required: true, message: '请输入题干' }]
+            })(
             <Input placeholder="请输入题目标题，不超过20个字" />
           )}
         </Form.Item>
         <Form.Item label="题目主题">
-          {getFieldDecorator("topictheme")(<Editor height="auto" />)}
+          {getFieldDecorator("topictheme", {
+              rules: [{ required: true, message: '请输入题目主题' }]
+            })(<Editor height="auto" />)}
         </Form.Item>
 
         <Form.Item label="请选择考试类型">
-          {getFieldDecorator("examtype")(
+          {getFieldDecorator("examtype", {
+              rules: [{ required: true, message: '请输入考试类型' }]
+            })(
             <Select
               showSearch
               style={{ width: 200 }}
@@ -82,7 +100,7 @@ function AddQuestion(props) {
                   .indexOf(input.toLowerCase()) >= 0
               }
             >
-              {props.question.examtypelist.map(item => (
+              {props.question.examtypelist&&props.question.examtypelist.map(item => (
                 <Option key={item.exam_id} value={item.exam_id}>
                   {item.exam_name}
                 </Option>
@@ -91,7 +109,9 @@ function AddQuestion(props) {
           )}
         </Form.Item>
         <Form.Item label="请选择课程类型">
-          {getFieldDecorator("coursetype")(
+          {getFieldDecorator("coursetype", {
+              rules: [{ required: true, message: '请输入课程类型' }]
+            })(
             <Select
               showSearch
               style={{ width: 200 }}
@@ -103,7 +123,7 @@ function AddQuestion(props) {
                   .indexOf(input.toLowerCase()) >= 0
               }
             >
-              {props.question.coursetypelist.map(item => (
+              {props.question.coursetypelist&&props.question.coursetypelist.map(item => (
                 <Option key={item.subject_id} value={item.subject_id}>
                   {item.subject_text}
                 </Option>
@@ -112,7 +132,9 @@ function AddQuestion(props) {
           )}
         </Form.Item>
         <Form.Item label="请选择题目类型">
-          {getFieldDecorator("topictype")(
+          {getFieldDecorator("topictype", {
+              rules: [{ required: true, message: '请输入题目类型' }]
+            })(
             <Select
               showSearch
               style={{ width: 200 }}
@@ -124,7 +146,7 @@ function AddQuestion(props) {
                   .indexOf(input.toLowerCase()) >= 0
               }
             >
-              {props.question.topictypelist.map(item => (
+              {props.question.topictypelist&&props.question.topictypelist.map(item => (
                 <Option
                   key={item.questions_type_id}
                   value={item.questions_type_id}
@@ -136,7 +158,9 @@ function AddQuestion(props) {
           )}
         </Form.Item>
         <Form.Item label="答案信息">
-          {getFieldDecorator("topicinfor")(<Editor height="auto" />)}
+          {getFieldDecorator("topicinfor", {
+              rules: [{ required: true, message: '请输入答案信息' }]
+            })(<Editor height="auto" />)}
         </Form.Item>
         <Button type="primary" onClick={submitQuestion}>
           提交

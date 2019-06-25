@@ -63,6 +63,7 @@ function StudentManagement(props) {
           onClick={() => {
             props.delStudent({ id: text.student_id });
           }}
+          style={{color: "dodgerblue",cursor:"pointer"}}
         >
           删除
         </span>
@@ -142,7 +143,8 @@ function StudentManagement(props) {
         columns={columns}
         dataSource={props.grade.studentArr}
         rowKey={record => `${record.student_id}`}
-        style={{ background: "#fff", padding: 5 }}
+        style={{ background: "#fff", padding: 5 ,
+        borderRadius:15}}
       />
     </Layout>
   );

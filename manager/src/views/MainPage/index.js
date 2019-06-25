@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import styles from "./index.css";
 import { Route, Switch, Redirect } from "dva/router";
 import { Layout, Menu, Dropdown, Button, Select } from "antd";
@@ -12,9 +12,17 @@ const { Header, Content, Sider } = Layout;
 const { Option } = Select;
 
 function MainPage(props) {
+  
   if (!props.myView.length) {
     return null;
   }
+
+ const [pathname,updatepathname]=useState(false)
+useEffect(()=>{
+  updatepathname(props.myView[0].children[0].path)
+},[props.myView[0]])
+
+
 
   const { loading } = props;
 
@@ -31,12 +39,6 @@ function MainPage(props) {
         >
           个人中心
         </a>
-      </Menu.Item>
-      <Menu.Item>
-        <a>我的班级</a>
-      </Menu.Item>
-      <Menu.Item>
-        <a>设置</a>
       </Menu.Item>
       <Menu.Item>
         <a
@@ -110,7 +112,7 @@ function MainPage(props) {
             }}
           >
             <Switch>
-              <Redirect exact from="/" to="/question/add" />
+              {pathname&&<Redirect exact from="/" to={pathname} />}
               {/* 渲染该用户拥有的路由 */}
               {props.myView.map(item => {
                 return (
@@ -131,7 +133,7 @@ function MainPage(props) {
                 return <Redirect key={item} from={item} to="/access" />;
               })}
               {/* 剩余路由去404 */}
-              <Redirect to="/notFound" />
+              {/* <Redirect to="/notFound" /> */}
             </Switch>
           </Content>
           {loading ? (

@@ -3,12 +3,17 @@ import { Menu, Icon } from "antd";
 import { Link } from "dva/router";
 import { injectIntl } from "react-intl";
 import {connect} from 'dva';
-
+import {withRouter} from 'react-router-dom'
 
 const { SubMenu } = Menu;
 function SideBar(props) {
 
-  const [openKey]=useState(["router.questions"])
+
+let str="router."+(props.location.pathname.split("/")[1]?props.location.pathname.split("/")[1]:"question")
+let arr=[]
+arr[0]=str
+
+  const [openKey]=useState(arr)
   let onOpenChange = openKeys => {
       let ind=openKeys.findIndex(item=>openKey.indexOf(item)===-1)
       openKey[0]=openKeys[ind]
@@ -25,7 +30,7 @@ function SideBar(props) {
     >
       {
         props.myView.map((item,index)=>(
-          <SubMenu
+          item.children.length&&<SubMenu
             key={item.name}
             title={
               <span>
@@ -36,8 +41,9 @@ function SideBar(props) {
           >
             {
               item.children.map((value,index)=>{
-                return  value.name&&<Menu.Item key={value.path}>
-                    <Link to={value.path}>
+                return  value.name&&<Menu.Item key={value.path} 
+                style={{backgroundColor:props.location.pathname===value.path?"#1890ff":""}}>
+                    <Link to={value.path} style={{color:props.location.pathname===value.path?"#fff":""}}>
                       {props.intl.formatMessage({ id: value.name })}
                     </Link>
                   </Menu.Item>
@@ -56,4 +62,4 @@ const mapStateToProps = state=>{
     myView: state.user.myView
   }
 }
-export default injectIntl(connect(mapStateToProps)(SideBar));
+export default injectIntl(connect(mapStateToProps)(withRouter(SideBar)));

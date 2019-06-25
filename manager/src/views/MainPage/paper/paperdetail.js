@@ -86,15 +86,25 @@ function PaperDetail(props) {
             padding: 24,
             margin: 0,
             marginRight: 20,
-            height: "auto"
+            height: "auto",
+            borderRadius:15
           }}
         >
           {
             props.page.paperdetail?props.page.paperdetail.questions.map((item,index)=>(
-                <div key={index} style={{width:"100%",border:"1px solid #ccc",marginTop:"10px",padding:"20px"}}>
+                <div className={styles.cover} key={index} style={{width:"100%",border:"1px solid #ccc",marginTop:"10px",padding:"20px"}}>
                     <h2>{`${index+1}、${item.title}${item.questions_type_text}`}</h2>
                     <div className={styles.img}><ReactMarkdown  source={item.questions_stem}/></div> 
-                    <ReactMarkdown  source={item.questions_answer}/>
+                    <div style={{display:"flex"}}>
+                        <div style={{width:"50%"}}>
+                          <h3><p>学生答案</p></h3>
+                        </div>
+                        <div className={styles.answ}>
+                          <h3><p>标准答案</p></h3>
+                          <ReactMarkdown  source={item.questions_answer}/>
+                        </div>
+
+                    </div>
                 </div>
               ))
             : null}
@@ -106,7 +116,8 @@ function PaperDetail(props) {
               background: "#fff",
               padding: 24,
               margin: 0,
-              marginRight: 20
+              marginRight: 20,
+              borderRadius:15
             }}
           >
             {props.page.paperdetail ? (

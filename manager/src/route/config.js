@@ -57,19 +57,19 @@ const PaperDetail = dynamic({
 
 export default {
   routes: [{
-    name: 'router.questions',
+    name: 'router.question',
     children: [{
-      name: 'router.questions.add',//国际化匹配
+      name: 'router.question.add',//国际化匹配
       id: 'main-addQuestions',//视图权限
       path: '/question/add',//路由匹配路径
       component: AddQuestion//路由跳转文件
     },{
-      name: 'router.questions.view',
+      name: 'router.question.view',
       id: 'main-watchQuestions',
       path: '/question/watch',
       component: WatchQuestion
     },{
-      name: 'router.questions.type',
+      name: 'router.question.type',
       id: 'main-questionsType',
       path: '/question/type',
       component: TypeQuestion
@@ -87,12 +87,12 @@ export default {
     children: [{
       name: 'router.user.add',
       id: 'main-addUser',
-      path: '/users/add',
+      path: '/user/add',
       component: AddUser
     },{
       name: 'router.user.show',
       id: 'main-showUser',
-      path: '/users/show',
+      path: '/user/show',
       component: ShowUser
     }]
   },{

@@ -89,7 +89,7 @@ function Testlist(props){
         {
             title: '操作',
             key:"6",
-            render:text=><span style={{color:"dodgerblue"}} onClick={()=>goListDetail(text)}>详情</span>
+            render:text=><span style={{color:"dodgerblue",cursor:"pointer"}} onClick={()=>goListDetail(text)}>详情</span>
         },
       ];
 
@@ -108,6 +108,8 @@ function Testlist(props){
             }
         });
       }
+
+
   const [colors, upcolors] = useState(0);
   const { getFieldDecorator } = props.form;
   return (
@@ -121,7 +123,8 @@ function Testlist(props){
           background: "#fff",
           padding: 24,
           margin: 0,
-          height: "auto"
+          height: "auto",
+          borderRadius:15
         }}
       >
         <Form.Item label="选择考试类型" className={styles.type}>
@@ -176,7 +179,8 @@ function Testlist(props){
           padding: 24,
           margin: 0,
           marginTop: 20,
-          height: "auto"
+          height: "auto",
+          borderRadius:15
         }}
       >
         <h3>

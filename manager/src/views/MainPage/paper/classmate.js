@@ -84,11 +84,12 @@ function ClassMate(props) {
               background: "#fff",
               padding: 24,
               margin: 0,
-              minHeight: 120
+              minHeight: 120,
+              borderRadius:15
             }}
           >
             <div className={styles.classmate_search}>
-              <Form.Item label="状态">
+              <Form.Item label="状态" style={{display:"flex",margin:0,marginLeft:"50px"}}>
                 {getFieldDecorator("examtype")(
                   <Select
                     showSearch
@@ -108,7 +109,7 @@ function ClassMate(props) {
                   </Select>
                 )}
               </Form.Item>
-              <Form.Item label="班级">
+              <Form.Item label="班级" style={{display:"flex",margin:0,marginLeft:"50px"}}>
                 {getFieldDecorator("topictype")(
                   <Select
                     showSearch
@@ -129,7 +130,7 @@ function ClassMate(props) {
                 )}
               </Form.Item>
 
-              <Button type="primary" icon="search" onClick={inquire}>
+              <Button type="primary" icon="search" onClick={inquire} style={{marginLeft:"50px"}}>
                 查询
               </Button>
             </div>
@@ -140,7 +141,8 @@ function ClassMate(props) {
               padding: 24,
               margin: 0,
               marginTop: 20,
-              minHeight: 280
+              minHeight: 280,
+              borderRadius:15
             }}
           >
             <Table

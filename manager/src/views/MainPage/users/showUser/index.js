@@ -203,7 +203,8 @@ function AddUser(props) {
               <h2>用户展示</h2>
 
               <Card
-                style={{ width: "100%" }}
+                style={{ width: "100%",
+                borderRadius:15 }}
                 tabList={tabList}
                 activeTabKey={key}
                 onTabChange={key => {

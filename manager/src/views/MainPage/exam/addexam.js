@@ -49,7 +49,8 @@ function Addexam(props) {
           background: "#fff",
           padding: 24,
           margin: 0,
-          height: "auto"
+          height: "auto",
+          borderRadius:15
         }}
       >
         <Form.Item label="试卷名称">
@@ -57,7 +58,7 @@ function Addexam(props) {
             rules: [
               {
                 required: true,
-                message: "Please input your username!"
+                message: "请输入试卷名称!"
               }
             ]
           })(<Input />)}
@@ -67,7 +68,7 @@ function Addexam(props) {
             rules: [
               {
                 required: true,
-                message: "Please input your username!"
+                message: "请选择考试类型!"
               }
             ]
           })(
@@ -95,7 +96,7 @@ function Addexam(props) {
             rules: [
               {
                 required: true,
-                message: "Please input your username!"
+                message: "请选择课程!"
               }
             ]
           })(
@@ -123,13 +124,20 @@ function Addexam(props) {
             rules: [
               {
                 required: true,
-                message: "Please input your username!"
+                message: "请设置题量!"
               }
             ]
           })(<InputNumber min={3} max={10} />)}
         </Form.Item>
         <Form.Item label="考试时间">
-          {getFieldDecorator("examtime")(
+          {getFieldDecorator("examtime", {
+            rules: [
+              {
+                required: true,
+                message: "请设置考试时间!"
+              }
+            ]
+          })(
             <RangePicker
               showTime={{ format: "HH:mm" }}
               format="YYYY-MM-DD HH:mm"
