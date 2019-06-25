@@ -7,7 +7,7 @@ import axios from "axios";
 
 const Personal = props => {
     //直接上传服务器
-/*  let changehand = e => {
+  /*let changehand = e => {
     // console.log('e...', e);
     let files = e.target.files;
     // console.log(files)
