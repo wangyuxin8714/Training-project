@@ -15,99 +15,136 @@ import styles from "./testlist.scss";
 const { Option } = Select;
 const { Content } = Layout;
 
-function Testlist(props){
-    useEffect(()=>{
-        props.examType()
-        props.coursetype()
-        props.testlist()
-    },[])
+function Testlist(props) {
+  useEffect(() => {
+    props.examType();
+    props.coursetype();
+    props.testlist();
+  }, []);
 
-    
-    let filtertab = status => {
-        if(!status){
-            props.testlist()
-        }else{
-            props.filtertab(status)
-        }
+  let filtertab = status => {
+    if (!status) {
+      props.testlist();
+    } else {
+      props.filtertab(status);
+    }
+  };
 
-    };
+  const columns = [
+    {
+      title: "试卷信息",
+      key: "1",
+      render: text => (
+        <>
+          <p style={{ fontSize: 12 }}>{text.title}</p>
+          <p style={{ fontSize: 12 }}>
+            考试时间:{" "}
+            {(
+              new Date(Number(text.end_time - text.start_time)) /
+              1000 /
+              60 /
+              60
+            ).toFixed(0) + ":0:0"}{" "}
+            {text.number}道题作弊0分
+          </p>
+        </>
+      )
+    },
+    {
+      title: "班级",
+      key: "2",
+      render: text => (
+        <>
+          <p style={{ fontSize: 12 }}>考试班级</p>
+          <p style={{ fontSize: 12 }}>
+            {text.grade_name.map((item, index) => (
+              <span key={index}>{item}</span>
+            ))}
+          </p>
+        </>
+      )
+    },
+    {
+      title: "创建人",
+      key: "3",
+      render: text => (
+        <>
+          <p style={{ fontSize: 12 }}>{text.user_name}</p>
+        </>
+      )
+    },
+    {
+      title: "开始时间",
+      key: "4",
+      render: text => (
+        <>
+          <p style={{ fontSize: 12 }}>
+            {new Date(Number(text.start_time)).toLocaleString()}
+          </p>
+        </>
+      )
+    },
+    {
+      title: "结束时间",
+      key: "5",
+      render: text => (
+        <>
+          <p style={{ fontSize: 12 }}>
+            {new Date(Number(text.end_time)).toLocaleString()}
+          </p>
+        </>
+      )
+    },
+    {
+      title: "操作",
+      key: "6",
+      render: text => (
+        <span
+          style={{ color: "dodgerblue" }}
+          onClick={() => goListDetail(text)}
+        >
+          详情
+        </span>
+      )
+    }
+  ];
 
-    const columns = [
-        {
-          title: '试卷信息',
-          key:"1",
-          render: text =>(
-              <>
-                <p style={{fontSize:12}}>{text.title}</p>
-                <p style={{fontSize:12}}>考试时间: {(new Date(Number(text.end_time - text.start_time))/1000/60/60).toFixed(0)+':0:0'}  {text.number}道题作弊0分</p>
-              </>
-          ),
-        },
-        {
-          title: '班级',
-          key:"2",
-          render: text =>(
-            <>
-              <p style={{fontSize:12}}>考试班级</p>
-              <p style={{fontSize:12}}>
-                  {
-                      text.grade_name.map((item,index)=>(
-                          <span key={index}>{item}</span>
-                      ))
-                  }
-              </p>
-            </>
-        ),
-        },
-        {
-          title: '创建人',
-          key:"3",
-          render: text =>(
-            <>
-              <p style={{fontSize:12}}>{text.user_name}</p>
-            </>
-        ),
-        },
-        {
-          title: '开始时间',
-          key:"4",
-          render: text =>(
-            <>
-              <p style={{fontSize:12}}>{new Date(Number(text.start_time)).toLocaleString()}</p>
-            </>
-        ),
-        },
-        {
-          title: '结束时间',
-          key:"5",
-          render: text =>(
-            <>
-              <p style={{fontSize:12}}>{new Date(Number(text.end_time)).toLocaleString()}</p>
-            </>
-        ),
-        },
-        {
-            title: '操作',
-            key:"6",
-            render:text=><span style={{color:"dodgerblue"}} onClick={()=>goListDetail(text)}>详情</span>
-        },
-      ];
+  let goListDetail = text => {
+    props.history.push({ pathname: `/exam/listDetail/${text.exam_exam_id}` });
+  };
 
-      let goListDetail=(text)=>{
-            props.history.push({pathname:`/exam/listDetail/${text.exam_exam_id}`})
-      }
-
-    let inquiredata = e => {
-        e.preventDefault();
-        props.form.validateFields((err, values) => {
-            if (!err) {
-                props.testlist({
-                    subject_id:values.coursetype,
-                    exam_exam_id:values.examtype,
-                })
-            }
+  let inquiredata = e => {
+    e.preventDefault();
+    props.form.validateFields((err, values) => {
+      if (!err) {
+        props.testlist({
+          subject_id: values.coursetype,
+          exam_exam_id: values.examtype
         });
       }
+    });
+  };
+
+
+  const [questionData, newQuestionData] = useState(props.question.gettestlist);
+  useEffect(() => {
+    newQuestionData(props.question.gettestlist);
+  }, [props.question.gettestlist]);
+
+  let changeList = num => {
+    upcolors(num);
+    filtertab(num);
+    if (num === 1) {
+      newQuestionData(props.question.gettestlist.filter( item => item.start_time > new Date() * 1 ))
+    }
+    if (num === 2) {
+      newQuestionData(props.question.gettestlist.filter(item =>item.start_time < new Date() * 1 && item.end_time > new Date() * 1))
+    }
+    if (num === 3) {
+      newQuestionData(props.question.gettestlist.filter(item => item.end_time < new Date() * 1))
+    }
+  };
+
   const [colors, upcolors] = useState(0);
   const { getFieldDecorator } = props.form;
   return (
@@ -193,19 +230,19 @@ function Testlist(props){
             </span>
             <span
               style={{ borderColor: colors === 1 ? "dodgerblue" : "" }}
-              onClick={() => {
-                upcolors(1);
-                filtertab(1);
-              }}
+              onClick={() => changeList(1)}
+            >
+              未开始
+            </span>
+            <span
+              style={{ borderColor: colors === 2 ? "dodgerblue" : "" }}
+              onClick={() => changeList(2)}
             >
               进行中
             </span>
             <span
-              style={{ borderColor: colors === 2 ? "dodgerblue" : "" }}
-              onClick={() => {
-                upcolors(2);
-                filtertab(2);
-              }}
+              style={{ borderColor: colors === 3 ? "dodgerblue" : "" }}
+              onClick={() => changeList(3)}
             >
               已结束
             </span>
@@ -213,7 +250,7 @@ function Testlist(props){
         </h3>
         <Table
           columns={columns}
-          dataSource={props.question.gettestlist}
+          dataSource={questionData}
           rowKey={record => `${record.exam_exam_id}`}
         />
       </Content>

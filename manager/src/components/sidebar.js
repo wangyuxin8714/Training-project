@@ -8,7 +8,7 @@ import {connect} from 'dva';
 const { SubMenu } = Menu;
 function SideBar(props) {
 
-  const [openKey]=useState(["router.questions"])
+  const [openKey]=useState(["router.question"])
   let onOpenChange = openKeys => {
       let ind=openKeys.findIndex(item=>openKey.indexOf(item)===-1)
       openKey[0]=openKeys[ind]

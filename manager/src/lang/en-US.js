@@ -1,8 +1,8 @@
 export default {
-    'router.questions': 'Title Management',
-    'router.questions.add': 'Add item',
-    'router.questions.type': 'question classification',
-    'router.questions.view': 'Check the item',
+    'router.question': 'Title Management',
+    'router.question.add': 'Add item',
+    'router.question.type': 'question classification',
+    'router.question.view': 'Check the item',
     'router.user': 'user management',
     'router.user.add': 'add users',
     'router.user.show': 'list user',

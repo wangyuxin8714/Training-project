@@ -30,12 +30,6 @@ function MainPage(props) {
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a>我的班级</a>
-      </Menu.Item>
-      <Menu.Item>
-        <a>设置</a>
-      </Menu.Item>
-      <Menu.Item>
         <a
           rel="noopener noreferrer"
           onClick={() => {

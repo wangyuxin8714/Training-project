@@ -99,13 +99,19 @@ export default {
         },
         //更新试卷
         *updateexam({ payload }, { call, put }) {  // eslint-disable-line
-            yield call(updateexam,payload);
+             let data = yield call(updateexam,payload);
+             if(data.code){
+              yield put({type:"testlist"})
+            }
         },
         // 获取所有的试卷
         *testlist({ payload }, { call, put }) {  // eslint-disable-line
           let data = yield call(testlist,payload);
           yield put({type:"updatetestlist",payload:data.exam})
         },
+
+
+
         // 查询试题
         *lookquestion({ payload }, { call, put }) {  // eslint-disable-line
           let data = yield call(lookquestion,payload);
@@ -145,7 +151,7 @@ export default {
         *filtertab({payload}, { call, put }) {
           let data = yield call(testlist);
           let datafilter = data.exam.filter(item=>item.status===payload)
-          yield put({type:"updatetestlist",payload:datafilter})
+          yield put({type:"newList",payload:datafilter})
         },
         //获取指定试卷详情
         *getlistdet({payload}, { call, put }) {
@@ -203,7 +209,6 @@ export default {
       updatelookquestion(state, {payload}) {
         return { ...state, allQuestion:payload };
       },
-      
       //更新试题
       updateupcode(state, {payload}) {
         return { ...state, upcode:payload };
