@@ -25,7 +25,6 @@ export function getUserInfo(){
 
   // 更新用户
   export function imgadd(params){
-    console.log(params)
     return request({
       url:'/user/user',
       method: 'PUT',

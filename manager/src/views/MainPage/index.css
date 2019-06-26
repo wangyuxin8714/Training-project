@@ -56,7 +56,7 @@
 .loading p{
     width: 300px;
     height: 300px;
-    background: url("../../assets/lazyload.gif") no-repeat center center;
+    background: url("https://raw.githubusercontent.com/wangyuxin8714/ico/master/picture/jingdonggou.gif") no-repeat center center;
     background-size: cover;
     position:relative;
     left:50%;
