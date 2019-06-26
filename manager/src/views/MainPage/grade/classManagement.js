@@ -83,35 +83,41 @@ function ClassManagement(props) {
   let addclass = e => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
-      if(values.classname&&values.roomname&&values.coursename){
-          if (props.grade.getClassData.findIndex(
-            item => item.grade_name === values.classname
-          ) === -1) {
-              props.addClass({
-                grade_name: values.classname,
-                room_id: values.roomname,
-                subject_id: values.coursename
-              });
-            } else {
-              alertMessage("班级名");
-            }
-            updateflag(false);
-        }
+        if(values.classname&&values.roomname&&values.coursename){
+            if (props.grade.getClassData.findIndex(
+              item => item.grade_name === values.classname
+            ) === -1) {
+                props.addClass({
+                  grade_name: values.classname,
+                  room_id: values.roomname,
+                  subject_id: values.coursename
+                });
+                props.form.setFieldsValue({
+                  classname:"",
+                  roomname:"",
+                  coursename:""
+                });
+              } else {
+                alertMessage("班级名");
+              }
+              updateflag(false);
+          }
+      
     });
   };
 
   let changeClass = e => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
-      if (values.alterclass && values.altercourse && values.alterroom) {
-        props.changeGrade({
-          grade_id: list.grade_id,
-          grade_name: values.alterclass,
-          subject_id: values.altercourse,
-          room_id: values.alterroom
-        });
-        updataIsFlag(false);
-      }
+        if (values.alterclass && values.altercourse && values.alterroom) {
+          props.changeGrade({
+            grade_id: list.grade_id,
+            grade_name: values.alterclass,
+            subject_id: values.altercourse,
+            room_id: values.alterroom
+          });
+          updataIsFlag(false);
+        }
     });
   };
   const { getFieldDecorator } = props.form;

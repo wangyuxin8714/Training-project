@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { Button, Select, Form, Input, Layout, Breadcrumb, Modal } from "antd";
 import { connect } from "dva";
-import Editor from "for-editor";
+// import Editor from "@/vendor/for-editor";
+import Editor from "../../../../vendor/for-editor";
+
 import { isCode } from "../../../../utils/isCode";
 
 const confirm = Modal.confirm;

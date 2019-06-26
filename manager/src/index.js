@@ -1,6 +1,6 @@
 import dva from 'dva';
 import './index.css';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 import '@babel/polyfill';
 import loading from "dva-loading"
 import {message} from "antd"
