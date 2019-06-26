@@ -64,15 +64,15 @@ export default {
       path: '/question/add',//路由匹配路径
       component: AddQuestion//路由跳转文件
     },{
-      name: 'router.question.view',
-      id: 'main-watchQuestions',
-      path: '/question/watch',
-      component: WatchQuestion
-    },{
       name: 'router.question.type',
       id: 'main-questionsType',
       path: '/question/type',
       component: TypeQuestion
+    },{
+      name: 'router.question.view',
+      id: 'main-watchQuestions',
+      path: '/question/watch',
+      component: WatchQuestion
     },{
       id: 'main-editQuestions',
       path: '/question/detail',

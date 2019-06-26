@@ -42,7 +42,7 @@ arr[0]=str
             {
               item.children.map((value,index)=>{
                 return  value.name&&<Menu.Item key={value.path} 
-                style={{backgroundColor:props.location.pathname===value.path?"#1890ff":""}}>
+                style={{backgroundColor:props.location.pathname===value.path?"#1890ff":"#000"}}>
                     <Link to={value.path} style={{color:props.location.pathname===value.path?"#fff":""}}>
                       {props.intl.formatMessage({ id: value.name })}
                     </Link>

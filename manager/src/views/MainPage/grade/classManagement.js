@@ -83,20 +83,29 @@ function ClassManagement(props) {
   let addclass = e => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
-      if(values.classname&&values.roomname&&values.coursename){
-          if (props.grade.getClassData.findIndex(
-            item => item.grade_name === values.classname
-          ) === -1) {
-              props.addClass({
-                grade_name: values.classname,
-                room_id: values.roomname,
-                subject_id: values.coursename
-              });
-            } else {
-              alertMessage("班级名");
-            }
-            updateflag(false);
+      if (!err) {
+        if (values.classname && values.roomname && values.coursename) {
+          if (
+            props.grade.getClassData.findIndex(
+              item => item.grade_name === values.classname
+            ) === -1
+          ) {
+            props.addClass({
+              grade_name: values.classname,
+              room_id: values.roomname,
+              subject_id: values.coursename
+            });
+          } else {
+            alertMessage("班级名");
+          }
+          updateflag(false);
         }
+        props.form.setFieldsValue({
+          classname:"",
+          roomname:"",
+          coursename:""
+        });
+      }
     });
   };
 
@@ -127,7 +136,7 @@ function ClassManagement(props) {
           margin: 0,
           marginTop: 20,
           height: "auto",
-          borderRadius:15
+          borderRadius: 15
         }}
       >
         <Button
