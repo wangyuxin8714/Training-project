@@ -27,3 +27,10 @@
   - [x] 国际化
   - [] 图标可视化
   - [x] excel导入/导出
+
+## 使用到的框架
+
+- react
+- dva
+- antd
+- generator
