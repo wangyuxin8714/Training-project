@@ -34,3 +34,6 @@
 - dva
 - antd
 - generator
+- redux(数据管理)
+- react-lazyload(图片懒加载)
+- 路由懒加载
